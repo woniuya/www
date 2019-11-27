@@ -1,0 +1,419 @@
+{extend name="public:layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/public/css/animate.min.css">
+<link rel="stylesheet" href="__HOME_CSS__/index.css">
+{/block}
+{block name="main-container"}
+<div class="banner">
+    <div class="full-width-slider" id="bannerSlider">
+        <ul class="clearfix">
+            {notempty name="slider"}
+                {volist name="slider" id="sl"}
+                <li class="item">
+                    <a href="http://{$sl.url}">
+                        <img class="img-responsive"  src="{$sl.cover|get_file_path}" alt="{$sl.title}">
+                    </a>
+                </li>
+                {/volist}
+            {/notempty}
+        </ul>
+    </div>
+
+    <div class="float-box" style="background: url(__HOME_IMG__/indexbg.png);background-size:100%;padding: 0;">
+        <div style="background-color: #ffffff;opacity: 1;z-index: 10;padding: 20px;border-radius: 15px;">
+            <div class="text">您炒股，我出钱</div>
+            <div class="text-large">目前免息操盘{$freeconfig['free_set'][1]}天</div>
+            <div class="text">资金双重保障，100%实盘交易</div>
+        </div>
+        <div>
+            <img src="__HOME_IMG__/welcome.png">
+        </div>
+        {if condition="$mid eq 0"}
+        <div class="operate" style="padding: 20px;margin: 0;">
+            <a href="{:url('/register')}" class="btn btn-primary btn-block">注册领红包</a>
+        </div>
+        <div class="extra-text">已有账号？<a href="{:url('/login')}">立即登录</a></div>
+        {else /}
+        <div class="operate" style="padding: 20px;margin: 0;">
+            <a href="{:url('/member')}" class="btn btn-primary btn-block">我的账户</a>
+        </div>
+        <div class="extra-text"><a href="{:url('/signout')}">注销登录</a></div>
+        {/if}
+    </div>
+</div>
+<div class="data-show">
+     <!--公告-->
+    <div class="notice wrapper clearfix">
+        <i></i> <span class="notice-tit">网站公告 |</span>
+        <div class="notice-left">
+            <div class="bd">
+                <div class="tempWrap" >
+                    <ul class="infoList" >
+                        {volist name="ar_Listno" id="vo"}
+                            <li><a href="{:url('cms/document/detail', ['id' => $vo['id'], 'model' => $model])}" target="_blank">{$vo.title}</a><span>{$vo.create_time|date="Y-m-d",###}</span></li>
+                         {/volist}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="notice-more fr"><a href="/cms/column/index/id/2.html" target="_blank">更多公告 ></a></div>
+    </div>
+    <!--公告 end-->
+</div>
+<div class="newbee">
+    <div class="wrapper clearfix">
+        <div class="item">
+            <div class="figure">
+                <img src="__HOME_IMG__/icon-1.png" alt="">
+            </div>
+            <div class="item-body">
+                <div class="title">资金保障</div>
+                <div class="text">资金第三方托管，专款专用</div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="figure">
+                <img src="__HOME_IMG__/icon-5.png" alt="">
+            </div>
+            <div class="item-body">
+                <div class="title">灵活便捷</div>
+                <div class="text">闪电提现，快速到账</div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="figure">
+                <img src="__HOME_IMG__/icon-3.png" alt="">
+            </div>
+            <div class="item-body">
+                <div class="title">超高配额</div>
+                <div class="text">最小投入，最大回报</div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="figure">
+                <img src="__HOME_IMG__/icon-2.png" alt="">
+            </div>
+            <div class="item-body">
+                <div class="title">天天收益</div>
+                <div class="text">最小投入，最大回报</div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="figure">
+                <img src="__HOME_IMG__/icon-4.png" alt="">
+            </div>
+            <div class="item-body">
+                <div class="title">专业服务</div>
+                <div class="text">专业团队，有问必答</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="operate-flow clearfix wrapper">
+    <div>
+        <h4 style="font-size: 20px;font-family: Microsoft YaHei;color: rgba(51,51,51,1);font-weight: 400;">新手指引</h4>
+    </div>
+
+    <div class="item" onclick="window.location.href='__ROOT__/login.html'">
+        <div class="icon">
+            <img src="__HOME_IMG__/icon-man.png" alt="">
+        </div>
+        <div class="title">1.注册登录</div>
+    </div>
+    <div class="gutter"></div>
+    <div class="item" onclick="window.location.href='__ROOT__/member/profile/realname.html'">
+        <div class="icon">
+            <img src="__HOME_IMG__/icon-user-check.png" alt="">
+        </div>
+        <div class="title">2.实名认证</div>
+    </div>
+    <div class="gutter"></div>
+    <div class="item" onclick="window.location.href='__ROOT__/money/recharge/index.html'">
+        <div class="icon">
+            <img src="__HOME_IMG__/icon-card.png" alt="">
+        </div>
+        <div class="title">3.账号充值</div>
+    </div>
+    <div class="gutter"></div>
+    <div class="item" onclick="window.location.href='__ROOT__/stock/month'">
+        <div class="icon">
+            <img src="__HOME_IMG__/icon-note.png" alt="">
+        </div>
+        <div class="title">4.申请配资</div>
+    </div>
+    <div class="gutter"></div>
+    <div class="item">
+        <div class="icon">
+            <img src="__HOME_IMG__/icon-note2.png" alt="">
+        </div>
+        <div class="title">5.生成配资</div>
+    </div>
+    <div class="gutter"></div>
+    <div class="item" onclick="window.location.href='__ROOT__/market/index/index/index?c=600000'">
+        <div class="icon">
+            <img src="__HOME_IMG__/icon-stock.png" alt="">
+        </div>
+        <div class="title">6.交易股票</div>
+    </div>
+    <div class="gutter"></div>
+    <div class="item" onclick="window.location.href='__ROOT__/money/withdraw.html'">
+        <div class="icon">
+            <img src="__HOME_IMG__/icon-wallet.png" alt="">
+        </div>
+        <div class="title">7.结算提现</div>
+    </div>
+</div>
+<div class="section-product section-peizi clearfix">
+    <div class="section-left">
+        <div class="pb7-m">
+            <div class="gonggaoBox">
+                <h4>操盘达人</h4>
+                <div id="index-daren" class="bd dd">
+                    <ul>
+                            {volist name="$daren" id="vo"}
+                            <li>
+                                <table>
+                                  <tbody>
+                                    <tr><td>{$vo.mobile|format_str=###}</td></tr>
+                                    <tr><td>{$vo.type}  -  <span class="text-red"><i class="ft16">{$vo.stock_money}</i>&nbsp;元</span>  实盘资金</td></tr>
+                                    <tr><td>{$vo.borrow_duration}&nbsp;天斩获  &nbsp; <span class="text-red"><i class="ft16">{$vo.invest_rate|abs=###}</i>%</span> ，盈利  <span class="text-red"><i class="ft16">{$vo.shouyi|abs=###}</i>&nbsp;元</span> </td></tr>
+                                  </tbody>
+                            </table>
+                                 </li>
+                            {/volist}
+                        </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-main">
+        <div class="peizi-item wow flipInY animated yellow" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: flipInY;">
+            <div class="title">
+                按月配资
+                <span class="desc">投资灵活，月配划算</span>
+            </div>
+            <div class="feature">
+                <div class="con">
+                        <span class="text-xlarge text-red">
+                            {$max_month_rate}
+                        </span>
+                    倍
+                </div>
+                <div class="name">最大杠杆比例</div>
+            </div>
+            <div class="meta">
+                <div class="clearfix"><div class="name">最高可操盘：</div><div class="val">{$globalconfig['money_range'][1]}元</div></div>
+                <div class="clearfix"><div class="name">起配金额：</div><div class="val">{$globalconfig['money_range'][0]}元</div></div>
+            </div>
+            <div class="btns-botton">
+                <a class="grab-btn" href="/stock/month.html">
+                    <em></em><i>立即申请</i>
+                </a>
+            </div>
+        </div>
+        <div class="peizi-item wow flipInY animated red" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: flipInY;">
+            <div class="title">
+                按天配资
+                <span class="desc">自动延期，按日计息</span>
+            </div>
+            <div class="feature">
+                <div class="con">
+                        <span class="text-xlarge text-red">
+                            {$min_day_rate}%
+                        </span>
+                </div>
+                <div class="name">起费率</div>
+            </div>
+            <div class="meta">
+                <div class="clearfix"><div class="name">最高可操盘：</div><div class="val">{$globalconfig['money_range'][1]}元</div></div>
+                <div class="clearfix"><div class="name">起配金额：</div><div class="val">{$globalconfig['money_range'][0]}元</div></div>
+            </div>
+            <div class="btns-botton">
+                <a class="grab-btn" href="/stock/day.html">
+                    <em></em><i>立即申请</i>
+                </a>
+            </div>
+        </div>
+        <div class="peizi-item wow flipInY animated green" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: flipInY;">
+            <div class="title">
+                免息配资
+                <span class="desc">免管理费，盈利{$freeconfig['free_set'][2]}%归您</span>
+            </div>
+            <div class="feature">
+                <div class="con">
+                        <span class="text-xlarge text-red">免</span>
+                </div>
+                <div class="name">所有费用</div>
+            </div>
+
+            <div class="meta">
+                <div class="clearfix"><div class="name">配资期限：</div><div class="val">{$freeconfig['free_set'][1]}天</div></div>
+                <div class="clearfix"><div class="name">可持仓比例：</div><div class="val">无限制</div></div>
+            </div>
+            <div class="btns-botton">
+                <a class="grab-btn" href="/stock/free.html">
+                    <em></em><i>立即申请</i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="wrapper tonglan">{:get_advert(3)}</div>
+<div class="wrapper edge-cont">
+    <div class="pb6 clearfix" style="width: 49%;margin-right: 1%;display: inline-block;">
+        <div class="down_load">
+            <div class="load_top" style="border-right: 1px solid #eeeeee;">
+                <span>邀请好友赚佣金</span>
+                <p>您可以发展您自己的客户<br>您将赚得管理费<span class="text-red">{:config('member_back_rate')}%</span>的佣金，可以随时兑换提取。</p>
+                <i></i>
+                <div class="btns-botton">
+                    <a class="grab-btn" href="/member/invite">
+                        <em></em><i>立即申请</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="down_load">
+            <div class="load_top">
+                <span>交易软件下载</span>
+                <p>新用户注册并实名认证后 请下载安装此交易软件<br><br></p>
+                <i></i>
+                <div class="btns-botton">
+                    <a class="grab-btn" href="/cms/page/detail/id/3">
+                        <em></em><i>立即下载</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pb6 clearfix" style="width: 49%;display: inline-block;margin-left: 0.5%;padding:10px;">
+        <video src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" controls="controls" style="width: 100%;height: 330px;" poster="__HOME_IMG__/play.png">
+        您的浏览器不支持 video 标签。
+        </video>
+    </div>
+
+
+</div>
+<div class="wrapper edge-cont">
+    <div class="pb7 clearfix">
+        <div class="pb7-l">
+            <div class="gonggaoBox">
+                <div id="bd_two" class="bd dd">
+                   <p><span>配资常识</span> <a href="/cms/column/index/id/13.html" target="_blank" class="gg">更多>></a></p>
+
+                    <span>
+                            {volist name="ar_Listchangshi" id="vo"}
+                            <li>
+                                <a id="bd_colors" href="{:url('cms/document/detail', ['id' => $vo['id'], 'model' => $model])}" target="_blank">&nbsp;{$vo.title|substr=###,0,57}</a>
+                                <span class="date">{$vo.create_time|date="Y-m-d",###}</span>
+                            </li>
+                            {/volist}
+                        </span>
+
+                </div>
+            </div>
+        </div>
+        <div class="pb7-l">
+            <div class="gonggaoBox">
+                <div id="bd_two" class="bd dd">
+                    <p><span>股市动态</span> <a href="/cms/column/index/id/11.html" target="_blank" class="gg">更多>></a></p>
+                    <span>
+                            {volist name="ar_Listdongtai" id="vo"}
+                            <li>
+                                <a id="bd_colors" href="{:url('cms/document/detail', ['id' => $vo['id'], 'model' => $model])}" target="_blank">&nbsp;{$vo.title|substr=###,0,57}</a>
+                                <span class="date">{$vo.create_time|date="Y-m-d",###}</span>
+                            </li>
+                            {/volist}
+                        </span>
+
+                </div>
+            </div>
+        </div>
+        <div class="pb7-l">
+            <div class="gonggaoBox">
+                <div id="bd_two" class="bd dd">
+                    <p><span>股市资讯投资</span> <a href="/cms/column/index/id/12.html" target="_blank" class="gg">更多>></a></p>
+
+                    <span>
+                            {volist name="ar_Listzixun" id="vo"}
+                            <li>
+                                <a id="bd_colors" href="{:url('cms/document/detail', ['id' => $vo['id'], 'model' => $model])}" target="_blank">&nbsp;{$vo.title|substr=###,0,57}</a>
+                                <span class="date">{$vo.create_time|date="Y-m-d",###}</span>
+                            </li>
+                            {/volist}
+                        </span>
+
+                </div>
+            </div>
+            <!--切换 end-->
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="partner wrapper">
+    <div class="partner-hd">
+        <div class="text">合作伙伴</div>
+    </div>
+    <div class="partner-bd">
+        <ul class="clearfix">
+            {notempty name="link"}
+            {volist name="link" id="li"}
+            <li class="item">
+                <a href="{$li.url}" target="_blank">
+                    <img class="img-responsive" src="{$li.logo|get_file_path}" alt="{$li.title}" style="max-height: 75px; max-width: 192px;min-height: 75px;min-width: 192px;">
+                </a>
+            </li>
+            {/volist}
+            {else/}
+            <li class="item">
+                <a href="">
+                    <img src="__HOME_IMG__/partner-logo.png" alt="">
+                </a>
+            </li>
+            {/notempty}
+
+        </ul>
+    </div>
+</div>
+<!--累计配资人数{$borrow_count} 累计实盘资金 {$operate_account}-->
+{/block}
+
+{block name="script"}
+<script>
+    var searchStockUrl = "{:url('market/index/search_keyword')}"; // 搜索股票接口
+</script>
+<script src="__STATIC__/common/js/jquery.SuperSlide.2.1.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+<script src="__STATIC__/libs/full-width-slider/full-width-slider.js"></script>
+<script src="__STATIC__/home/js/index.js"></script>
+
+  <script src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
+<script>
+   // $.ajax({ url: "/index/index/startapi.html",  success: function(){}});
+        /*网站公告*/
+    jQuery(".notice-left").slide({
+        titCell: ".hd ul",
+        mainCell: ".bd ul",
+        autoPage: true,
+        effect: "left",
+        autoPlay: true,
+        vis: 2
+    });
+
+            /*操盘达人*/
+    jQuery(".pb7-m").slide({
+        titCell: "",
+        mainCell: ".bd ul",
+        autoPage: true,
+        effect: "top",
+        autoPlay: true,
+        vis: 3
+    });
+</script>
+{/block}

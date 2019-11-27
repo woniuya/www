@@ -1,0 +1,366 @@
+﻿<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+	<meta charset="utf-8">
+	<title>数据行情接口_股票行情接口_期货行情接口_外汇行情接口_CFD合约行情接口_数字货币行情接口</title>
+	<meta name="keywords" content="数据行情,股票行情,期货行情,外汇行情,CFD合约行情,数字货币行情,全推接口,行情接口,行情api" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<script type="text/javascript" src="/public/js/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript">
+		function _getreq(n) { var reg = new RegExp("(^|&)" + n + "=([^&]*)(&|$)", "i"); var r = window.location.search.substr(1).match(reg); if (r != null) { return unescape(r[2]) } return null };
+	</script>
+	<style>#tv_chart_container{height:500px!important;width:100%!important}.tvcwarp{position:relative;width:100%;overflow:hidden;transition:height .15s ease-in-out}.time_div{background-color:#222;height:30px}.study_div{background-color:#222;height:30px}.white_div{background-color:#fff!important;height:30px}a.time_span{color:#dedede;line-height:30px;text-decoration:none;padding:3px 15px 3px 15px;margin-left:15px;border:solid 1px #888;border-radius:5px;background:#222}a.study_span{color:#dedede;line-height:30px;text-decoration:none;padding:3px 15px 3px 15px;margin-left:15px;border:solid 1px #888;border-radius:5px;background:#222}.white_span{background-color:#fff!important;border:solid 1px #666;color:#dedede!important}a.active{border:solid 1px #888;border-radius:5px;background:#999}.price_board{color:#999;padding-left:20px}.title{padding-left:15px}.vol{width:50px;display:inline-block;text-align:center;padding:0 5px 0 5px;line-height:25px;background-color:#dedede;border-radius:5px;margin-left:10px;color:#444}.price{width:70px;display:inline-block;text-align:center;padding:0 5px 0 5px;line-height:25px;background-color:#dedede;border-radius:5px}</style><style>.corg{color:green;background-color:rgba(46,204,113,0.2)}.corn{color:#000;background-color:none}.corr{color:#eb4d5c;background-color:rgba(211,84,0,0.2)}.corg2{color:green}.corn2{color:#000}.corr2{color:#eb4d5c}.s{font-weight:normal!important}.bgred{background-color:navajowhite;color:red}.bggreen{background-color:lightgreen;color:green}.bgnormal{color:#222}.bger{font-weight:bolder}.smer{font-weight:normal}body{font-size:12px}a{text-decoration:none;color:#0064b9}.span{display:inline-block;border:solid 1px #ccc;width:40px;height:25px;line-height:25px;padding-right:2px;color:#000;cursor:pointer}.cur{background-color:#808080;color:#fff}.rowwrap{width:100%;display:table;overflow:hidden;padding-bottom:15px;line-height:35px}.rowhead{width:100%;display:table-row;height:35px;background-color:#dedede}.btnwhite{width:60px;line-height:25px;display:inline-block;background-color:#999;text-align:center;cursor:pointer;font-weight:bolder;color:#fff}.btnblack{width:60px;line-height:25px;display:inline-block;background-color:#999;text-align:center;cursor:pointer;font-weight:bolder;color:#000}.row{width:100%;display:table-row;height:35px;border-bottom:solid 1px #cdcdcd}.cell{display:table-cell;width:20%;display:inline-block;text-align:center;border-bottom:solid 1px #cdcdcd}body{font-size:12px}.btnwhite{width:60px;line-height:25px;display:inline-block;background-color:#999;text-align:center;cursor:pointer;font-weight:bolder;color:#fff}.btnblack{width:60px;line-height:25px;display:inline-block;background-color:#999;text-align:center;cursor:pointer;font-weight:bolder;color:#000}</style>
+</head>
+<body style="margin:0;padding:0;">
+	<div style="line-height:30px;background-color:#fffbcc;color:#c60;margin-bottom:5px;">&nbsp;&nbsp;TradeView 查询接口图表范例<span class="btnwhite" onclick="changeSet(1);">白色</span>&nbsp;<span class="btnblack" onclick="changeSet(0);">黑色</span></div>
+	<div id="divchartrwap" class="tvcwarp">
+		<div class="time_div">
+			<a class="time_span" data-interval="1" data-ex="1" href="javascript:void(0)">分时</a>
+			<a class="time_span active" data-interval="1" href="javascript:void(0)">1分</a>
+			<a class="time_span" data-interval="5" href="javascript:void(0)">5分</a>
+			<a class="time_span" data-interval="10" href="javascript:void(0)">10分</a>
+			<a class="time_span" data-interval="15" href="javascript:void(0)">15分</a>
+			<a class="time_span" data-interval="30" href="javascript:void(0)">30分</a>
+			<a class="time_span" data-interval="60" href="javascript:void(0)">小时</a>
+			<a class="time_span" data-interval="120" href="javascript:void(0)">2小时</a>
+			<a class="time_span" data-interval="240" href="javascript:void(0)">4小时</a>
+			<a class="time_span" data-interval="D" href="javascript:void(0)">日</a>
+			<a class="time_span" data-interval="W" href="javascript:void(0)">周</a>
+			<a class="time_span" data-interval="M" href="javascript:void(0)">月</a>
+			<span class="price_board"><span class="price" id="divPrice">-</span>&nbsp;<span class="title">买一：</span><span class="price" id="divBuy">-</span><span class="vol" id="divBuyVol">-</span><span class="title">卖一：</span><span class="price" id="divSell">-</span><span class="vol" id="divSellVol">-</span></span>
+		</div>
+		<div id="tv_chart_container"></div>
+		<div class="study_div">
+			<a class="study_span" data-indicator="MA" href="javascript:void(0)">MA</a>
+			<a class="study_span" data-indicator="MACD" href="javascript:void(0)">MACD</a>
+			<a class="study_span" data-indicator="RSI" href="javascript:void(0)">RSI</a>
+			<a class="study_span" data-indicator="DMI" href="javascript:void(0)">DMI</a>
+			<a class="study_span" data-indicator="OBV" href="javascript:void(0)">OBV</a>
+			<a class="study_span" data-indicator="CCI" href="javascript:void(0)">CCI</a>
+			<!--a class="study_span" data-indicator="VWAP" href="javascript:void(0)">VWAP</a-->
+			<a class="study_span" data-indicator="ASI" href="javascript:void(0)">ASI</a>
+			<a class="study_span" data-indicator="BOP" href="javascript:void(0)">BOP</a>
+			<a class="study_span" data-indicator="DC" href="javascript:void(0)">DC</a>
+			<a class="study_span" data-indicator="EOM" href="javascript:void(0)">EOM</a>
+			<a class="study_span" data-indicator="VO" href="javascript:void(0)">VO</a>
+			<a class="study_span" data-indicator="ZIG" href="javascript:void(0)">ZIG</a>
+			<a class="study_span" data-indicator="ENV" href="javascript:void(0)">ENV</a>
+			<a class="study_span" data-indicator="BOLL" href="javascript:void(0)">BOLL</a>
+		</div>
+	</div>
+
+
+	<script>
+		//js文件目录
+		var __jsr = "/public/";
+		//本地接口
+		var __quoteapi = "tdvapi";
+		//这里不用填写
+		var __token = "";
+
+		//k线图刷新频率
+		var __interval = 1000;
+
+		var __symbol = "BTC";
+		//初始周期 ['1', '5', '15', '30', '60', '240', 'D', 'W', 'M'],
+		var __period = "1";
+		var _chartex = "0";
+
+		var __datafeed = null;
+
+		$(function () {
+			var symbol = _getreq("symbol");
+			if (symbol != undefined && symbol != "") {
+				__symbol = symbol;
+			}
+
+			__datafeed = new df(function (e) { }, "", __interval);
+
+			//初始化图表
+			initchart();
+
+			//请求图表
+			reqchart(0);
+		});
+
+		//t : 0黑色， 1白色
+		function changeSet(t) {
+			reqchart(t)
+		}
+
+
+		//********************************图表函数
+		function reqchart(t) {
+			$('.study_span').removeClass("active");
+
+			//默认黑色
+			var dsf = ["use_localstorage_for_settings", "header_widget", "header_fullscreen_button", "header_undo_redo"
+				, "study_buttons_in_legend", "display_market_status",
+				"widget_logo", "context_menus",
+				"save_chart_properties_to_local_storage"
+				, "remove_library_container_border", "border_around_the_chart"
+				, "legend_context_menu", "header_saveload", "timeframes_toolbar"
+				, "timezone_menu", "symbol_info", "go_to_date", "source_selection_markers", "volume_force_overlay"];
+			var toolbarbg = "#222222";
+			var screenbg = { backgroundColor: "#000000" };
+			var cssoveride = [
+				{
+					"paneProperties.background": "#222222",
+					"paneProperties.vertGridProperties.color": "#454545",
+					"paneProperties.horzGridProperties.color": "#454545",
+					"symbolWatermarkProperties.transparency": 90,
+					"scalesProperties.textColor": "#AAA",
+					"mainSeriesProperties.areaStyle.color1": "#B0C4DE",
+					"mainSeriesProperties.areaStyle.color2": "#A9A9A9",
+					"mainSeriesProperties.areaStyle.linecolor": "#B0C4DE",
+					"mainSeriesProperties.areaStyle.linestyle": 0,
+					"mainSeriesProperties.areaStyle.linewidth": 1,
+					"mainSeriesProperties.areaStyle.priceSource": "close",
+					//蜡烛颜色
+					'mainSeriesProperties.candleStyle.upColor': 'rgb(235,77,92)',
+					'mainSeriesProperties.candleStyle.downColor': 'rgb(83,185,135)',
+					// 烛心颜色
+					'mainSeriesProperties.candleStyle.wickUpColor': 'rgb(245,166,174)',
+					'mainSeriesProperties.candleStyle.wickDownColor': 'rgb(169,205,211)',
+					// 边框
+					'mainSeriesProperties.candleStyle.borderUpColor': 'rgb(235,77,92)',
+					'mainSeriesProperties.candleStyle.borderDownColor': 'rgb(83,185,135)'
+				},
+				{
+					//量颜色
+					"volume.volume.color.1": 'rgba(255,0,0,0.35)',
+					"volume.volume.color.0": 'rgba(0,128,0,0.35)'
+				}
+			];
+
+			$(".time_div").removeClass("white_div");
+			$(".study_div").removeClass("white_div");
+
+			if (t == 1) {
+				///白色
+				dsf = ["widget_logo", "header_widget", "timeframes_toolbar", "display_market_status", "volume_force_overlay", "context_menus", "legend_context_menu", "save_chart_properties_to_local_storage"];
+				toolbarbg = "", screenbg = {}, cssoveride = [{
+					"mainSeriesProperties.areaStyle.color1": "#B0C4DE",
+					"mainSeriesProperties.areaStyle.color2": "#A9A9A9",
+					"mainSeriesProperties.areaStyle.linestyle": 0,
+					"mainSeriesProperties.areaStyle.linewidth": 1,
+					"mainSeriesProperties.areaStyle.priceSource": "close",
+					'mainSeriesProperties.candleStyle.upColor': 'rgb(235,77,92)',
+					'mainSeriesProperties.candleStyle.downColor': 'rgb(83,185,135)',
+					'mainSeriesProperties.candleStyle.wickUpColor': 'rgb(245,166,174)',
+					'mainSeriesProperties.candleStyle.wickDownColor': 'rgb(169,205,211)',
+					'mainSeriesProperties.candleStyle.borderUpColor': 'rgb(235,77,92)',
+					'mainSeriesProperties.candleStyle.borderDownColor': 'rgb(83,185,135)'
+				},
+				{
+					"volume.volume.color.1": 'rgba(255,0,0,0.35)',
+					"volume.volume.color.0": 'rgba(0,128,0,0.35)'
+				}
+				];
+
+				$(".time_div").addClass("white_div");
+				$(".study_div").addClass("white_div");
+			}
+
+			var widget = window.tvWidget = new TradingView.widget({
+				debug: false,
+				//fullscreen: false,
+				autosize: true,
+				symbol: __symbol,
+				logo: {},
+				interval: __period,
+				timezone: "Asia/Shanghai",
+				symbol_search_request_delay: 0,
+				container_id: "tv_chart_container",
+				datafeed: __datafeed,
+				library_path: __jsr + "js/tdv/",
+				locale: "zh",
+				client_id: 'tradingview.com',
+				user_id: 'public_user_id',
+				//preset: "mobile",
+				enabled_features: ["hide_last_na_study_output"],
+				disabled_features: dsf,
+				toolbar_bg: toolbarbg,
+				loading_screen: screenbg,
+				overrides: cssoveride[0],
+				studies_overrides: cssoveride[1]
+			});
+
+
+			widget.onChartReady(function () {
+
+				if (__period == "1") {
+					if (_chartex == "1") { tvWidget.chart().setChartType(3); }
+				}
+
+				this.chart().onIntervalChanged().subscribe(null, function (interval) {
+					if (interval == 1) {
+						if (_chartex == "1")
+							tvWidget.chart().setChartType(3);
+						else tvWidget.chart().setChartType(1);
+					} else {
+						tvWidget.chart().setChartType(1);
+					}
+				});
+
+				//打开默认指标
+				$(".study_span[data-indicator='MA']").click();
+				$(".study_span[data-indicator='MACD']").click();
+			});
+		}
+
+		function initchart() {
+			window.prop_dict = {
+				'MACD': 'MACD', 'RSI': 'Relative Strength Index', 'DMI': 'Directional Movement', 'OBV': 'On Balance Volume',
+				'ASI': 'Accumulative Swing Index', 'BOP': 'Balance of Power', 'DC': 'Donchian Channels',
+				'EOM': 'Ease Of Movement', 'VO': 'Volume Oscillator', 'ZIG': 'Zig Zag',
+				'ENV': 'Envelope',
+				'CCI': 'Commodity Channel Index', 'VWAP': 'VWAP', 'EMA': 'EMA',
+				'BOLL': 'Bollinger Bands'
+			},
+				window.prop_dict_style = {
+					'MACD': { 'Histogram.color': 'rgb(253,0,102)', 'MACD.color': 'rgb(32,139,251)', 'Signal.color': 'rgb(252,96,30)' },
+					'RSI': { 'Plot.color': 'rgb(142,21,153)' },
+					'DMI': { 'ADX.color': 'rgb(255,0,110)', '+DI.color': 'rgb(0,148,255)', '-DI.color': 'rgb(255,106,0)' },
+					'OBV': { 'Plot.color': 'rgb(142,21,153)' },
+					'VO': { 'Plot.color': 'rgb(142,21,153)' },
+					'DC': { 'Upper.color': 'rgba(37,255,254,0.7)', 'Lower.color': 'rgba(37,255,254,0.7)', 'Plots Background.color': 'rgba(212,231,207,0.15)' },
+					'ENV': { 'Upper.color': 'rgba(37,255,254,0.7)', 'Lower.color': 'rgba(37,255,254,0.7)', 'Plots Background.color': 'rgba(212,231,207,0.15)' },
+					'BOLL': { 'Upper.color': 'rgba(37,255,254,0.7)', 'Lower.color': 'rgba(37,255,254,0.7)', 'Plots Background.color': 'rgba(212,231,207,0.15)' },
+				},
+				window.ma_dict = {
+					'MA5': { 'Plot.color': 'rgb(179,144,211)', 'Plot.linewidth': 1 },
+					'MA10': { 'Plot.color': 'rgb(149,174,202)', 'Plot.linewidth': 1 },
+					'MA30': { 'Plot.color': 'rgb(137,199,148)', 'Plot.linewidth': 1 },
+					'MA60': { 'Plot.color': 'rgb(201,106,174)', 'Plot.linewidth': 1 }
+				}
+			window.prop_instance = {}
+
+			$('.study_span').click(function () {
+				var prop = $(this).attr('data-indicator');
+				if (prop == "MA") {
+					if ($(this).hasClass('active')) {
+						for (prop in ma_dict) {
+							tvWidget.chart().removeEntity(prop_instance[prop]);
+						}
+						$(this).removeClass('active')
+					} else {
+						for (prop in ma_dict) {
+							prop_instance[prop] = tvWidget.chart().createStudy("Moving Average", false, false, [parseInt(prop.replace("MA", ""))], null, ma_dict[prop]);
+						}
+						$(this).addClass('active')
+					}
+				} else if (prop in prop_dict) {
+					if ($(this).hasClass('active')) {
+						tvWidget.chart().removeEntity(prop_instance[prop]);
+						$(this).removeClass('active')
+					} else {
+						prop_instance[prop] = tvWidget.chart().createStudy(prop_dict[prop], false, false, [], null, prop_dict_style[prop] || {});
+						console.log(prop_dict_style[prop])
+						$(this).addClass('active')
+					}
+				}
+			});
+
+
+			window.cmdflag = true;//不允许过快切换
+			$('.time_span').click(function () {
+				if (!window.cmdflag) { return; }
+				window.cmdflag = false; setTimeout(function () { window.cmdflag = true; }, 500);
+
+				var prop = $(this).attr('data-interval');
+				var ex = $(this).attr('data-ex');
+				$(this).addClass("active");
+				$(this).siblings().removeClass("active");
+				if (__period != prop) {
+					__period = prop;
+					tvWidget.chart().setResolution(__period, (e) => { });
+				}
+
+				if (_chartex != ex) {
+					_chartex = ex;
+					if (_chartex == "1")
+						tvWidget.chart().setChartType(3);
+					else tvWidget.chart().setChartType(1);
+				}
+			});
+		}
+
+		function changesymbol(sym) {
+			var obj = (window.tvWidget ? window.tvWidget : parent.window.tvWidget);
+			if ((typeof (obj) != "undefined") && obj != undefined) {
+				__symbol = sym;
+				obj.chart().setSymbol(__symbol);
+			}
+		}
+
+		//*******************end
+	</script>
+	<script type="text/javascript">
+		//将报价数据同步到图表（比如列表里该品种的报价，要同步到图表价格，就调用这里）
+		//data是结构如 {time:当前k周期的时间戳,close:0,open:0,high:0,low:0,volume:0}
+		//注意：传入的k数据要和当前图表*周期*一致，如当前图表为5M,就不能传入日周期的开高低收报价
+		//其中time精度为毫秒
+		function syncchart(sym, data) {
+			if (sym == __symbol) {
+				if (__datafeed != null && typeof (__datafeed.syncChart) != "undefined") {
+					__datafeed.syncChart(data);
+				}
+			}
+		}
+	</script>
+	<script type="text/javascript">
+		//将报价同步到图表报价盘
+		var _lstticks = 0;
+		function showBoard(sym, obj) {
+			if (sym == __symbol) {
+
+				if (obj.Tick < _lstticks)
+					return;
+
+				_lstticks = obj.Tick;
+
+				var objprice = $("#divPrice");
+				var oprice = parseFloat(objprice.html());
+				objprice.html(fixPrice(obj.P));
+				objprice.removeClass("bggreen").removeClass("bgred").removeClass("bgnormal");
+				if (obj.P > oprice) { objprice.addClass("bgred"); } else if (obj.P < oprice) { objprice.addClass("bggreen"); } else { objprice.addClass("bgnormal"); }
+				if (objprice.hasClass("bger")) { objprice.removeClass("bger").addClass("smer"); } else { objprice.removeClass("smer").addClass("bger"); }
+
+				var objbuy = $("#divBuy");
+				var obuy = parseFloat(objbuy.html());
+				objbuy.html(fixPrice(obj.B1));
+				objbuy.removeClass("bggreen").removeClass("bgred").removeClass("bgnormal");
+				if (obj.B1 > obuy) { objbuy.addClass("bgred"); } else if (obj.B1 < obuy) { objbuy.addClass("bggreen"); } else { objbuy.addClass("bgnormal"); }
+				if (objbuy.hasClass("bger")) { objbuy.removeClass("bger").addClass("smer"); } else { objbuy.removeClass("smer").addClass("bger"); }
+
+				var objsell = $("#divSell");
+				var osell = parseFloat(objsell.html());
+				objsell.html(fixPrice(obj.S1));
+				objsell.removeClass("bggreen").removeClass("bgred").removeClass("bgnormal");
+				if (obj.S1 > osell) { objsell.addClass("bgred"); } else if (obj.S1 < osell) { objsell.addClass("bggreen"); } else { objsell.addClass("bgnormal"); }
+				if (objsell.hasClass("bger")) { objsell.removeClass("bger").addClass("smer"); } else { objsell.removeClass("smer").addClass("bger"); }
+
+				$("#divBuyVol").html(obj.B1V);
+				$("#divSellVol").html(obj.S1V);
+			}
+		}
+
+		function fixPrice(p) {
+			if (p > 10000) { return p.toFixed(1); }
+			else if (p > 1000) { return p.toFixed(2); }
+			else if (p > 100) { return p.toFixed(3); }
+			else if (p > 10) { return p.toFixed(4); }
+			else if (p > 1) { return p.toFixed(5); }
+			else return p;
+		}
+	</script>
+	<script type="text/javascript" src="/public/js/pako.min.js"></script>
+	<script type="text/javascript" src="/public/js/sf_core.js"></script>
+	<script type="text/javascript" src="/public/js/ec_sdk.js"></script>
+	<script type="text/javascript" src="/public/js/tdv/charting_library.min.js"></script>
+	<script type="text/javascript" src="/public/js/tdv/chartquery.js"></script>
+</body>
+</html>

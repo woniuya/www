@@ -1,0 +1,171 @@
+<script src="../../../../public/static/libs/magnific-popup/magnific-popup.js"></script>{extend name="../../index/view/public/layout" /}
+
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/member/css/member.css">
+<link rel="stylesheet" href="__STATIC__/member/css/charge.css">
+{/block}
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="../application/member/view/public/left.html" /}
+    <div class="member-main">
+        <div class="member-main-title clearfix">
+            <a href="{:url('@member/moneylog/index')}" class="fr">查看资金明细</a>
+            <h3>充值</h3>
+            <h4><a href="{:URL('/money/withdraw')}">提现</a></h4>
+        </div>
+        <form action="{:URL('docharge')}" class="form form-charge" id="j-charge" method="post">
+            <div class="control-group">
+                <label for="">可用余额</label>
+                <div class="con">
+                    <span class="text-red">
+                        <span class="number-large">{$money.account|money_convert=###} </span> 元
+                    </span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="money">充值金额</label>
+                <div class="con">
+                    <div class="fake-input">
+                        <input type="text" name="money" id="money"> 元
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group charge-type-group">
+                <label>充值方式</label>
+                {if condition="$offline eq 1 && $online_recharge_switch eq 1"}
+                <div class="con charge-type clearfix">
+                    <div class="select-item active">
+                        线下充值
+                    </div>
+                    <a class="select-item" href="{:url('online')}">
+                        线上充值
+                    </a>
+                </div>
+                {elseif condition="$offline eq 0 && $online_recharge_switch eq 1"/}
+                <div class="con charge-type clearfix">
+                    <div class="select-item active">
+                        线上充值
+                    </div>
+                </div>
+                {elseif condition="$offline eq 1 && $online_recharge_switch eq 0"/}
+                <div class="con charge-type clearfix">
+                    <div class="select-item active">
+                        线下充值
+                    </div>
+                </div>
+                {/if}
+            </div>
+            {if condition="$offline eq 1"}
+            <div class="control-group">
+                <label>对公账户</label>
+                <div class="con clearfix">
+
+                    <div class="account-list">
+                        {foreach name="account" item="v" key="k"}
+                        <div class="item {if condition='$k eq 0'} checked {/if}" data-id="{$v['id']}" style="height: 102px">
+                            <div class="title" style="line-height: 72px">{$v['bank_name']}</div>
+                            <div class="bd" style="height: 72px">
+                                <p>
+                                    <span>收款账号：{$v['card']}</span>
+                                    <span>收款人姓名：{$v['payee']}</span>
+                                </p>
+                                <p>开户行：{$v['open_bank']}</p>
+                                {if condition="$v['image'] neq ''"}
+                                <div style="float: right;position: absolute;right: 35px; top: 1px;"><img src="{:get_file_path($v['image'])}" alt="" width="94"></div>
+                                {/if}
+                            </div>
+                        </div>
+                        {/foreach}
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>转账用户名</label>
+                <div class="con">
+                    <input type="text" class="transfer-message" name="message" placeholder="请输入转账的银行开户名、微信支付宝账户名" />
+                </div>
+            </div>
+            {/if}
+            <div class="control-group">
+                <label></label>
+                <div class="con">
+                    <input type="hidden" name="charge_type" id="charge_type" value="transfer">
+                    <input type="submit" class="btn btn-primary btn-red btn-submit" value="确认充值"/>
+                </div>
+            </div>
+        </form>
+        <div class="alert alert-warning charge-warning">
+            <div class="title">充值须知：</div>
+            <ul>
+                <li>1、选择充值方式后转账，转账成功提交申请，请备注提示信息，有助于快速审核到账</li>
+                <li>2、充值遇到任何问题请联系客服：{$service_telephone}  工作日： {$service_time}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{/block}
+
+{block name="script"}
+<script src="__STATIC__/libs/layer/layer.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.messages_zh.js"></script>
+<script>
+    (function ($) {
+        $(".account-list").on('click', '.item', function () {
+            $(this).addClass("checked").siblings().removeClass("checked")
+        })
+        // 充值金额验证
+        $.validator.addMethod("chargeMoney", function(value, element) {
+            var tel = /^(([1-9]\d*)|\d)(\.\d{1,2})?$/;
+            return this.optional(element) || (tel.test(value));
+        }, "充值金额有误");
+
+        $("#j-charge").on("submit", function (e) {
+            e.preventDefault();
+        })
+        $("#j-charge").validate({
+            ignore: [],
+            rules: {
+                money: {
+                    required: true,
+                    chargeMoney: true
+                },
+                message: {
+                    required: true
+                }
+            },
+            submitHandler: function () {
+                var checkedChargeAccount = $(".account-list").find(".checked");
+                $.ajax({
+                    url: $("#j-charge").attr("action"),
+                    type: "post",
+                    data:{
+                        money: $("#money").val(),
+                        account: $("#account").val(),
+                        charge_type: $("#charge_type").val(),
+                        charge_type_id: checkedChargeAccount.data("id"),
+                        transfer: $("input[name='message']").val()
+                    },
+                    dataType:"json",
+                    success: function (data) {
+                        if(data){
+                            layer.msg(data.msg, function () {
+                                if(data.url) window.location.href = data.url
+                            })
+                        }
+                    }
+                })
+            },
+            errorElement: "div",
+            errorPlacement: function (error, element) {
+                $(element).closest(".con").append(error);
+            }
+        })
+
+    })(jQuery)
+</script>
+{/block}

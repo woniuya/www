@@ -1,0 +1,121 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/member/css/member.css">
+{/block}
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="public/left" /}
+
+    <div class="member-main">
+        <div class="member-main-title clearfix">
+            <h3> {if condition="$step eq 2"}个人资料 > 第二步 > 新手机号码设置 {else /} 个人资料 > 手机号码{/if}</h3>
+        </div>
+        <form action="" class="form form-telephone" id="form-telephone" method="post">
+            {if condition="$step eq 2"}
+            <div class="control-group">
+                <label for="">新手机号码</label>
+                <div class="con">
+                    <div class="text">
+                        <span class="tel-number"><input type="text" id="new_mobile" name="new_mobile"> </span>
+                        <button class="btn btn-primary" id="j-btn-vcode" type="button">获取验证码</button>
+                    </div>
+                </div>
+            </div>
+            {else /}
+            <div class="control-group">
+                <label for="">原手机号码</label>
+                <div class="con">
+                    <div class="text">
+                        <span class="tel-number">{$info} </span>
+                        <button class="btn btn-primary" id="j-btn-vcode" type="button">获取验证码</button>
+                    </div>
+                </div>
+            </div>
+            {/if}
+
+
+            <div class="control-group">
+                <label for="">短信验证码</label>
+                <div class="con">
+                    <div class="fake-input vcode-input">
+                        <input type="text" name="captcha">
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for=""></label>
+                <div class="con">
+                    <input type="submit" class="btn btn-primary btn-red btn-submit" value="下一步"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+
+
+{block name="script"}
+<script src="__STATIC__/libs/layer/layer.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.messages_zh.js"></script>
+<script type="text/javascript">
+
+    (function ($) {
+        var duration = 60;
+        var timer;
+        var clock = duration;
+
+        $("#j-btn-vcode").click(function () {
+            var $this = $(this);
+            if ($this.hasClass("disabled")) return;
+            var step = {$step};
+            if (step == 2) {
+                var mobile = $('#new_mobile').val();
+                var reg = /^1[0-9]{10}$/;
+                if (!reg.test(mobile)) {
+                    return layer.msg("请输入正确的手机号");
+                }
+            } else {
+                var mobile = {$old_mobile};
+            }
+            $this.addClass("disabled");
+
+            $.post("{:URL('sendsms')}", {'mobile': mobile, 'tp': 'code'}, function (data) {
+                if (data.status) {
+                    timer = setInterval(function () {
+                        $this.html(clock-- + "s");
+                        if (clock === 0) {
+                            clock = duration;
+                            clearInterval(timer);
+                            $this.removeClass("disabled").html("重新发送验证码")
+                        }
+                    }, 1000)
+                } else {
+                    return layer.msg(data.message);
+                    $this.removeClass("disabled")
+                }
+            }, "json")
+        })
+
+        $("#form-telephone").validate({
+            rules: {
+                captcha: {
+                    required: true,
+                }
+            },
+            messages: {
+                captcha: {
+                    required: "请输入验证码",
+                }
+            },
+            submitHandler: function (form) {
+                form.submit()
+            },
+            errorElement: "div",
+            errorPlacement: function (error, element) {
+                $(element).closest(".control-group").append(error);
+            }
+        })
+    })(jQuery)
+</script>
+{/block}

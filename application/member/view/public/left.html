@@ -1,0 +1,71 @@
+<div class="member-left">
+    <div class="user-info">
+        <div class="avatar">
+           
+			{if condition="$head_img neq ''"}
+            <img src="{$head_img}" alt="">
+			{else/}
+			 <img src="__STATIC__/member/img/avatar-male.png" alt="">
+			{/if}
+        </div>
+        <div class="user-name">{$member_auth.mobile|format_str=###}</div>
+        <div class="icon-group-v clearfix">
+            <a class="active" href="{:url('@member/profile/telephone')}"><i class="icon icon-phone-v"></i></a>
+            <a {if condition="$is_verified == 1"}class="active"{/if} href="{:url('@member/profile/realname')}"><i class="icon icon-man-v"></i></a>
+            <a {if condition="$isset_banks == 1"}class="active"{/if} href="{:url('@member/bank/add')}"><i class="icon icon-card-v"></i></a>
+            <a {if condition="$is_setpaywd == 1"}class="active"{/if} href="{:url('@member/profile/paypass')}"><i class="icon icon-lock-v"></i></a>
+        </div>
+    </div>
+    <ul class="member-nav">
+        <li {if condition="$active eq 'index'"}class="active"{/if}>
+        <a href="{:url('@member')}">
+            <i class="icon icon-home"></i>账户主页</a>
+        </li>
+        <li {if condition="$active eq 'charge'"}class="active"{/if}>
+        <a href="{:url('@money/recharge')}">
+            <i class="icon icon-wallet"></i>充值提现</a>
+        </li>
+        <li {if condition="$active eq 'financing'"}class="active"{/if}>
+        <a href="{:url('@member/financing')}">
+            <i class="icon icon-trend"></i>我的配资</a>
+        </li>
+        <li>
+        <li>
+            <a href="{:url('@market/index/index','',false)}" target="market">
+                <i class="icon icon-stock"></i>股票实盘</a>
+        </li>
+        {if condition="$mockset eq 1"}
+        <li {if condition="$active eq 'mock'"}class="active"{/if}>
+        <a href="{:url('@member/mock')}">
+            <i class="icon icon-trend"></i>模拟操盘</a>
+        </li>
+        {/if}
+        <li {if condition="$active eq 'moneylog'"}class="active"{/if}>
+            <a href="{:url('@member/moneylog')}">
+                <i class="icon icon-note"></i>资金明细</a>
+        </li>
+        <li {if condition="$active eq 'bank'"}class="active"{/if}>
+        <a href="{:url('@member/bank')}">
+            <i class="icon icon-card"></i>银行卡</a>
+        </li>
+        <li {if condition="$active eq 'profile'"}class="active"{/if}>
+            <a href="{:url('@member/profile')}">
+                <i class="icon icon-profile"></i>个人资料</a>
+        </li>
+        <li {if condition="$active eq 'invite'"}class="active"{/if}>
+            <a href="{:url('@member/invite')}">
+			{in name="$isAgent" value="1,2"}
+			  <i class="icon icon-dai"></i>
+			  代理商管理
+			{else /}
+			  <i class="icon icon-invite"></i>
+			  邀请奖励
+			{/in}
+				</a>
+        </li>
+        <li {if condition="$active eq 'message'"}class="active"{/if}>
+            <a href="{:url('@member/message')}">
+                <i class="icon icon-ring"></i>消息管理</a>
+        </li>
+    </ul>
+</div>

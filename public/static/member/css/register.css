@@ -1,0 +1,35 @@
+.register-container {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 0 30px;
+  margin-bottom: 10px;
+  }
+  .register-container .register-hd {
+    height: 70px;
+    padding: 20px 0 10px;
+    margin: 20px 0;
+    border-bottom: 1px solid #DCDCDC; }
+    .register-container .register-hd h3 {
+      text-indent: 20px;
+      color: #fb3d51;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 20px;
+      border-left: 3px solid #fb3d51;
+      margin: 0; }
+  .register-container .register-bd {
+    padding: 24px 0;
+    }
+
+.form-register {
+  float: left;
+  width: 400px;
+  margin: 0 60px; }
+
+.register-banner {
+  float: left;
+  width: 600px; }
+  .register-banner .wrap {
+    padding: 60px 0; }
+
+/*# sourceMappingURL=register.css.map */

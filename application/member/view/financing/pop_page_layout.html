@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="__STATIC__/public/css/common.css">
+    <link rel="stylesheet" href="__STATIC__/member/css/show.css">
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="__STATIC__/libs/layer/layer.js"></script>
+</head>
+<body class="popup-page">
+<div class="finance-operate-page">
+    {block name="main"}{/block}
+</div>
+{block name="script"}{/block}
+<script>
+    (function ($) {
+        $(".btn-cancel").on("click", function () {
+            window.parent.layer.closeAll();
+        })
+    })(jQuery)
+</script>
+
+</body>
+</html>

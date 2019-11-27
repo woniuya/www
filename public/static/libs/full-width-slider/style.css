@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+/***
+ * 全屏淡入淡出轮播banner
+ *
+ * 图片宽度 1920,高度可自定义
+ *
+ * @author yibinghua
+ * @date 2017.08.16
+ */
+
+.full-width-slider {
+    position: relative;
+    overflow: hidden;
+}
+
+.full-width-slider ul {
+    width: 1920px;
+    position: relative;
+    z-index: 1;
+}
+
+.full-width-slider ul li {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    z-index: 0;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.full-width-slider ul li a {
+    display: block;
+}
+
+.full-width-slider ul li a img {
+    width: 100%;
+    height: auto;
+}
+
+.full-width-slider ul li.active {
+    z-index: 1;
+    opacity: 0;
+}
+
+.full-width-slider .pager {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    z-index: 2;
+}
+
+.full-width-slider .pager span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #FFF;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.full-width-slider .pager span.active {
+    opacity: 1;
+}

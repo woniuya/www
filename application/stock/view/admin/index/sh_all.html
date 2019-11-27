@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>上海主板更新</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <style type="text/css">
+        *{margin: 0;padding: 0;}
+        html{width:100%;height:80%;margin:0;}
+        body{width:100%;height:80%;margin:0;background-color: #ffffff;color: #333333;}
+        div{width:95%;height: 50%;vertical-align: middle;text-align: center;margin-top: 50px;}
+        table{width:30%;height:60%;vertical-align: middle;text-align: center;margin: 5px auto;}
+    </style>
+</head>
+<body>
+<div>
+<table class="table table-builder table-hover table-bordered table-striped js-table-checkable">
+    <thead>
+    <tr>
+        <th class="column-title "><span>股票名</span></th>
+        <th class="column-code "><span> 股票代码</span></th>
+        <th class="column-pinyin "><span>股票缩写</span></th>
+    </tr>
+    </thead>
+    <tbody>
+    {volist name="arr" id="vo"}
+    <tr class="">
+        <td class="">{$vo.name}</td>
+        <td class="">{$vo.code}</td>
+        <td class="">{$vo.pin} </td>
+    </tr>
+    {/volist}
+    </tbody>
+</table>
+</div>
+<div style="height: 20px;width:95%;">已更新：{$last}只股票</div>
+<div id="end" style='height: 60px;width:95%;margin-top: 5px;font-size: 60px;display: none'>END</div>
+<script type="text/javascript">
+    var last={$last};
+    if(last <= 3999){
+        setTimeout(function(){
+            window.location.href="{$local}/admin.php/stock/index/sh_all/last/{$last}";
+        }, 20);
+    }else{
+        document.getElementById("end").style.display="";
+    }
+</script>
+</body>
+</html>

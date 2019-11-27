@@ -1,0 +1,122 @@
+﻿1、禁用自带的一些功能
+
+disabled_features: [ // 开启图表功能的字符串文字 允许将用户设置保存到本地存储
+'header_symbol_search', // 头部搜索
+"header_widget_dom_node", // 隐藏头部组件
+'source_selection_markers', // 禁用系列和指示器的选择标记
+"header_indicators", //图标指标
+'adaptive_logo', // 移动端可以隐藏logo
+'constraint_dialogs_movement',
+'header_interval_dialog_button',
+'show_interval_dialog_on_key_press',
+'symbol_search_hot_key',
+'study_dialog_search_control',
+'display_market_status',
+'header_chart_type',// k线样式
+'header_compare',// 图表对比
+'header_undo_redo', // 撤销返回
+'header_screenshot', // 截图
+'volume_force_overlay', // 防止他们重叠
+'header_settings',// 设置
+'property_pages',// 禁用所有属性页
+'header_fullscreen_button',// 全屏
+"header_saveload",
+'edit_buttons_in_legend',
+'timeframes_toolbar', // 下面的时间
+'symbol_info',
+'border_around_the_chart',
+'main_series_scale_menu',
+'star_some_intervals_by_default',
+'datasource_copypaste',
+'right_bar_stays_on_scroll',
+'context_menus',
+'go_to_date',
+'compare_symbol',
+'border_around_the_chart',
+'timezone_menu',
+'header_resolutions',// todo: przetestowac// 头部的时间
+'control_bar',//todo: przetestowac
+'edit_buttons_in_legend',// todo: przetestowac
+'remove_library_container_border',
+]
+eslint 使用单引号
+ 
+2、创建 按钮
+this.widget.createButton()
+.attr('title', '分时')
+.on('click', (e) => {
+this.widget.chart().setChartType(3); //3 代表类型 分时， 普通分钟按钮 1 
+this.widget.chart().setResolution('1', () => { // 1代表1分钟  
+// console.log("set resolution callback");
+});
+}).append(() => {
+});
+3、更改蜡烛图显示
+overrides:{
+'paneProperties.background': '#162431', // 蜡烛样式
+'mainSeriesProperties.candleStyle.upColor': '#64ae74',
+'mainSeriesProperties.candleStyle.downColor': '#df5f61',
+// 烛心
+'mainSeriesProperties.candleStyle.drawWick': true,
+// 烛心颜色
+'mainSeriesProperties.candleStyle.wickUpColor': '#64ae74',
+'mainSeriesProperties.candleStyle.wickDownColor': '#df5f61',
+// 边框
+'mainSeriesProperties.candleStyle.drawBorder': true,
+'mainSeriesProperties.candleStyle.borderUpColor': '#64ae74',
+'mainSeriesProperties.candleStyle.borderDownColor': '#df5f61',
+// 网格
+'paneProperties.vertGridProperties.style': 0,
+'paneProperties.horzGridProperties.color':'#262727',
+'paneProperties.vertGridProperties.color': '#262727',
+// 坐标轴和刻度标签颜色
+'scalesProperties.lineColor': '#252525',
+'scalesProperties.textColor': '#8a8a8a',
+'paneProperties.legendProperties.showLegend': false,
+'paneProperties.topMargin': 20,
+// 'paneProperties.bottomMargin": 5
+},
+具体颜色自己决定
+ 
+custom_css_url:'chart.css', // 引入外部css
+toolbar_bg:'#222831', // 工具栏背景颜色
+loading_screen: { backgroundColor: '#162431',foregroundColor:'#162431' }, // 加载背景 加载图标背景颜色  没找到隐藏方式，这样隐藏
+
+
+
+disabled_features: [
+					"widget_logo"
+					, "go_to_date"
+					, "header_undo_redo"
+					, "symbol_info"
+					, "header_widget"
+					, "header_symbol_search"
+					, "use_localstorage_for_settings"
+					//, "left_toolbar"
+					, "header_screenshot"
+					, "header_resolutions"
+					, "header_settings"
+					//,"header_chart_type"
+					, "header_interval_dialog_button"
+					, "show_interval_dialog_on_key_press"
+					, "symbol_search_hot_key",
+					, "study_buttons_in_legend"
+					, "study_dialog_search_control"
+					, "display_market_status"
+					, "header_compare"
+					, "edit_buttons_in_legend"
+					//, "border_around_the_chart"
+					, "main_series_scale_menu"
+					, "star_some_intervals_by_default"
+					, "datasrouce_copypaste"
+					, "right_bar_stays_on_scroll"
+					, "context_menus"
+					, "compare_symbol"
+					, "save_chart_properties_to_local_storage"
+					, "remove_library_container_border"
+					, "legend_context_menu"
+					, "header_saveload"
+					, "timeframes_toolbar"
+					, "timezone_menu"
+					, "source_selection_markers"
+					],

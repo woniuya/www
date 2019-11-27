@@ -1,0 +1,123 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/member/css/member.css">
+<link rel="stylesheet" href="__STATIC__/member/css/withdraw.css">
+{/block}
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="../application/member/view/public/left.html" /}
+    <div class="member-main">
+        <div class="member-main-title clearfix">
+            <a href="{:url('member/moneylog/index')}" class="fr">查看资金明细</a>
+            <h4>
+                <a href="{:url('/money/recharge')}">充值</a>
+            </h4>
+            <h3> 提现 </h3>
+        </div>
+        <form action="{:url('dowithdraw')}" class="form form-withdraw" method="post" id="withdrawForm"
+              name="withdrawForm">
+            <div class="control-group">
+                <label for="">提现至</label>
+                <div class="con">
+                    <div class="fake-select">
+
+                        {empty name="banks"}
+                        <ul class="card-select-add">
+                        <li class="item-add-bank">
+                            <a href="{:url('/member/bank/add')}">
+                                <i class="icon icon-plus"></i> 添加银行卡
+                            </a>
+                        </li>
+                        </ul>
+                        {else /}
+                        <div class="checked-bank">
+                            <img src="{$default_bank['logo']|get_file_path}" width="106" height="32" alt="">
+                            <span class="card-number"> {$default_bank.card|format_str=###, 'bank'} </span>
+                        </div>
+                        {/empty}
+                        {notempty name="banks"}
+                        <a class="btn-bank-more" href="#">选择其他银行</a>
+                        <ul class="card-select-list">
+                            {volist name="banks" id="vo"}
+                            <li data-id='{$vo.id}'>
+                                <img src="{$vo.logo|get_file_path}" width="106" height="32" alt="">
+                                <span class="card-number"> {$vo.card|format_str=###, 'bank'} </span>
+                            </li>
+                            {/volist}
+                            <li class="item-add-bank">
+                                <a href="{:url('/member/bank/add')}">
+                                    <i class="icon icon-plus"></i> 添加银行卡
+                                </a>
+                            </li>
+                        </ul>
+                        {/notempty}
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="">可提金额</label>
+                <div class="con">
+                        <span class="text-red">
+                            <span class="number-large">{$money.account|money_convert=###} </span> 元
+                        </span>
+                    <a class="btn-pick-all" data-max={$money.account|money_convert=###}>全部提现</a>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="">提现金额</label>
+                <div class="con">
+                    <div class="fake-input">
+                        <input type="number" name="money" id="money" value="" placeholder="请填写提现金额"> 元
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="">支付密码</label>
+                <div class="con">
+                    <input type="password" name="paywd" id="paywd" placeholder="请填写支付密码">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="">验证码</label>
+                <div class="con">
+                    <input type="text" name="captcha" id="captcha"  placeholder="请填写验证码">
+
+                    <img class="v-img" src="{:captcha_src()}" style="cursor: pointer;"
+                         onclick="this.src='{:captcha_src()}?d='+Math.random();" title="点击刷新" alt="captcha"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for=""></label>
+                <div class="con">
+                    <input type="hidden" id="bank_id" name="bank_id" value="{$default_bank.id}">
+                    <input type="submit" class="btn btn-primary btn-red btn-submit" value="确认提现"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script src="__STATIC__/libs/layer/layer.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.messages_zh.js"></script>
+<script src="__STATIC__/member/js/withdraw.js"></script>
+<script>
+    var bank = "{$banks}";
+    var id_auth_st = {$id_auth_st};
+    if (id_auth_st==0) {
+         layer.msg("您还没有实名认证，无法提现。", function () {
+                           window.location.href = "{:url('/member/profile/realname')}";
+                        })
+    }else if(id_auth_st==2) {
+         layer.msg("您的实名认证没有通过，请重新认证后提现。", function () {
+                           window.location.href = "{:url('/member/profile/realname')}";
+                        })
+    }else if(bank==0) {
+         layer.msg("您未绑定银行卡，请先绑定银行卡", function () {
+                           window.location.href = "{:url('/member/bank')}";
+                        })
+    }
+</script>
+{/block}

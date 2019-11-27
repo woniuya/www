@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>android 下载</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html{
+            height: 100%;
+        }
+        body{
+            box-sizing: border-box;
+            position: relative;
+            height: 100%;
+            background-color: #fff;
+        }
+        .container{
+            padding: 0 30px;
+            overflow: hidden;
+            height: 100%;
+            background: url("/static/home/img/download/downloadbg.png") center bottom no-repeat;
+            background-size: 50%;
+        }
+        .container .logo{
+            margin-top: 50px;
+            text-align: center;
+        }
+        .wechat-tip{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: rgba(0,0,0,.6);
+            text-align: right;
+            z-index: 1;
+        }
+        .wechat-tip img{
+            position: relative;
+            right: 20px;
+        }
+
+        .platform-name {
+            padding: 80px 0;
+            text-align: center;
+            font-size: 20px;
+            line-height: 40px;
+            border-bottom: 1px solid #D5DDDE;
+        }
+        .platform-name .icon-android{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: url("/static/home/img/download/icon-android.png") no-repeat;
+            background-size: 100%;
+            position: relative;
+            top: 4px;
+        }
+        .download{
+            margin-top: 30px;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .download a{
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+            line-height: 45px;
+            background-color: #FF7A20;
+            color: #ffffff;
+            font-size: 18px;
+            text-decoration: none;
+            -webkit-border-radius: 23px;
+            -moz-border-radius: 23px;
+            border-radius: 23px;
+        }
+    </style>
+</head>
+<body>
+{if condition="$inWechat eq 1"}
+<div class="wechat-tip">
+    <img src="/static/home/img/download/open_in_browser.png" width="80%" alt="">
+</div>
+{/if}
+<div class="container">
+    <div class="logo">
+        {:get_advert(5)}
+    </div>
+    <div class="platform-name">
+        <i class="icon icon-android"></i> {:config('web_operation_platform')}
+    </div>
+    <div class="download">
+        <a class="btn" href="{:config('app_down_android')}">下载安装</a>
+    </div>
+</div>
+
+</body>
+</html>

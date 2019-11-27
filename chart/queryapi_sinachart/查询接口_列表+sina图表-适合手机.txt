@@ -1,0 +1,17 @@
+1. 部署thinkphp5项目
+
+2. 在配置文件 queryapi_sinachart\config.php 中AppCode配置节
+	配置好即可使用
+
+	**所有功能嵌入页 /public/queryapi_sinachart/index
+
+	**图表展示页 /public/queryapi_sinachart/index/charts ，可配置图表样式，行情更新频率 **横屏（全屏）要直接打开这个
+
+	**快讯展示页 /public/queryapi_sinachart/index/qnews ，可配置新闻更新频率
+
+	**行情列表展示页 /public/queryapi_sinachart/index/lists ，可配置行情更新频率
+
+3.购买地址
+https://market.aliyun.com/products/57000002/cmapi029045.html
+
+4.代码中已经做好历史数据缓存，有效减少请求次数。请注意使用次数，用完后图表会不显示哦

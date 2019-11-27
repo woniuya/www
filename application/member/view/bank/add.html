@@ -1,0 +1,192 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/member/css/member.css">
+<link rel="stylesheet" href="__STATIC__/member/css/bank.css">
+
+{/block}
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="public/left" /}
+    <div class="member-main">
+        <div class="member-main-title clearfix">
+            <a href="{:url('moneylog/index')}" class="fr">查看资金明细</a>
+            <h4><a href="{:url('index')}">银行卡</a></h4>
+            <h3>添加银行卡</h3>
+        </div>
+        <form action="{:URL('doaddbank')}" name="bankForm" id="bankForm" class="form form-card" method="post">
+            <div class="control-group">
+                <label for="">持卡人</label>
+                <div class="con">
+                    <div class="text">
+                        {$name}
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="">银行卡号</label>
+                <div class="con">
+                    <div class="fake-input">
+                        <input type="text" name="card" id="card" placeholder="请填写您的提现银行卡号" >
+                    </div>
+                </div>
+            </div>
+            <div class="control-group charge-type-group">
+                <label for="">开户银行</label>
+                <div class="con ">
+                    <select name="bank" id="bank">
+                        <option value="">请选择银行</option>
+                        {volist name="web_bank" id="bank"}
+                        <option  value="{$key}">{$bank}</option>
+                        {/volist}
+                    </select>
+
+                </div>
+            </div>
+            <div class="control-group charge-type-group">
+                <label for="">开户分行</label>
+                <div class="con ">
+                    <select name="province" id="province">
+                        <option value="0">请选择省份</option>
+                    </select>
+                    <select name="city" id="city">
+                        <option value="0">请选择市区</option>
+                    </select>
+                    <input name="branch" id="branch" class="bank-location" type="text" placeholder="请填写开户支行名称">
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="" style="margin-top: 10px">手机号码</label>
+                <div class="con">
+
+                        <div class="text">
+                            <span class="fake-input vcode-input" style="margin-right: 10px"><input type="text" id="mobile" name="mobile" placeholder="请填写预留手机号"> </span>
+                            <button type="button" class="btn btn-primary btn-vcode" id="sendsms">获取验证码</button>
+                        </div>
+                        <!--<span class="tel-number">{$member_auth.mobile|format_str=###} </span>-->
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="">短信验证码</label>
+                <div class="con">
+                    <div class="fake-input vcode-input">
+                        <input name="sms_code" id="sms_code" value="" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for=""></label>
+                <div class="con">
+                    <input type="submit" class="btn btn-primary btn-red btn-submit" value="确认添加" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{/block}
+
+{block name="script"}
+<script src="__STATIC__/libs/layer/layer.js"></script>
+<script src="/static/libs/jquery-validation/jquery.validate.js"></script>
+<script src="/static/libs/jquery-validation/jquery.validate.messages_zh.js"></script>
+<script type="text/javascript">
+    area(1, $("#province"));
+    area(2, $("#city"));
+    $("#province").change(function(){
+        reid = $(this).val();
+        area(reid, $("#city"));
+    });
+    var duration = 60;
+    var clock = duration;
+    var timer;
+    $("#sendsms").click(function(){
+        var $this = $(this);
+        if($this.hasClass("disabled")) return;
+        var mobile = $('#mobile').val();
+        var reg = /^1[0-9]{10}$/;
+        if(!reg.test(mobile)) { layer.msg("手机号有误"); return false;}
+        $this.addClass("disabled");
+        $.post("{:URL('/member/bank/sendsms')}", {'mobile':mobile,'tp':'code'}, function(data){
+            if(data.status){
+                $this.html("发送成功")
+                timer = setInterval(function () {
+                    $this.html(clock-- + "s");
+                    if (clock <= 0){
+                        clearInterval(timer);
+                        clock = duration;
+                        $this.removeClass("disabled").html("重新发送");
+                    }
+                } , 1000)
+            }else{
+                layer.msg(data.message);
+                $this.removeClass("disabled")
+            }
+        }, 'json')
+    })
+
+    function area(id, obj)
+    {
+        var option = '';
+        $.post("{:URL('/member/publics/getarea')}", {'reid':id}, function(data){
+            $.each(data, function(index, item){
+                option += '<option value="'+item.id+'">'+item.name+'</option>';
+            });
+            obj.empty();
+            obj.append(option);
+        })
+    }
+
+    $("#bankForm").validate({
+        rules: {
+            card: {
+                required: true,
+                minlength: 15,
+                maxlength: 19,
+                number: true
+            },
+            bank: {
+                required: true
+            },
+            branch: {
+                required: true
+            },
+            sms_code:{
+                required: true,
+                number: true,
+                minlength: 6,
+                maxlength : 6
+            }
+        },
+        messages: {
+            branch: {
+                required: "请输入开户支行信息"
+            }
+        },
+        errorElement: "div",
+        submitHandler: function (form) {
+            $.ajax({
+                type: "post",
+                url: $("#bankForm").attr("action"),
+                data:{
+                    mobile: $("input[name=mobile]").val(),
+                    sms_code: $("#sms_code").val(),
+                    branch: $("#branch").val(),
+                    city: $("#city").val(),
+                    province: $("#province").val(),
+                    bank: $("#bank").val(),
+                    card: $("#card").val()
+                },
+                dataType: "json",
+                success: function (data) {
+                    if(data){
+                        layer.msg(data.msg, function () {
+                            if(data.url) window.location.href = data.url
+                        })
+                    }
+                }
+            })
+        }
+    })
+
+</script>
+{/block}

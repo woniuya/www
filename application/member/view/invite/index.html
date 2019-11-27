@@ -1,0 +1,306 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+	<link rel="stylesheet" href="__STATIC__/member/css/index.css">
+	<link rel="stylesheet" href="__STATIC__/member/css/member.css">
+	<link rel="stylesheet" href="__STATIC__/member/css/invite.css">
+	<link rel="stylesheet" href="__STATIC__/member/css/agents.css">
+{/block}
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="public/left" /}
+    <div class="member-main">
+	
+		<div class="agents_header">
+			<div class="invite-main clearfix">
+				<div class="left">
+					<div class="agents_top title" style="margin-left:-34px;">
+						<div class="agent_fl" id="yonghu">
+									{in name="$agent_id" value="1,2"}
+										<span class="">名下用户(人)</span>
+									{else /}
+										<span class="">邀请用户(人)</span>
+									{/in}
+									<a href="javascrpt:;" onmousemove="onTips();" ><i class="icom_tips"></i></a>
+							<p>{$count_m}</p>
+						</div>
+						<div class="agent_fl" id="yongjin">
+							{in name="$isAgent" value="1,2"}
+								已赚佣金
+							{else /}
+								邀请奖励
+							{/in}(元)<a href="javascrpt:;" onmousemove="onTips_M();" ><i class="icom_tips"></i></a>
+								<p>{$count}</p>
+							</div>
+						{in name="$isAgent" value="1,2"}
+							<div class="agent_fl">
+								普通用户邀请好友配资即可获得奖励<br/>
+								佣金比例：代理商名下用户配资管理费的<span class="color-red">{$mid|get_plus_rate}%</span>
+							</div>
+						{else/}
+							<div class="agent_fl">
+								普通用户成为代理商后享受佣金分成<br/>
+								邀请奖励：所邀请用户资金管理费的<span class="color-red">{$mid|get_plus_rate}%</span>
+							</div>
+
+						{/in}
+					</div>
+					
+					<div class="invite-link">
+						您的邀请链接:
+						<span>
+							<input type="text" id="invite-url" value="{$url}"><button class="copy-btn" data-clipboard-target="#invite-url">复制链接</button>
+						</span>
+					</div>
+					<div class="invite-social">
+						通过社交网站邀请好友：
+						<div class="bdsharebuttonbox">
+							<a href="#" class="bds_more" data-cmd="more"></a>
+							<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+							<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+							<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+							<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+						</div>
+						<script>
+						window._bd_share_config = {
+							"common": {
+								"bdSnsKey": {},
+								"bdText": "{$share}",
+								"bdMini": "2",
+								"bdPic": "",
+								"bdStyle": "0",
+								'bdUrl':'{$url}',
+								"bdSize": "16"
+							}, "share": {}
+						};
+						with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+					</div>
+				</div>
+				<div class="charcode">
+					<img src="{$qrcode}" alt="" width="120" height="120">
+					<div>邀请二维码</div>
+				</div>
+				
+			</div>
+		</div>
+	
+	
+        <div class="financing-section">
+		
+		
+		{in name="$isAgent" value="1,2"}
+	
+			<div class="member-main-title clearfix">
+				<h3>用户管理</h3>
+				<h4><a href="{:url('award')}">已赚佣金记录</a></h4>
+				{if condition="$agent_pro eq '0' and $agent_id neq  '0'"}
+					<h6 class="fr">代理功能已被停用，请联系上级代理或客服</h6>
+				{/if}
+			</div>
+			
+			{notempty name="data"}
+   
+            <ul class="financing-list">
+				{volist name="data" id="val"}
+						<li class="item">
+							<div class="item-hd item-hd_agent">
+								
+								<div class="fr operator width33">
+									用户级别: 
+									{in name="$val.agent_id" value="1,2,3"}
+										<span class="color-red">代理商</span>
+									{else /}
+										普通用户 <a onclick="mange_pro({$val.id},{$plu_rate});">设为代理</a>
+									{/in}
+								</div>
+								<div class="fr operator width33">
+									用户姓名： {$val.name ? $val.name : '--'}
+								</div>
+								<div class="fr operator width33">
+									手机号码：{$val.mobile}
+								</div>
+							</div>
+					
+							<div class="item-bd clearfix">
+								<div class="unit unit_agent">
+									<div class="title">邀请用户：{$val.invitation_mid|get_users_m}个<a  onclick="lookUp({$val.id})">查看</a></div>
+									<div class="value">注册时间：{$val.create_time|date="Y-m-d", ###}</div>
+								</div>
+								<div class="unit unit_agent">
+									<div class="title">他的收入：{$val.invitation_mid|get_back_money}元</div>
+									<div class="value">返佣比例:：
+										{$val.agent_rate}% 
+										{in name="$val.agent_id" value="1,2,3"}
+											<a href="#" onclick="mange_rate({$val.id},{$val.agent_rate});">修改</a>
+										{/in}
+									</div>
+								</div>
+								<div class="unit unit_agent">
+									<div class="title">替你赚取：{$val.invitation_mid|agents_profit_money}元</div>
+									<div class="value">
+										{in name="$val.agent_id" value="1,2,3"}
+											代理状态：{$val.agent_pro ==1 ? '正常':'停止'} <a onclick="stopUser({$val.id},{$val.agent_pro})">{$val.agent_pro ==1 ? '停止':'重新启用'}</a>
+											{else/}
+											代理状态：停止
+										{/in}
+									</div>
+								</div>
+							</div>
+						
+						</li>
+					{/volist}
+            </ul>
+
+           {else /}
+				<div class="stock-empty">
+					<div class="wrap">
+						<img src="__STATIC__/member/img/exclamation.gif" alt="">
+						<div>
+							您还没有邀请用户<br/>
+							快去分享邀请吧
+						</div>
+					</div>
+				</div>
+			<div class="pages">
+				{$data->render()}
+			</div>
+			{/notempty}
+			 {else/}
+				
+				<div class="member-main-title clearfix">
+					<h3>邀请人记录</h3>
+					<h4><a href="{:url('award')}">邀请奖励记录</a></h4>
+				</div>
+				
+				   <table class="table record-table">
+						<thead>
+						{in name="$agent_id" value="1,2"}
+							<tr>
+								<th>发生时间</th>
+								<th>用户姓名</th>
+								<th width="40%">返佣金额(元)</th>
+							</tr>
+						{else/}
+							<tr>
+								<th>手机号</th>
+								<th>用户姓名</th>
+								<th width="40%">注册时间</th>
+								<th width="">返佣截止时间</th>
+							</tr>
+						{/in}
+						</thead>
+						<tbody>
+						{notempty name="data"}
+							{volist name="data" id="val"}
+								<tr>
+									 <td>{$val.mobile}</td>
+									<td>{$val.name} </td>
+									<td><span class="">{$val.create_time|date="Y-m-d", ###}</span> </td>
+									{in name="$isAgent" value="0,3"}
+										<td><span class="">
+												{if condition="$agent_id"}
+													长期有效
+													{else /}
+													{$val.create_time|getEndBack}
+												{/if}
+										</span> </td>
+									{/in}
+								</tr>
+							{/volist}
+						{else /}
+						<tr>
+							<td colspan="4">暂无数据</td>
+						</tr>
+						{/notempty}
+						</tbody>
+					</table>
+				<div class="pages">
+					{$data->render()}
+				</div>
+				
+				
+           {/in}
+        </div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script src="__STATIC__/libs/clipboard/clipboard.js"></script>
+<script src="__STATIC__/libs/layer/layer.js"></script>
+<script>
+	var agent_rate = {$plu_rate};
+    var clipboard = new ClipboardJS('.copy-btn');
+    clipboard.on('success', function(e) {
+        layer.msg("复制成功");
+        e.clearSelection();
+    });
+	$("#agent_rate").html(agent_rate+'%');
+
+    clipboard.on('error', function(e) {
+        layer.msg("复制失败，请手动复制邀请链接");
+    });
+	function onTips(){
+		layer.tips("<span style='color:#8a6d3b'>通过您邀请注册的用户人数</span>", '#yonghu',{tips:[1,'#efdbb2']});
+	}
+	function onTips_M(){
+		layer.tips("<span style='color:#8a6d3b'>通过您和您名下代理商邀请注册的用户，配资后您所赚取的佣金</span>", '#yongjin',{tips:[1,'#efdbb2']});
+	}
+	
+	function lookUp(mid){
+			layer.open({
+					type: 2,
+					title: '',
+					shadeClose: true, //点击遮罩关闭层
+					area: ['500px', '400px'],
+					content: "{:url('lookup')}?type_id=1&look_uid="+ mid
+				})
+	}
+	function mange_pro(mid,rate){
+		layer.open({
+			type: 2,
+			title: '',
+			shadeClose: true, //点击遮罩关闭层
+			area: ['500px', '300px'],
+			content: "{:url('lookup')}?type_id=2&look_uid="+ mid+"&agentrate="+rate
+		})
+	}
+	function mange_rate(mid,rate){
+		layer.open({
+			type: 2,
+			title: '',
+			shadeClose: true, //点击遮罩关闭层
+			area: ['500px', '300px'],
+			content: "{:url('lookup')}?type_id=3&look_uid="+ mid+"&agentrate="+rate
+		})
+	}
+	function stopUser(mid,pro){
+		var infp = '启用后此用户代理功能恢复使用，确认启用？';
+		if(pro) infp = '停用后此用户无法设置下级代理，用户返佣等功能正常使用，确认停止？';
+		layer.confirm(infp, {
+			btn: ['确认','取消'] //按钮
+		}, function(){
+		
+			 $.ajax({
+				  type: "GET",
+				  url: "{:url('changStop')}",
+				  data: {chang_uid:mid,agent_pro:pro},
+				  dataType: "json",
+				  success: function(data){
+					  if (data.status == "1") {
+							window.parent.location.reload();
+							paerent.layer.close(index);
+					  } else {
+							layer.msg(data.message);
+					  }
+				  }
+			  });
+			  
+			
+		}, function(){
+		
+			 layer.msg('取消操作');
+		  
+		});
+	}
+</script>
+
+{/block}

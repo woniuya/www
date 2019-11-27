@@ -1,0 +1,129 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/member/css/member.css">
+{/block}
+
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="public/left" /}
+    <div class="member-main">
+        <div class="member-main-title clearfix">
+            <h3> 个人资料 > 重置支付密码 </h3>
+        </div>
+
+        <form action="{:url('resetPayPass')}" class="form form-paypass" method="post" id="j-paypass">
+            <div class="control-group">
+                <label for="">手机号码</label>
+                <div class="con">
+                    <span style="line-height: 40px;">{$member['mobile']}</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="sms_code">短信验证码</label>
+                <div class="con">
+                    <input type="text" name="sms_code" id="sms_code" class="" placeholder="请输入短信验证码">
+                    <span class="btn btn-primary j-msg-btn">发送短信验证码</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="paypass">新支付密码</label>
+                <div class="con">
+                    <input type="password" name="paypass" id="paypass" class="" placeholder="支付密码为6位数字">
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="repaypass">确认支付密码</label>
+                <div class="con">
+                    <input type="password" name="repaypass" class="repaypass"  placeholder="请确认支付密码">
+                </div>
+            </div>
+            <div class="control-group">
+                <label for=""></label>
+                <div class="con">
+                    <input type="hidden" name="mobile" value="{$member['mobile']}">
+                    <input type="submit" class="btn btn-primary btn-red btn-submit" value="确认"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.messages_zh.js"></script>
+<script src="__STATIC__/libs/layer/layer.js"></script>
+<script>
+    $(function () {
+        var timer;
+        var duration = 60;
+        $(".j-msg-btn").on("click", function (e) {
+            var btn = $(this);
+            if(btn.hasClass("disabled")) return;
+            btn.addClass("disabled");
+            timer = setInterval(function () {
+                duration--;
+                if(duration === 0){
+                    duration = 60;
+                    btn.removeClass("disabled").html("重新发送")
+                    clearInterval(timer)
+                } else {
+                    btn.html(duration + 'S');
+                }
+            }, 1000)
+            $.ajax({
+                url: "{:url('sendPayPassMsgCode')}",
+                type: "post",
+                data: {
+                    mobile: "{$member['mobile']}"
+                },
+                dataType: "json",
+                success: function (data) {
+                    if(data.code == 0 ){
+                        layer.msg(data.msg);
+                    }
+                }
+            })
+        });
+        // 支付密码校验
+        $.validator.addMethod("payword", function (value, element) {
+            var tel = /^\d{6}$/;
+            return this.optional(element) || (tel.test(value));
+        }, "支付密码为6位纯数字");
+        // 支付密码规则 6位数字
+        $("#j-paypass").validate({
+            debug: true,
+            rules: {
+                sms_code: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 6
+                },
+                newpwd: {
+                    required: true,
+                    payword: true
+                },
+                subpwd: {
+                    equalTo: "#newpwd"
+                }
+            },
+            messages: {
+                sms_code: {
+                    required: "请输入短信验证码",
+                },
+                newpwd: {
+                    required: "请输入新支付密码",
+                },
+                subpwd: {
+                    equalTo: "新密码输入不一致"
+                }
+            },
+            submitHandler: function (form) {
+                form.submit();
+            },
+            errorElement: "span",
+        })
+    })
+
+</script>
+{/block}

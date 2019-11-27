@@ -1,0 +1,80 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/member/css/member.css">
+<link rel="stylesheet" href="__STATIC__/member/css/bank.css">
+{/block}
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="public/left" /}
+    <div class="member-main">
+        <div class="member-main-title clearfix">
+            <a href="{:url('moneylog/index')}" class="fr">查看资金明细</a>
+            <h3>银行卡</h3>
+            <h4><a href="{:url('add')}">添加银行卡</a></h4>
+        </div>
+        <ul class="bank-card-list clearfix">
+            {volist name="banks" id="item"}
+            <li>
+
+                <div class="bank-info">
+                    <img class="bank-logo" src="{$item.logo|get_file_path}" width="106" height="32" alt="">
+                    <div class="bank-number">{$item.card}</div>
+                </div>
+                <div class="operate">
+                    <div class="btn btn-del">
+                        <a href="{:url('editbank')}?id={$item.id}" class="j-edit-bank" data-id="{$item.id}">
+                        <span class="glyphicon glyphicon-edit"></span> 修改
+                        </a>
+                    </div>
+                    <div class="btn btn-edit">
+                        <a href="{:url('delbank')}" class="j-del-bank" data-id="{$item.id}">
+                        <span class="glyphicon glyphicon-trash"></span> 删除
+                        </a>
+                    </div>
+                </div>
+            </li>
+            {/volist}
+            <li class="add-card">
+                <a href="{:url('add')}">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    添加新银行卡
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{/block}
+{block name="script"}
+<script src="/static/libs/layer/layer.js"></script>
+<script>
+    $(function () {
+        $(".j-del-bank").on("click", function (e) {
+            e.preventDefault();
+            var id = $(this).data("id");
+            var url = $(this).attr("href");
+            layer.confirm("是否删除此银行卡？" , function (index) {
+                if(index) {
+                    $.post(url, {
+                        id: id,
+                        mid: {$mid}
+                    }, function (res) {
+                        layer.close(index);
+                        if(res.code === 1){
+                            layer.msg(res.msg, function () {
+                                location.reload()
+                            })
+                        } else {
+                            layer.msg(res.msg)
+                        }
+                    },'json')
+                }
+            });
+
+        })
+    })
+</script>
+
+{/block}
+
+

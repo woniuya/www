@@ -1,0 +1,37 @@
+{extend name="../../index/view/public/layout" /}
+
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/home/css/news.css">
+{/block}
+{block name="title"}<title>{$document.title}-{:config('web_site_title')}</title>{/block}
+{block name="main-container"}
+<div class="news-container clearfix">
+    <div class="bread-crumb">
+        <a href="{:url('/')}">首页</a> >
+        {volist name="breadcrumb" id="nav"}
+        <a href="{$nav.url}" target="{$nav.target}">{$nav.name}</a> >
+        {/volist}
+        详情
+    </div>
+    <div class="news-article">
+        <h1 class="title">{$document.title}</h1>
+        <div class="meta clearfix">
+            <div class="date"><i class="icon icon-clock"></i>{$document.create_time|time_tran}</div>
+            <div class="share"></div>
+        </div>
+        <div class="article-body">
+           {$document.content}
+        </div>
+        <hr>
+        <div class="pager">
+            {if condition="$prev"}
+            <a class="prev" href="{$prev.url}"> 上一篇: {$prev.title}</a>
+            {/if}
+
+            {if condition="$next"}
+            <a class="next" href="{$next.url}"> 下一篇: {$next.title}</a>
+            {/if}
+        </div>
+    </div>
+</div>
+{/block}

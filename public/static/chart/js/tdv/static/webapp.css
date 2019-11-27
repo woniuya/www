@@ -1,0 +1,132 @@
+﻿.layout__area--center {
+    top: 32px !important;
+}
+.header-chart-panel .header-chart-panel-content
+{
+    padding:0 0 0 27px!important;
+}
+.header-chart-panel .symbol-edit-widget
+{
+    width:160px!important;
+}
+.symbol-edit-widget .symbol-edit-wrap {
+    width: 158px !important;
+}
+.layout__area--top, .header-chart-panel {
+    height: 32px !important;
+}
+.chart-page .chart-container
+{
+    border-color:#666!important;
+}
+.header-chart-panel .group {
+    margin-top: 1px !important;
+}
+
+.pane-legend-line {
+    cursor: default;
+    pointer-events: none !important;
+    font-size: 11px !important;
+}
+
+.arrowbutton {
+    width:0px!important;
+    background-color: #3498db !important;
+    color: #fff !important;
+    border-color: #dedede !important;
+    position:absolute!important;
+    left:0px!important;
+}
+
+.openbutton {
+    background-color: #3498db !important;
+    color: #fff !important;
+    border-color:#dedede!important;
+}
+.mclose {
+    background-color: #666 !important;
+}
+.vboard {
+    margin-left: -1px;
+    display: block;
+    text-align: center;
+    position: relative;
+    float: left;
+    cursor: default;
+    padding: 7px 0px;
+    border: 1px solid;
+    border-color: #424242;
+    height: 14px;
+    width: 42px;
+    background: #333333;
+    color: #dedede;
+    font-size: 9px;
+}
+.txtboard {
+    margin-left: 0px;
+    display: block;
+    text-align: center;
+    position: relative;
+    float: left;
+    cursor: default;
+    padding: 7px 0px;
+    border-color: #424242;
+    height: 14px;
+    width: 25px;
+    background: #222222;
+    color: #999;
+    font-size: 12px;
+    font-weight: 600;
+}
+.priceboard {
+    display: block;
+    position: relative;
+    float: left;
+    text-align: center;
+    cursor: default;
+    padding: 7px 2px;
+    border: 1px solid;
+    border-color: #424242;
+    height: 14px;
+    width: 80px;
+    background: #333333;
+    color: #dedede;
+    font-size: 14px;
+    font-weight: bolder;
+}
+.shin {
+    font-weight: normal !important;
+}
+.pricered {
+    color: rgb(235, 77, 92);
+    background-color: rgba(211, 84, 0, 0.2);
+}
+.pricegreen {
+    color: green;
+    background-color: rgba(46, 204, 113, 0.2);
+}
+.pricenormal {
+    color: rgb(217, 217, 217);
+}
+/*
+    .pane-legend-line span {
+        color: #fff;
+    }
+
+    .pane-legend-line.pane-legend-wrap.study > .pane-legend-line {
+        font-size: 11px !important;
+        color: #fff !important;
+    }
+
+.pane-legend-icon-container {
+    display: none !important;
+}
+
+.pane-legend-line > .main {
+    display: none !important;
+}
+
+.pane-legend .pane-legend-minbtn {
+    display: none;
+}
+    */

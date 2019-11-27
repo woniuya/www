@@ -1,0 +1,40 @@
+{extend name="../../index/view/public/layout" /}
+
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/public/css/animate.min.css">
+<link rel="stylesheet" href="__STATIC__/home/css/news.css">
+<link rel="stylesheet" href="__STATIC__/home/css/download.css">
+{/block}
+{block name="title"}<title>软件下载--{:config('web_site_title')}</title>{/block}
+{block name="main-container"}
+<div class="down-bg">
+    <div class="wrapper clearfix">
+        <div class="news-article">
+            <div class="down-left-img bounceInDown animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: bounceInDown;"><img src="__STATIC__/home/img/down-left-img.png" alt="" /></div>
+            <div class="down-right">
+                <h3 class="tit fadeInDown animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;"></h3>
+                <p class="brief fadeInDown animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;"><i class="icon icon-right"></i>用户一键下单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon icon-right"></i>随时随地掌上操盘</p>
+                <div class="down-App clearfix">
+                    <a href="{:config('app_down_android')}">
+                        <span class="down-erweima">
+                            <img src="{$android_download_page}" width="135" height="135" alt="" />
+                        </span>
+                        安卓扫码下载
+                    </a>
+                    {if condition="config('down_ios') neq ''"}
+                    <a href="{:config('down_ios')}">
+                        <span class="down-erweima">
+                            <img src="{:get_file_path(config('ios_tcode'))}" width="135" height="135"  alt="" />
+                        </span>
+                        苹果扫码下载
+                    </a>
+                    {/if}
+                </div>
+
+                <div class="down-btn"><a href="{:config('web_pcdownurl_set')}">电脑版交易软件点此下载</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="page-footer"}{/block}

@@ -1,0 +1,50 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/member/css/member.css">
+{/block}
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="public/left" /}
+    <div class="member-main">
+        <div class="member-main-title clearfix">
+            <h3> 个人资料 </h3>
+        </div>
+
+        <div class="profile-list">
+            <div class="profile-item">
+                <div class="title">手机号码</div>
+                <a href="{:url('telephone')}" class="link">修改</a>
+                <div class="content"> {$info.mobile} </div>
+            </div>
+
+            <div class="profile-item">
+                <div class="title">实名认证</div>
+                {if condition="$info.name eq ''"}
+                <a href="{:url('realname')}" class="link">去认证</a>
+                {else}
+                {if condition="$info.id_auth eq '0'"}
+                <a href="{:url('realname')}" class="link">认证中</a>
+                <div class="content"> ****** | ******</div>
+                {else}
+                <a href="{:url('realname')}" class="link">查看</a>
+                <div class="content"> {$info.name} | {$info.id_card}</div>
+                {/if}
+                {/if}
+            </div>
+
+            <div class="profile-item">
+                <div class="title">登录密码</div>
+                <a href="{:url('password')}" class="link">修改</a>
+                <div class="content"> 修改账户密码 </div>
+            </div>
+
+            <div class="profile-item">
+                <div class="title">支付密码</div>
+                <a href="{:url('paypass')}" class="link">设置</a>
+                <div class="content"> 为保障资金安全，请定期更换交易密码，建议您交易密码区别于登录密码 </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+

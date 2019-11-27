@@ -1,0 +1,56 @@
+<div class="col-md-{$width|default=6}">
+    <div class="block block-bordered">
+        <div class="block-header bg-gray-lighter">
+            <h3 class="block-title">代办事项</h3>
+        </div>
+        <div class="block-content">
+            <table class="table">
+                <tbody>
+                <tr>
+					<td>免息体验待审核</td>
+                    <td><a href="__ROOT__/admin.php/stock/borrow/index?type=5">{$experience_apply}</a></td>
+                   
+					<td>扩大配资待审核</td>
+                    <td><a href="__ROOT__/admin.php/stock/borrow/addfinancing.html">{$expansion_Allocation_apply_count}</a></td>
+                </tr>
+                <tr>
+					<td>股票配资待审核</td>
+                    <td><a href="__ROOT__/admin.php/stock/borrow/index.html">{$borrow_apply}</a></td>
+					<td>追加保证金待审核</td>
+                    <td><a href="__ROOT__/admin.php/stock/borrow/addmoney.html">{$addmoney_apply_count}</a></td>
+                   
+                </tr>
+                <tr>
+					<td>即将到期待提醒</td>
+                    <td><a href="__ROOT__/admin.php/stock/borrow/soonexpire.html">{$soon_expire_stock_count}</a></td>
+					<td>提取收益待审核</td>
+                    <td><a href="__ROOT__/admin.php/stock/borrow/drawprofit.html">{$drawprofit_apply_count}</a></td>
+					
+                   
+                   
+                </tr>
+                <tr>
+					<td>延期申请待审核</td>
+                    <td><a href="__ROOT__/admin.php/stock/borrow/renewal">{$renewal_apply_count}	</a></td>
+					<td>充值待审核</td>
+                    <td><a href="__ROOT__/admin.php/money/recharge/index.html">{$transfer_nodo}</a></td>
+					
+                </tr>
+                <tr>
+                    <td>终止操盘待审核</td>
+                    <td><a href="__ROOT__/admin.php/stock/borrow/stop.html">{$advance_termination_apply_count}</a></td>
+                    <td>提现待审核</td>
+                    <td><a href="__ROOT__/admin.php/money/withdraw/index?noCheck=0">{$withdraw_noDo}</a></td>
+                </tr>
+                <tr>
+                    <td>到期配资待结算</td>
+                    <td><a href="__ROOT__/admin.php/stock/borrow/endlist.html">{$expire_stock_count} </a></td>
+                    <td>实名认证待审核</td> 
+                    <td><a href="__ROOT__/admin.php/member/identity/index.html">{$idAuth_noDo}</a></td>
+                </tr>
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

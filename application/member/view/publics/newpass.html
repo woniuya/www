@@ -1,0 +1,90 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/member/css/login.css">
+{/block}
+{block name="main-container"}
+<div class="login-container">
+    <div class="login-wrap">
+        <div class="login-hd">
+            <h3>设置新密码</h3>
+        </div>
+        <div class="login-bd">
+            <form action="{:url('/password')}" class="form-newpass form-input-group" method="post" id="j-form-newpass">
+                <div class="control-group">
+                    <div class="input-control">
+                        <label for="password" class="input-group-label">
+                            <img src="__STATIC__/member/img/icon-man.png" alt="">
+                        </label>
+                        <input type="password" name="password" id="password" placeholder="请输入您的新密码">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="input-control">
+                        <label for="repwd" class="input-group-label">
+                            <img src="__STATIC__/member/img/icon-man.png" alt="">
+                        </label>
+                        <input type="password" name="repwd" id="repwd" placeholder="请重新输入新密码">
+                    </div>
+                </div>
+                <input type="submit" id="setpwd" value="确认" class="btn btn-block btn-red btn-submit">
+            </form>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script src="__STATIC__/libs/layer/layer.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.messages_zh.js"></script>
+
+<script>
+    $.validator.addMethod("pass_strength", function (value, element) {
+        return this.optional(element) || /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]{6,16}$/.test(value);
+    }, "密码长度为6-16位，必须包含数字、字母");
+    (function ($) {
+        $("#j-form-newpass").validate({
+            rules: {
+                password: {
+                    required: true,
+                    pass_strength: true
+                },
+                repwd: {
+                    equalTo: "#password"
+                }
+            },
+            messages: {
+                password: {
+                    required: "请输入密码",
+                },
+                repwd: {
+                    equalTo: "密码与确认密码不一致"
+                }
+            },
+            submitHandler: function(form) {
+                // form.submit();
+                $this = $(this);
+                $.ajax({
+                    url: $this.attr("action"),
+                    type: "post",
+                    dataType: "json",
+                    data:{
+                        password: $("#password").val()
+                    },
+                    success: function (data) {
+                        layer.msg(data.msg, function () {
+                            window.location.href = data.url;
+                        })
+                    }
+                })
+
+            },
+            errorElement: "div",
+            errorPlacement: function (error, element) {
+                $(element).closest(".control-group").append(error);
+            }
+        })
+
+    })(jQuery)
+</script>
+{/block}

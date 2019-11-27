@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>饼型图表</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="__STATIC__\admin\js\core\echarts\echarts.min.js"></script>
+</head>
+<body>
+<div id="echart2" style="width: 95%;height:600px;"></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('echart2'));
+    var returns = {$returns};
+    var strs = new Array();
+    var strs1 = new Array();
+    $.each(returns,function(key){
+        //console.log("删除后的结果："+key+"=="+returns[key]+"\r\n");
+        strs.push(key+'月');
+        strs1.push(returns[key]);
+    });
+    var myChart2 = echarts.init(document.getElementById('echart2'));
+    option = {
+        title : {
+            text: '',
+            subtext: '时间单位/月'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : strs
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                minInterval :1,
+                axisLabel : {
+                    formatter: '{value}个'
+                }
+
+            }
+        ],
+        series : [
+            {
+                name:'人数',
+                type:'line',
+                data:strs1
+
+            },
+
+        ]
+    };
+
+    myChart2.setOption(option);
+    // myChart2.showLoading();
+    //myChart.setOption(option);
+</script>
+</body>
+</html>
+

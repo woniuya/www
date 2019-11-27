@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="renderer" content="webkit">
+    <!--[if lte IE 9]>
+    <script type="text/javascript" src="__STATIC__/market/ieold.js"></script>
+    <script>IEOLd(10)</script>
+    <![endif]-->
+    <title>{$platform}</title>
+    <link href="__STATIC__/market/main.ccde7ff2.css" rel="stylesheet">
+    <script>
+        window.oncontextmenu = function () {
+            return false
+        }
+    </script>
+</head>
+
+<body>
+    <noscript>您的浏览器禁用了javascript，请手动开启</noscript>
+    <div id="root" mid="{$mid}" platform="{$platform}" mobile="{$mobile}"></div>
+    <script type="text/javascript" src="__STATIC__/market/main.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+        function getQueryVariable(variable)
+        {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i=0;i<vars.length;i++) {
+                    var pair = vars[i].split("=");
+                    if(pair[0] == variable){return pair[1];}
+            }
+            return(false);
+        }
+        var code;
+        var height=$(document.body).height()-108;
+        $(function () {
+            $(".stock-meta").hide();
+            $(".chart-tab").html("");
+            $(".stock-info-hd .left").hide();
+            $(".stock-info-hd .right").css({
+                'float':"left"
+            })
+
+            var setIframe=function(){
+                $.get('/market/index/getType?code='+code,res=>{
+                    var type="";
+                    if(res.code==1){
+                        type=res.data.type;
+                    }
+                    $ifram=$('<iframe id="ifmMaintest" name="ifmMaintest" src="/chart.php/queryapi_sinachart/index/charts?symbol='+type+code+'" style="margin:auto;width:100%;height:'+height+'px;border:none;" frameborder="0" scrolling="no"></iframe>');
+                    $(".chart-tab").html($ifram);
+                })
+            }
+            setTimeout(function(){
+                code=getQueryVariable('c');
+                setIframe();
+            },300)
+            // 切换股票
+            $(".ant-tabs-content").click(function(){
+                console.log(22)
+                setTimeout(function(){
+                    var tempcode=getQueryVariable('c');
+                    if(tempcode!=code){
+                        code=tempcode;
+                        setIframe();
+                    }
+                },200);
+            })
+            $(".search-list").click(function(){
+                console.log(22)
+                setTimeout(function(){
+                    var tempcode=getQueryVariable('c');
+                    if(tempcode!=code){
+                        code=tempcode;
+                        setIframe();
+                    }
+                },200);
+            })
+        })
+
+
+    </script>
+</body>
+
+</html>

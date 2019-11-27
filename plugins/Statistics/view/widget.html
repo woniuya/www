@@ -1,0 +1,257 @@
+<div class="col-md-{$width|default=6}">
+    <div class="block block-bordered">
+        <div class="block-header bg-gray-lighter">
+            <h3 class="block-title">后台首页统计</h3>
+        </div>
+        <script type="text/javascript" src="__STATIC__\admin\js\core\echarts\echarts.min.js"></script>
+        <div id="echart2" style="width: 85%;height:350px;margin-left:50px"></div>
+        <div id="echart3" style="width: 95%;height:300px;"></div>
+        <div id="echart4" style="width: 85%;height:350px;margin-left:50px;margin-top:30px"></div>
+        <script type="text/javascript">
+            var myChart = echarts.init(document.getElementById('echart2'));
+
+            option = {
+                title : {
+                    text: '',
+                    subtext: '',
+                    x:'center'
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} "
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: ['累计总操盘资金','累计持仓总额','累计赚取收益','总配资金额']
+                },
+                series : [
+                    {
+                        name: '万元',
+                        type: 'pie',
+                        radius: ['0%', '55%'],
+                        label: {
+                            normal: {
+                                formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}   ',
+                                backgroundColor: '#eee',
+                                borderColor: '#aaa',
+                                borderWidth: 1,
+                                borderRadius: 4,
+                                rich: {
+                                    a: {
+                                        color: '#999',
+                                        lineHeight: 22,
+                                        align: 'center'
+                                    },
+                                    hr: {
+                                        borderColor: '#aaa',
+                                        width: '100%',
+                                        borderWidth: 0.5,
+                                        height: 0
+                                    },
+                                    b: {
+                                        fontSize: 16,
+                                        lineHeight: 33
+                                    },
+                                    per: {
+                                        color: '#eee',
+                                        backgroundColor: '#334455',
+                                        padding: [2, 4],
+                                        borderRadius: 2
+                                    }
+                                }
+                            }
+                        },
+                        data:[
+                            {value:"{$total_operate_account}", name:'累计总操盘资金'},
+                            {value:"{$p_total}", name:'累计持仓总额'},
+                            {value:"{$ck_profit}", name:'累计赚取收益'},
+                            {value:"{$stock_money}", name:'总配资金额'},
+
+                        ],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+
+
+            myChart.setOption(option);
+
+            var myChart3 = echarts.init(document.getElementById('echart3'));
+            option = {
+                title : {
+                    text: '',
+                    subtext: '单位/个'
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : ['总用户数','累计配资人数','昨日新增用户数','近七日新增用户数','本月新增用户数']
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        axisLabel : {
+                            formatter: '{value}个'
+                        }
+                    }
+                ],
+                series : [
+                    {
+                        name:'人数',
+                        type:'line',
+                        data:["{$member_count}","{$borrow_count}","{$Yesterday}","{$new7day}","{$ThisMonth}"],
+
+
+                    },
+
+                ]
+            };
+            myChart3.setOption(option);
+
+            var myChart4 = echarts.init(document.getElementById('echart4'));
+
+            option = {
+                title : {
+                    text: '',
+                    subtext: '',
+                    x:'center'
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} "
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: ['总配资单数','免费体验','模拟操盘','免息配资','按日配资','按周配资','按月配资']
+                },
+                series : [
+                    {
+                        name: '单数',
+                        type: 'pie',
+                        radius: ['0%', '55%'],
+                        label: {
+                            normal: {
+                                formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}   ',
+                                backgroundColor: '#eee',
+                                borderColor: '#aaa',
+                                borderWidth: 1,
+                                borderRadius: 4,
+                                rich: {
+                                    a: {
+                                        color: '#999',
+                                        lineHeight: 22,
+                                        align: 'center'
+                                    },
+                                    hr: {
+                                        borderColor: '#aaa',
+                                        width: '100%',
+                                        borderWidth: 0.5,
+                                        height: 0
+                                    },
+                                    b: {
+                                        fontSize: 16,
+                                        lineHeight: 33
+                                    },
+                                    per: {
+                                        color: '#eee',
+                                        backgroundColor: '#334455',
+                                        padding: [2, 4],
+                                        borderRadius: 2
+                                    }
+                                }
+                            }
+                        },
+                        data:[
+                            {value:"{$stock_nums}", name:'总配资单数'},
+                            {value:"{$experience_counts}", name:'免费体验'},
+                            {value:"{$simulation_counts}", name:'模拟操盘'},
+                            {value:"{$free_counts}", name:'免息配资'},
+                            {value:"{$day_counts}", name:'按日配资'},
+                            {value:"{$week_counts}", name:'按周配资'},
+                            {value:"{$month_counts}", name:'按月配资'}
+                        ],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            myChart4.setOption(option);
+
+        </script>
+        <!--<div class="block-content">
+
+            <table class="table">
+            <tbody >
+            <tr>
+                <td width="20%"><h6>综合预览</h6></td>
+                <td width="20%"></td>
+                <td width="30%"></td>
+                <td width="30%"></td>
+            </tr>
+            <tr>
+                <td width="25%">累计总操盘资金:{$total_operate_account}万元</td>
+                <td width="25%">累计持仓总额:{$p_total}万元</td>
+                <td width="25%">累计配资人数:{$borrow_count}</td>
+                <td width="25%">累计赚取收益:{$ck_profit}万元</td>
+            </tr>
+            <tr>
+                <td >总用户数:{$member_count}</td>
+                <td >昨日新增用户数:{$Yesterday}</td>
+                <td >近七日新增用户数:{$new7day}</td>
+                <td >本月新增用户数:{$ThisMonth}</td>
+
+            </tr>
+            <tr>
+                <td >总配资单数：{$stock_nums}</td>
+                <td >总配资金额:{$stock_money}万元  </td>
+
+
+                <td width="25%">免费体验:{$experience_counts}</td>
+                <td width="25%">模拟操盘:{$simulation_counts}</td>
+            </tr>
+            <tr>
+                <td >免息配资:{$free_counts}</td>
+                <td >按日配资:{$day_counts}</td>
+                <td >按周配资:{$week_counts}</td>
+                <td >按月配资:{$month_counts}</td>
+            </tr>
+            <tr>
+                <td >代理商总数:{$agent_counts}</td><td >一级代理:{$agent_one_counts}</td><td >二级代理:{$agent_two_counts}</td><td >三级代理:{$agent_tree_counts}</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        </div>-->
+    </div>
+</div>

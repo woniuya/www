@@ -1,0 +1,183 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/member/css/login.css">
+{/block}
+{block name="main-container"}
+<div class="login-container">
+    <div class="login-wrap">
+        <div class="login-hd">
+            <h3>找回密码</h3>
+        </div>
+        <div class="login-bd">
+            <form action="{:url('next')}" class="form-getpass form-input-group" method="post" id="j-form-getpass">
+                <div class="control-group">
+                    <div class="input-control">
+                        <label for="mobile" class="input-group-label">
+                            <img src="__STATIC__/member/img/icon-man.png" alt="">
+                        </label>
+                        <input type="text" name="mobile" id="mobile" placeholder="请输入您的手机号码">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="code-group clearfix">
+                        <div class="input-control">
+                            <label for="captcha" class="input-group-label">
+                                <img src="__STATIC__/member/img/icon-shield.png" alt="">
+                            </label>
+                            <input type="text" name="captcha" id="captcha" required placeholder="请输入右侧验证码">
+                        </div>
+                        <div class="input-control-right">
+                            <img src="{:captcha_src()}" id="captcha-img" style="cursor: pointer;"
+                                 onclick="this.src='{:captcha_src()}?d='+Math.random();" title="点击刷新" alt="captcha"/>
+                            <span class="btn-reload">刷新</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group" id="sendSmsCodeGroup" style="display: block">
+                    <div class="code-group clearfix">
+                        <div class="input-control">
+                            <label for="sms_code" class="input-group-label">
+                                <img src="__STATIC__/member/img/icon-shield.png" alt="">
+                            </label>
+                            <input type="text" name="sms_code" id="sms_code" class="" placeholder="请输入短信验证码">
+                        </div>
+                        <div class="input-control-right">
+                            <button type="button" id="sendsms" class="btn btn-primary btn-block"
+                                    style="line-height: 30px;">
+                                发送验证码
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="submit" value="下一步" class="btn btn-block btn-red btn-submit">
+            </form>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script src="__STATIC__/libs/layer/layer.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.messages_zh.js"></script>
+<script>
+    (function ($) {
+
+        $.validator.addMethod("telephone", function (value, element) {
+            return this.optional(element) || /^1[345789]\d{9}$/.test(value);
+        }, "请输入正确的手机号码");
+
+        $.validator.addMethod("smscode", function (value, element) {
+            return this.optional(element) || /^\d{6}$/.test(value);
+        }, "请输入正确的短信验证码");
+        $("#j-form-getpass").validate({
+            rules: {
+                mobile: {
+                    required: true,
+                    telephone: true
+                },
+                sms_code: {
+                    required: true,
+                    smscode: true
+                },
+                captcha: {
+                    required: true,
+                    minlength: 4,
+                    maxlength: 4
+                }
+            },
+            messages: {
+                mobile: {
+                    required: "请输入手机号码",
+                    telephone: "手机号码有误"
+                },
+                sms_code: {
+                    required: "请输入短信验证码",
+                    smscode: "短信验证码有误"
+                },
+                captcha: {
+                    required: "请输入图片验证码",
+                    minlength: "图片验证码有误",
+                    maxlength: "图片验证码有误"
+                }
+            },
+
+            submitHandler: function (form) {
+                // form.submit();
+                $.ajax({
+                    type: "post",
+                    url: $("#j-form-getpass").attr("action"),
+                    data: {
+                        mobile: $("#mobile").val(),
+                        captcha: $("#captcha").val(),
+                        sms_code: $("#sms_code").val()
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code === 1) return window.location.href = data.url;
+                        layer.msg(data.msg)
+                    }
+                })
+            },
+            errorElement: "div",
+            errorPlacement: function (error, element) {
+                $(element).closest(".control-group").append(error);
+            }
+        });
+
+            $(".btn-reload").on("click", function () {
+                $("#captcha-img").trigger("click");
+            });
+        var timer1 = null;
+        var leftsecond = 60; //倒计时
+        var msg = "";
+        var sendSMSTip = $("#sendsms"); //获取按钮id
+            $("#sendsms").click(function () {
+                var mobile = $("#mobile").val();
+                var reg = /^1[0-9]{10}$/;
+                var captcha = $("#captcha").val();
+
+                if (!reg.test(mobile)) {
+                    return layer.msg("请输入正确的手机号");
+                }
+
+                if (captcha == '') {
+                    return layer.msg("请输入图片验证码");
+                }
+
+                $.post("{:URL('sendPassSms')}", {
+                    'mobile': mobile,
+                    'captcha': captcha,
+                    'tp': 'code'
+                }, function (data) {
+                    sendSMSTip.removeClass("disabled");
+                    if (data.status) {
+                        $('#sendsms').addClass('disabled');
+                        timer1 = setInterval(setLeftTime1, 1000);
+                        return layer.msg("短信验证码已发送");
+                    } else {
+                        $('#sendsms').removeClass("disabled");
+                        return layer.msg(data.message);
+                    }
+                })
+            })
+
+        function setLeftTime1() {
+            var second = Math.floor(leftsecond);
+            sendSMSTip.html(msg + second + "秒");
+            leftsecond--;
+            if (leftsecond < 1) {
+                clearInterval(timer1);
+                sendSMSTip.html("重新获取验证码");
+                sendSMSTip.removeClass("disabled");
+                leftsecond = 60;
+
+            }
+        }
+
+    })(jQuery)
+</script>
+{/block}

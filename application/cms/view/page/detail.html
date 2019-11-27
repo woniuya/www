@@ -1,0 +1,18 @@
+{extend name="../../index/view/public/layout" /}
+
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/home/css/news.css">
+{/block}
+ {block name="title"}<title>{:config('title')}-{:config('web_site_title')}</title>{/block}
+{block name="main-container"}
+<div class="news-container clearfix">
+    <div class="bread-crumb">
+        <a href="{:url('/')}">首页</a> > {$page_info.title}
+    </div>
+    <div class="news-article">
+        <div class="article-body">
+            {$page_info.content}
+        </div>
+    </div>
+</div>
+{/block}

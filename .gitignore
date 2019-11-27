@@ -1,0 +1,11 @@
+.idea
+composer.lock
+/runtime/
+/.settings/
+/.buildpath
+/.project
+*.log
+/public/uploads/temp/
+/public/uploads/images/
+.user.ini
+.DS_Store

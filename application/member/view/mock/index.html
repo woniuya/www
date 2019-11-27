@@ -1,0 +1,175 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__MODULE_CSS__/member.css">
+<link rel="stylesheet" href="__MODULE_CSS__/index.css">
+<link rel="stylesheet" href="__STATIC__/libs/bootstrap-daterangepicker/daterangepicker.css">
+{/block}
+<title>会员中心首页</title>
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="public/left" /}
+    <div class="member-main">
+        <div class="member-main-title clearfix">
+            <h3>模拟操盘</h3>
+        </div>
+        <div class="financing-section">
+
+            <div class="list-filter">
+                <ul>
+                    <li class="clearfix">
+                        {notempty name="borrow"}
+                        <div class="title">操盘状态</div>
+                        {/notempty}
+                    </li>
+                </ul>
+            </div>
+            {notempty name="borrow"}
+            <ul class="financing-list">
+                {volist name="borrow" id="bw"}
+                <li class="item">
+                    <div class="item-hd">
+
+                        单号：<span class="order-sn">{$bw.order_id}</span>
+                        {eq name="bw['status']" value="1"}
+                        <span class="tag">{$bw->status_text}</span>
+                        {else/}
+                        <span class="tag tag-disabled">{$bw->status_text}</span>
+                        {/eq}
+                    </div>
+                    <div class="item-bd clearfix">
+                        <div class="unit">
+                            <div class="title">操盘资金</div>
+                            <div class="value">{$bw.init_money|money_convert=###}元</div>
+                        </div>
+                        <div class="unit">
+                            <div class="title">借入资金</div>
+                            <div class="value">{$bw.borrow_money|money_convert=###}元</div>
+                        </div>
+                        <div class="unit">
+                            <div class="title">风险保证金</div>
+                            <div class="value">{$bw.deposit_money|money_convert=###}元</div>
+                        </div>
+                        <div class="unit">
+                            <div class="title">总利息</div>
+                            <div class="value">{$bw->borrow_interest|money_convert=###}元</div>
+                        </div>
+                        {if condition="$bw['status'] eq -1"}
+                        <div class="unit">
+                            <div class="title">股票可用金额</div>
+                            <div class="value">--</div>
+                        </div>
+                        <div class="unit">
+                            <div class="title">股票市值</div>
+                            <div class="value">--</div>
+                        </div>
+                        <div class="unit">
+                            <div class="title">股票盈亏</div>
+                            <div class="value">--</div>
+                        </div>
+                        {elseif condition="$bw['status'] eq 0"}
+                        <div class="unit">
+                            <div class="title">股票可用金额</div>
+                            <div class="value">--</div>
+                        </div>
+                        <div class="unit">
+                            <div class="title">股票市值</div>
+                            <div class="value">--</div>
+                        </div>
+                        <div class="unit">
+                            <div class="title">股票盈亏</div>
+                            <div class="value">--</div>
+                        </div>
+                        {else/}
+                        <div class="unit">
+                            <div class="title">股票可用金额</div>
+                            <div class="value">{$bw.avail|money_convert=###}元</div>
+                        </div>
+                        <div class="unit">
+                            <div class="title">股票市值</div>
+                            <div class="value">{$bw.sum_money}元</div>
+                        </div>
+                        <div class="unit">
+                            <div class="title">股票盈亏</div>
+                            <div class="value">{$bw.return_money}</div>
+                        </div>
+                        {/if}
+                    </div>
+                    <div class="item-ft clearfix">
+                        {in name="bw['status']" value='1,2'}
+                        操盘时间：{$bw->verify_time | date="Y-m-d", ###} 至 {$bw->end_time | date="Y-m-d", ###}
+                        {/in}
+                        <div class="btn-group">
+                            {if condition="$bw['status'] eq 1"}
+                            <a href="/market/index/index?u={$bw['sub_account']}" target="market" class="red">查看实盘交易</a>
+                            {/if}
+                            <a href="/member/mock/details?id={$bw.id}">配资详情</a>
+                        </div>
+                    </div>
+                </li>
+                {/volist}
+                <div style="float: right;">{$borrow->render()}</div>
+            </ul>
+            {else/}
+            <div class="stock-empty">
+                <div class="wrap">
+                    <img src="__STATIC__/member/img/exclamation.gif" alt="">
+                    {if condition="$s_flag neq 6"}
+                    <div>
+                        您还没有申请模拟操盘<br/>
+                        快去 <a href="{:url('stock/mock/index')}">申请模拟操盘>></a>
+                    </div>
+                    {else/}
+                    <div>
+                        暂无数据！<br/>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            {/notempty}
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script src="__STATIC__/libs/bootstrap-daterangepicker/moment.js"></script>
+<script src="__STATIC__/libs/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="__STATIC__/libs/URI.min.js"></script>
+<script>
+    (function ($) {
+        $(".date-picker-input").daterangepicker({
+            singleDatePicker: true,
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+        });
+        $("input[name='to_time']").on("change", function () {
+            var startTimeValue = $("input[name='from_time']").val();
+            var endTimeValue = $(this).val();
+
+            var startTimeStamp = Date.parse(startTimeValue);
+            var endTimeStamp = Date.parse(endTimeValue);
+
+            if(endTimeStamp < startTimeStamp){
+                startTimeValue = $(this).val();
+                endTimeValue = $("input[name='from_time']").val();
+                $(this).val(endTimeValue);
+                $("input[name='from_time']").val(startTimeValue)
+            }
+            var uri = new URI(window.location.href);
+            var search = uri.search(true);
+            search.from_time = startTimeValue;
+            search.to_time = endTimeValue;
+            var locationSearch = URI.buildQuery(search);
+            window.location.href="{:url()}?" + locationSearch;
+        });
+        $(".btn-switch").switchAutoRenewalBtn();
+
+    })(jQuery);
+
+    function clean(){
+        $("#beginDate").val('');
+        $("#endDate").val('');
+    }
+</script>
+{/block}

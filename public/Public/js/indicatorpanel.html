@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html;charset=gb2312" http-equiv="Content-Type">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+	<style>
+		/*css reset*/
+		html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+			border: 0;
+			font-size: 100%;
+			font: inherit;
+			vertical-align: baseline;
+			margin: 0;
+			padding: 0;
+		}
+
+		article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+			display: block;
+		}
+
+		body {
+			line-height: 1;
+		}
+
+		ol, ul {
+			list-style: none;
+		}
+
+		blockquote, q {
+			quotes: none;
+		}
+
+			blockquote:before, blockquote:after, q:before, q:after {
+				content: none;
+			}
+
+		table {
+			border-collapse: collapse;
+			border-spacing: 0;
+		}
+		/*end of css reset*/
+	</style>
+	<style>
+			html, body {
+				height: 100%;
+				background: #fff;
+				overflow: auto;
+			}
+
+			body {
+				font: 12px '微软雅黑',sans-serif;
+				margin: 0 auto;
+				dragable: false;
+				-webkit-user-drag: none;
+				/*
+		-moz-user-select:none;
+		-webkit-user-select:none;
+		-ms-user-select:none;
+		user-select:none;
+		*/
+			}
+
+			button {
+				outline: none;
+			}
+
+				button::-moz-focus-inner,
+				input::-moz-focus-inner {
+					border: none;
+					padding: 0;
+					margin: 0;
+				}
+
+			#mainArea button, #btn_add {
+				vertical-align: middle;
+				cursor: pointer;
+				width: 18px;
+				height: 18px;
+				font-size: 12px;
+				line-height: 18px;
+				text-align: center;
+				padding: 0;
+				border: 0;
+				color: #000;
+				background-color: #EFEFEF;
+				margin: 0 0 1px 0;
+			}
+
+				#mainArea button:hover, #btn_add:hover {
+					color: #E5F1FD;
+					background-color: #494949; /*#107BF3;*/
+				}
+
+			.input_color {
+				vertical-align: middle;
+				margin: 0 9px 2px 0;
+				cursor: pointer;
+				width: 18px;
+				height: 18px;
+				border: 0;
+				padding: 0;
+				display: inline-block;
+			}
+
+			#btnAtra button {
+				cursor: pointer;
+				color: #494949; /*#107BF3;*/
+				border: 1px solid #494949; /*#107BF3;*/
+				background-color: #ffffff;
+			}
+
+				#btnAtra button:hover {
+					/*
+		color: #ffffff;
+		border: 1px solid #107BF3;
+		background-color: #107BF3;
+		*/
+					color: #fff;
+					border: 1px solid #494949;
+					background-color: #494949;
+				}
+
+			#title {
+				padding-top: 8px;
+				padding-bottom: 8px;
+				padding-left: 5px;
+				border-bottom: 1px dashed;
+				border-color: rgba(150,150,150,0.5);
+				dragable: false;
+				-webkit-user-drag: none;
+				-moz-user-select: none;
+				-webkit-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+
+				#title:hover {
+					cursor: move;
+				}
+	</style>
+
+	<title>Indicator Configuration Panel(VER 1.5.0)</title>
+
+</head>
+
+<body>
+	<header>
+		<h1 id='title'>
+			<!--chart name-->
+		</h1>
+	</header>
+
+	<div style="margin:12px 9px 9px 9px;">
+		<div id='mainArea'>
+			<!---->
+		</div>
+
+		<div id="extraArea">
+			<button id='btn_add' title="增加一条均线">+</button>
+		</div>
+
+		<div id='btnAtra' style='margin-top:15px;'>
+			<!--<button onclick="_.btnM.apply();">应用</button>-->
+			<button id='btn_ok'>确定</button>
+			<button id='btn_close'>取消</button>
+			<button id='btn_default'>默认</button>
+			<button id='btn_remove' style="display:none;">移除</button>
+		</div>
+	</div>
+
+	<script>
+!function(){function e(e,t,n){e.addEventListener?e.addEventListener(t,n,!1):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}function t(e,t){return t=t||document,t.getElementById(e)}function n(e,t){var n=document.createElement(e);return t&&(n.id=t),n}function o(e,t){var n=Array.prototype.slice.call(arguments,2);return function(){return e.apply(t,n.concat(Array.prototype.slice.call(arguments)))}}function a(){for(var e=Math.floor(16777215*Math.random()).toString(16);e.length<6;)e+="0";return e}function r(e,t){for(var n in e)e.hasOwnProperty(n)&&(e[n]=t+e[n])}function i(e){return e+ +new Date+Math.random().toString().split(".")[1]+u++}var c=new function(){var e=n("div");return e.style.display="none",function(t,n){if(t){if(t.hasChildNodes())for(;t.childNodes.length>0;)t.removeChild(t.firstChild);if(n)return void(t.innerHTML="");e.appendChild(t),e.innerHTML=""}}},d="sinatkchart_indicatorscfgpanel~",l={LOADED:"loaded",HIDE:"hide",REMOVE:"remove",EDIT:"edit",DRAGSTART:"dragstart",DRAGGING:"dragging",PICKCOLOR:"pickcolor",COLORPICKED:"colorpicked",OPEN:"open"};r(l,d);var u=0,s=new function(){function r(t){var a=n("span");a.style.display="inline-block",a.style.width="80px",a.style.textAlign="right";var r=n("input");try{r.type="number"}catch(c){}r.style.width="50px",r.style.margin="0 9px";var d=n("div");d.className+=" input_color ",d.id=i("input_color_"),e(d,"click",function(e){Y(l.PICKCOLOR,{x:e.clientX-170,y:e.clientY,target:d.id,color:window.getComputedStyle?window.getComputedStyle(d).backgroundColor:d.currentStyle.backgroundColor})});var u=n("button");u.innerHTML="x",e(u,"click",o(R.del,null,this));var s=n("div");s.style.margin="7px",s.appendChild(a),s.appendChild(r),s.appendChild(d),t&&s.appendChild(u),this.body=s,this.setContent=function(e,t,n){a.innerHTML=[t||e.desc||e.idct,":"].join(""),null===e.v||isNaN(Number(e.v))?(r.value="",r.disabled="disabled"):(r.value=e.v,r.disabled=""),d.setAttribute("value",e.color),d.style.backgroundColor=e.color,n&&s.appendChild(u)},this.getContent=function(){return{v:Number(r.value),color:d.getAttribute("value")}},this.handleDelBtn=function(e){e?s.appendChild(u):u.parentNode&&u.parentNode.removeChild(u)}}function d(){var e,t,n=new r(!0),o=k?k.length:0,i=o>0?k[o-1].getContent().v:1;switch(E){case"VOLUME":e=T,t=M[o-1]||"#"+a();break;case"TVOL":e=B,t=M[o-1]||"#"+a();break;case"MA":e=E,t=M[o]||"#"+a();break;case"EXPMA":e=V,t=A[o]||"#"+a();break;default:e=E||o+1,t="#"+a()}n.setContent({idct:e,v:2*i,color:t}),k.push(n),h.appendChild(n.body)}function u(){var e=K();s(e),Y(l.EDIT,e)}function s(e){e.param.forEach(function(e){e.v=Math.floor(e.v)})}function p(){Y(l.HIDE)}function f(){Y(l.REMOVE,{name:E}),p()}var v,h,m,g,C,b,D,y,E,k=[],M=["#FC9CB8","#12BDD9","#EE2F72","#8CBB0D","#0DC168","#978d52"],A=["#2d0674","#84a8de","#e80f01","#f1926f","#2c0eed"],O="MA",L=[{v:5,color:"#FC9CB8",prop:"ma5",idct:O},{v:10,color:"#12BDD9",prop:"ma10",idct:O},{v:20,color:"#EE2F72",prop:"ma20",idct:O},{v:30,color:"#8CBB0D",prop:"ma30",idct:O}],T="MA",w=[{v:0/0,color:"#888888",prop:"volume",idct:"VOL"},{v:5,color:"#FC9CB8",prop:"ma5",idct:T},{v:10,color:"#12BDD9",prop:"ma10",idct:T}],B="MA",N=[{v:0/0,color:"#888888",prop:"volume",idct:"VOL"},{v:5,color:"#FC9CB8",prop:"ma5",idct:B},{v:10,color:"#12BDD9",prop:"ma10",idct:B}],V="EMA",I=[{v:12,color:"#2d0674",prop:"ema12",idct:V},{v:50,color:"#84a8de",prop:"ema50",idct:V}],R={close:function(){p()},ok:function(){u(),p()},loadDefault:function(){_()},add:function(){d()},remove:function(){f()},del:function(e){G(e)}},P=function(){function n(e){u=!0,Y(l.DRAGSTART),e.targetTouches?(r=e.targetTouches[0].screenX,i=e.targetTouches[0].screenY):(r=e.screenX,i=e.screenY),e.preventDefault?e.preventDefault():e.returnValue=!1}function o(e){u&&(e.targetTouches?(c=e.targetTouches[0].screenX-r,d=e.targetTouches[0].screenY-i):(c=e.screenX-r,d=e.screenY-i),Y(l.DRAGGING,{movedX:c,movedY:d}),e.preventDefault?e.preventDefault():e.returnValue=!1)}function a(){u=!1}v=t("title"),h=t("mainArea"),m=t("btn_ok"),g=t("btn_close"),C=t("btn_default"),D=t("btn_remove"),b=t("btn_add"),e(m,"click",R.ok),e(g,"click",R.close),e(C,"click",R.loadDefault),e(b,"click",R.add),e(D,"click",R.remove);var r,i,c,d,u=!1;"ontouchend"in window?(e(v,"touchstart",n),e(v,"touchmove",o),e(v,"touchend",a)):(e(v,"mousedown",n),e(v,"mousemove",o),e(v,"mouseup",a),e(v,"mouseout",a))},X=function(e){for(c(h,!0),C.disabled="";e>k.length;)k.push(new r);for(;e<k.length;)k.length--},S=function(e,t,n){for(var o=y===w||y===N,a=0,r=e.length;r>a;a++){var i=e[a];if(!i.hidecfg){var c=k[a],d=o&&0==a?!1:n;c.setContent(i,t?t:void 0,d),h.appendChild(c.body)}}},_=function(){if(y){X(y.length);var e=!1;(y===L||y===w||y===N||y===I)&&(e=!0),S(y,null,e)}},G=function(e){for(var t=k.length;t--;)if(k[t]==e){k.splice(t,1),e.body.parentNode.removeChild(e.body);break}},H=function(e){switch(e.name){case"MA":case"VOLUME":case"TVOL":case"EXPMA":b.style.display="";break;default:b.style.display="none"}},x=function(e){var t,n=!1;switch(e.name){case"MA":case"EXPMA":t=!0;break;case"VOLUME":case"TVOL":t=!0,n=!0;break;default:t=!1}for(var o=0,a=k.length;a>o;o++){var r=n&&0==o?!1:t;k[o].handleDelBtn(r)}},F=function(e){if(y=e.defaultData||void 0,!y)switch(e.name){case"MA":y=L;break;case"VOLUME":y=w;break;case"TVOL":y=N;break;case"EXPMA":y=I;break;default:C.disabled="disabled"}};this.reset=function(){c(h,!0),C.disabled=""},this.setTitle=function(e){v.innerHTML=e},this.setDisable=function(){C.disabled="disabled"},this.appendItem=function(e){h.appendChild(e)};var Y=function(e,t){parent.postMessage(JSON.stringify({cmd:e,data:t}),"*")};this.postMsg=Y,this.onData=function(e){X(e.data.length),E=v.innerHTML=e.name,F(e),H(e),x(e),S(e.data)};var K=function(){for(var e={name:E,param:[]},t=0,n=k.length;n>t;t++)e.param.push(k[t].getContent());return e};P()};e(window,"message",function(e){var t;try{t=JSON.parse(e.data)}catch(e){}if(t&&t.cmd)switch(t.cmd){case l.COLORPICKED:var n=t.data,o=document.getElementById(n.target);o&&(o.style.backgroundColor=n.color,o.setAttribute("value",n.color));break;case l.OPEN:s.onData(t.data)}}),s.postMsg(l.LOADED)}();;
+	</script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/member/css/member.css">
+<link rel="stylesheet" href="__STATIC__/libs/bootstrap-daterangepicker/daterangepicker.css">
+{/block}
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="public/left" /}
+    <div class="member-main">
+        <div class="member-main-title clearfix">
+            <h3> 资金明细 </h3>
+        </div>
+        <div class="list-filter">
+            <ul>
+                <li class="clearfix">
+                    <div class="title">时间范围</div>
+                    <div class="con">
+                        <div class="fr">
+                            <div class="date-range-picker">
+                                日期：
+                                <input name="_filter_time_from" class="date-picker-input"  type="text" readonly value="{$from_time}"> ~
+                                <input name="_filter_time_to" class="date-picker-input" type="text" readonly value="{$to_time}">
+                            </div>
+                        </div>
+                        {if condition="$type eq 0"}
+                        <a href="?" class="active">全部</a>
+                        {else}
+                        <a href="?{$searchurl2}">全部</a>
+                        {/if}
+                        {if condition="$type eq 1"}
+                        <a href="?_filter_time2=r.create_time&_filter_time_from={$time_1}&_filter_time_to={$time_0}&type=1{$searchurl2}" class="active">过去7天</a>
+                        {else}
+                        <a href="?_filter_time2=r.create_time&_filter_time_from={$time_1}&_filter_time_to={$time_0}&type=1{$searchurl2}">过去7天</a>
+                        {/if}
+                        {if condition="$type eq 2"}
+                        <a href="?_filter_time2=r.create_time&_filter_time_from={$time_2}&_filter_time_to={$time_0}&type=2{$searchurl2}" class="active">过去15天</a>
+                        {else}
+                        <a href="?_filter_time2=r.create_time&_filter_time_from={$time_2}&_filter_time_to={$time_0}&type=2{$searchurl2}">过去15天</a>
+                        {/if}
+                        {if condition="$type eq 3"}
+                        <a href="?_filter_time2=r.create_time&_filter_time_from={$time_3}&_filter_time_to={$time_0}&type=3{$searchurl2}" class="active">过去30天</a>
+                        {else}
+                        <a href="?_filter_time2=r.create_time&_filter_time_from={$time_3}&_filter_time_to={$time_0}&type=3{$searchurl2}">过去30天</a>
+                        {/if}
+                        {if condition="$type eq 4"}
+                        <a href="?_filter_time2=r.create_time&_filter_time_from={$time_4}&_filter_time_to={$time_0}&type=4{$searchurl2}" class="active">过去60天</a>
+                        {else}
+                        <a href="?_filter_time2=r.create_time&_filter_time_from={$time_4}&_filter_time_to={$time_0}&type=4{$searchurl2}">过去60天</a>
+                        {/if}
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <div class="title">交易类型</div>
+                    <div class="con">
+                        {if condition="$keyword eq 0"}
+                        <a href="?" class="active">全部</a>
+                        {else}
+                        <a href="?{$searchurl1}">全部</a>
+                        {/if}
+                        {if condition="$keyword eq 1"}
+                        <a href="?_search_field=type&keyword=1{$searchurl1}" class="active">充值</a>
+                        {else}
+                        <a href="?_search_field=type&keyword=1{$searchurl1}">充值</a>
+                        {/if}
+                        {if condition="$keyword eq 3"}
+                        <a href="?_search_field=type&keyword=3{$searchurl1}" class="active">提现</a>
+                        {else}
+                        <a href="?_search_field=type&keyword=3{$searchurl1}">提现</a>
+                        {/if}
+                        {if condition="$keyword eq 33"}
+                        <a href="?_search_field=type&keyword=33{$searchurl1}" class="active">冻结金额</a>
+                        {else}
+                        <a href="?_search_field=type&keyword=33{$searchurl1}">冻结金额</a>
+                        {/if}
+                        {if condition="$keyword eq 20"}
+                        <a href="?_search_field=type&keyword=20{$searchurl1}" class="active">配资结算</a>
+                        {else}
+                        <a href="?_search_field=type&keyword=20{$searchurl1}">配资结算</a>
+                        {/if}
+                        {if condition="$keyword eq 10"}
+                        <a href="?_search_field=type&keyword=10{$searchurl1}" class="active">推荐返利</a>
+                        {else}
+                        <a href="?_search_field=type&keyword=10{$searchurl1}">推荐返利</a>
+                        {/if}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <table class="record-table message-table">
+            <thead>
+            <tr>
+                <th width="20%">交易时间</th>
+                <th width="15%">交易类型</th>
+                <th width="20%">交易详情</th>
+                <th width="15%">交易金额(元)</th>
+                <th width="15%">账户余额(元)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {notempty name="data_list"}
+            {volist name="data_list" id="val"}
+            <tr>
+                <td width="20%" align="center">{$val.create_time|date="Y-m-d H:i:s", ###}</td>
+                <td width="15%" align="center">{$val.type}</td>
+                <td width="20%" align="center">{$val.info}</td>
+                <td width="15%" align="center"><span class="text-green">{$val.affect}</span></td>
+                <td width="15%" align="center"><span class="text">{$val.account}</span></td>
+            </tr>
+            {/volist}
+            {else /}
+            <tr>
+                <td colspan="6" align="center">
+                    <img src="__STATIC__/member/img/exclamation.gif" alt=""> <br>
+                    无资金记录
+                </td>
+            </tr>
+            {/notempty}
+            </tbody>
+        </table>
+        <div class="pages">
+            <ul class="pagination">
+                {$data_list->render()}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{/block}
+
+
+{block name="script"}
+<script src="__STATIC__/libs/bootstrap-daterangepicker/moment.js"></script>
+<script src="__STATIC__/libs/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="__STATIC__/libs/URI.min.js"></script>
+
+<script>
+    $(".date-picker-input").daterangepicker({
+        singleDatePicker: true,
+        locale: {
+            format: 'YYYY-MM-DD'
+        }
+    });
+
+    $("input[name='_filter_time_to']").on("change", function () {
+        var startTimeValue = $("input[name='_filter_time_from']").val();
+        var endTimeValue = $(this).val();
+
+        var startTimeStamp = Date.parse(startTimeValue);
+        var endTimeStamp = Date.parse(endTimeValue);
+
+        if(endTimeStamp < startTimeStamp){
+            startTimeValue = $(this).val();
+            endTimeValue = $("input[name='_filter_time_from']").val();
+            $(this).val(endTimeValue);
+            $("input[name='_filter_time_from']").val(startTimeValue)
+        }
+        var uri = new URI(window.location.href);
+        var search = uri.search(true);
+        search._filter_time_from = startTimeValue;
+        search._filter_time_to = endTimeValue;
+        var locationSearch = URI.buildQuery(search);
+        window.location.href="{:url()}?" + locationSearch;
+    });
+</script>
+{/block}

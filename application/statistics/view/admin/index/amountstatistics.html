@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>柱形图表</title>
+    <script type="text/javascript" src="__STATIC__\admin\js\core\echarts\echarts.min.js"></script>
+</head>
+<body>
+<div id="echart2" style="width: 100%;height:600px;"></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('echart2'));
+
+    option = {
+        title : {
+            text: '',
+            subtext: '单位/元',
+            x:'left'
+        },
+        color: ['#3398DB'],
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : ['累计充值', '累计提现', '累计提盈'],
+                axisTick: {
+                    alignWithLabel: true
+                }
+            }
+        ],
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'金额',
+                type:'bar',
+                barWidth: '60%',
+                data:["{$r_total}", "{$w_total}", "{$drawprofit}"]
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+</body>
+</html>
+

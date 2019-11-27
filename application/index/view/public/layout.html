@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {block name="meta"}{/block}
+    {block name="title"}<title>{:config('title')}{:config('web_site_title')}</title>{/block}
+    <meta name="keyword" content="{:config('web_site_keywords')}" />
+    <meta name="description" content="{:config('web_site_description')}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropper/3.1.3/cropper.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/3.1.3/cropper.min.js"></script>
+
+    <script src="__STATIC__/common/js/common.js"></script>
+    <link rel="stylesheet" href="/static/public/css/common.css">
+    <link rel="stylesheet" href="/static/public/css/commonBundle.css">
+    {block name="style"}{/block}
+</head>
+
+<body>
+    {block name="header"}
+    <div class="topbar">
+        <div class="wrapper clearfix">
+            <div class="topbar-left">
+                <i class="icon icon-tel"></i> 服务热线：{:config('web_site_telephone')}
+                </div>
+            <div class="topbar-right">
+                {if condition="$mid neq 0"}
+                欢迎来到实盘配资！<a href="{:url('/member')}" class="red">{$member_auth.mobile|format_str=###}</a> |
+                <a href="{:url('/signout')}">退出</a> |
+                <a href="/member/message?t=0">站内信 (<span class="red">{$unread_num}</span>)</a>
+                {else /}
+                <a class="" href="{:url('/login')}">立即登录</a> |
+                <a class="" href="{:url('/register')}">免费注册</a>
+                {/if}
+
+                <!--<a href="/cms/column/index/id/9.html">帮助中心</a>-->
+                <!--<a href="/cms/page/detail/id/3.html">APP下载</a>-->
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <div class="wrapper clearfix">
+            <div class="slogan">
+                <a href="/"><img src="__STATIC__/public/img/logo.png" alt="">  </a>
+            </div>
+            <div class="slogan">
+                <a href="/">
+                    {:get_advert(5)}
+                    <!-- <img src="/{$logoPaths}" alt=""> -->
+                </a>
+            </div>
+
+            <div class="nav">
+                <ul class="clearfix">
+                    {volist name="main_nav" id="menu"}
+                    <li {php} if (is_page_active($menu['url']) ) echo "class='active'";{/php} >
+                        <a href={$menu.url} target="{$menu.target}">{$menu.title}</a>
+                    </li>
+                    {/volist}
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+   {/block}
+    {block name="main-container"}{/block}
+    {block name="page-footer"}
+    <div class="footer">
+        <div class="wrapper clearfix">
+            <div class="left">
+                <div class="title">客服热线</div>
+                <div class="tel">
+                    <i class="icon icon-tel"></i>
+                    {:config('web_site_telephone')}
+                </div>
+                <div class="text">工作时间：{:config('web_site_service_time')}<br/>{:config('web_site_holiday_service_time')}
+                </div>
+
+            </div>
+            <div class="middle">
+                <img src="__STATIC__/home/img/qrcode-s.png" alt="">
+                <div class="text">关注公众账号</div>
+            </div>
+            <div class="right links">
+                <div class="item">
+                    <div class="title">关于我们</div>
+                    <a href="/cms/document/detail/id/5.html">公司简介</a>
+                    <a href="/cms/document/detail/id/6.html">办公环境</a>
+                    <a href="/cms/document/detail/id/7.html">联系我们</a>
+                </div>
+                <div class="item">
+                    <div class="title">配资指引</div>
+                    <a href="/cms/document/detail/id/8.html">新手指引</a>
+                    <a href="/cms/document/detail/id/9.html">配资流程</a>
+                    <a href="/stock/mock/index">模拟操盘</a>
+                </div>
+                <div class="item">
+                    <div class="title">帮助中心</div>
+                    <a href="/cms/document/detail/id/10.html">如何注册会员？</a>
+                    <a href="/cms/document/detail/id/11.html">如何进行充值？</a>
+                    <a href="/cms/document/detail/id/12.html">如何申请配资？</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {/block}
+    <div class="copyright">
+        <div class="wrapper">
+            {:config('web_site_copyright')}{:config('web_site_icp')}&nbsp;&nbsp;&nbsp;&nbsp;   股市有风险,投资需谨慎
+        </div>
+    </div>
+    {block name="xuanfukuang"}
+    <!--浮动样式一-->
+    <div class="floatBtn" style="display:none;">
+        <ul>
+            <li><a href="javascript:easemobIM()">
+                <div class="floatBox onLineChat"><i></i><span>在线客服</span></div>
+            </a></li>
+            <li class="feedback"><a href="/register.html">
+                <div class="floatBox computer"><i></i><span>免费注册</span></div>
+            </a></li>
+            <li class="feedback"><a href="/column/index/id/7">
+                <div class="floatBox newer"><i></i><span>新手指引</span></div>
+            </a></li>
+            <li><a href="javascript:;">
+                <div class="floatBox app up_phone"><i></i><span>安卓下载</span>
+                    </div><div class="up_phone_hover showPhone" style="opacity: 0; left: 40px; width: 0px; display: none;"></div>
+            </a></li>
+            <li><a href="javascript:;">
+                <div class="floatBox app up_app"><i></i><span>苹果下载</span>
+                    </div><div class="up_app_hover showApp" style="opacity: 0; left: 40px; width: 0px; display: none;"></div>
+            </a></li>
+            <li><a href="javascript:;">
+                <div class="floatBox wechat up_weixin"><i></i><span>微信公众号</span></div><div class="up_weixin_hover showWechat" style="opacity: 0; left: 40px; width: 0px; display: none;"></div>
+            </a></li>
+            <li><a href="#">
+                <div class="floatBox goTop"><i></i><span>返回顶部</span></div>
+            </a></li>
+        </ul>
+    </div>
+
+    <!--浮动样式二-->
+    <div class="float">
+        <div class="erweima" style="display: none;">{:get_advert(12)}</div>
+        <div class="App_erweima" style="display: none;">{:get_advert(11)}</div>
+        <div class="kefu" style="display: none;">
+            <dl>
+                {volist name="support" id="sup"}
+                <dd>{$sup.name}<a class="kefu_dd" target="_blank" rel="nofollow" href="http://wpa.qq.com/msgrd?v=3&amp;uin={$sup.qq}&amp;site=qq&amp;menu=yes">点击交谈</a></dd>
+                {/volist}
+            </dl>
+        </div>
+        <ul id="toTopUl">
+            <li><a class="flo_1" target="_blank" href="javascript:;"><span class="ke_tit">客服</span></a></li>
+            <li><a class="flo_2" href="javascript:void(0);" style="font-size: 14px; width: 60px; opacity: 1;"><span class="ke_tit">电话</span><span class="ke_info">{:config('web_site_telephone')}</a></li>
+            <li><a class="flo_3" href="javascript:void(0);" onmouseover="showApp();" onmouseout="hideApp();"><span class="ke_tit">APP</span></a>
+            </li>
+            <li><a class="flo_w" href="javascript:void(0);" onmouseover="showCode();" onmouseout="hideCode();"><span class="ke_tit">公众号</span></a></li>
+            </ul>
+    </div>
+
+    {/block}
+    {block name="script"}{/block}
+
+    <script>
+        $(".floatBox").hover(function(e){
+            if($(this).hasClass('up_app')){
+                $('.up_app_hover').show();
+                $('.up_app_hover').css('opacity','1');
+                $('.up_app_hover').animate({
+                    left : '-120px',
+                    width: '112px'
+                }, 250);
+                phone_hover(true);
+                weixin_hover(true);
+            }else if($(this).hasClass('up_weixin')){
+                $('.up_weixin_hover').show();
+                $('.up_weixin_hover').css('opacity','1');
+                $('.up_weixin_hover').animate({
+                    left : '-120px',
+                    width: '117px'
+                }, 250);
+                phone_hover(true);
+                app_hover(true);
+            }else if($(this).hasClass('up_phone')){
+                $('.up_phone_hover').show();
+                $('.up_phone_hover').css('opacity','1');
+                $('.up_phone_hover').animate({
+                    left : '-120px',
+                    width: '117px'
+                }, 250);
+                app_hover(true);
+                weixin_hover(true);
+            }
+        },function(e){
+            $(this).stop(true);
+            $(this).animate({
+                left : '0px'
+            }, 100);
+            if($(this).hasClass('up_phone')){
+                app_hover(true);
+                phone_hover(true);
+                weixin_hover(true);
+            }else if($(this).hasClass('up_weixin')){
+                app_hover(true);
+                phone_hover(true);
+                weixin_hover(true);
+            }else{
+                app_hover(true);
+                phone_hover(true);
+                weixin_hover(true);
+            }
+        })
+
+        function weixin_hover(aa){
+            if(aa){
+                $('.up_weixin_hover').css('opacity','0');
+                $('.up_weixin_hover').animate({
+                    left : '0px',
+                    width: '40px'
+                }, 150);
+                $('.up_weixin_hover').hide();
+            }else{
+                $('.up_weixin_hover').stop(true,true);
+                $('.up_weixin_hover').show();
+                $('.up_weixin_hover').css('opacity','1');
+                $('.up_weixin_hover').css('left','-120px');
+                $('.up_weixin_hover').css('width','112px');
+            }
+        }
+        function app_hover(aa){
+            if(aa){
+                $('.up_app_hover').css('opacity','0');
+                $('.up_app_hover').animate({
+                    left : '0px',
+                    width: '40px'
+                }, 150);
+                $('.up_app_hover').hide();
+            }else{
+                $('.up_app_hover').stop(true,true);
+                $('.up_app_hover').show();
+                $('.up_app_hover').css('opacity','1');
+                $('.up_app_hover').css('left','-120px');
+                $('.up_app_hover').css('width','112px');
+            }
+        }
+        function phone_hover(aa){
+            if(aa){
+                $('.up_phone_hover').css('opacity','0');
+                $('.up_phone_hover').animate({
+                    left : '0px',
+                    width: '40px'
+                }, 150);
+                $('.up_phone_hover').hide();
+            }else{
+                $('.up_phone_hover').stop(true,true);
+                $('.up_phone_hover').show();
+                $('.up_phone_hover').css('opacity','1');
+                $('.up_phone_hover').css('left','-120px');
+                $('.up_phone_hover').css('width','112px');
+            }
+        }
+
+        //
+        $(".up_weixin_hover").mouseover(function(){
+            weixin_hover(false);
+        });
+        $(".up_weixin_hover").mouseout(function(){
+            weixin_hover(true);
+        });
+
+        $(".up_app_hover").mouseover(function(){
+            app_hover(false);
+        });
+        $(".up_app_hover").mouseout(function(){
+            app_hover(true);
+        });
+
+
+        $(".up_phone_hover").mouseover(function(){
+            phone_hover(false);
+        });
+        $(".up_phone_hover").mouseout(function(){
+            phone_hover(true);
+        });
+    </script>
+    <script type="text/javascript">
+        //右侧浮动二
+        kefu();
+        opentop();
+        function opentop(){
+            var topTop = "<li id = 'addtotop'><a class = 'flo_4' style = 'cursor: pointer;'><span class='ke_tit'>返回</span></a></li>"
+            $(window).bind('scroll' ,function(event){
+                var topHeight = $(document).scrollTop();
+                if(topHeight >= 200){
+                    if($("#toTopUl").find("#addtotop").length == 0){
+                        $("#toTopUl").append(topTop);
+                        addtotop();
+                    }else{
+                        return;
+                    }
+                }else{
+                    $("#toTopUl li:eq(4)").remove();
+                }
+            });
+        }
+        function addtotop(){
+            $("#addtotop").bind('click',function(){
+                $("#toTopUl li:eq(4)").remove();
+                $(window).unbind();
+                $('html, body').animate({scrollTop:0}, '1000');
+                setTimeout('opentop()',500);
+            });
+        }
+
+        function showCode(){
+            $(".erweima").show();
+            //$(".erweima").css("background","url(__STATIC__/public/img/gz.png) no-repeat");
+        }
+        function hideCode(){
+            $(".erweima").hide();
+            $(".erweima").css("background","");
+        }
+        function showApp(){
+            $(".App_erweima").show();
+           // $(".App_erweima").css("background","url(__STATIC__/public/img/gz.png) no-repeat");
+        }
+        function hideApp(){
+            $(".App_erweima").hide();
+            $(".App_erweima").css("background","");
+        }
+        function kefu(){
+            $("#toTopUl li:eq(0),.kefu").bind("mouseover",function(){
+                $(".kefu").css("display","block");
+            });
+            $("#toTopUl li:eq(0),.kefu").bind("mouseout",function(){
+                $(".kefu").css("display","none");
+            });
+        }
+
+        $(function () {
+            $('#toTopUl > li').hover(function () {
+//                $(this).find('.flo_1 > img').attr('src', '__STATIC__/public/img/float_55.png');
+//                $(this).find('.flo_1').stop().animate({"width": "140px"}, 200).css({
+//                    "opacity": "1",
+//                    "filter": "Alpha(opacity=100)",
+//                });
+                $(this).find('.flo_2').stop().animate({"width": "180px"}, 200).css({
+                    "opacity": "1",
+                    "filter": "Alpha(opacity=100)",
+                    "background-position": "15px 6px",
+                });
+            }, function () {
+//                $(this).find('.flo_1 > img').attr('src', '__STATIC__/public/img/float_5.png');
+//                $(this).find('.flo_1').stop().animate({"width": "60px"}, 200).css({
+//                    "opacity": "1",
+//                    "filter": "Alpha(opacity=100)",
+//                });
+                $(this).find('.flo_2').stop().animate({"width": "60px"}, 200).css({
+                    "opacity": "1",
+                    "filter": "Alpha(opacity=100)",
+                    "background-position": "center 6px",
+                });
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>

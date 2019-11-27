@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+	<meta charset="utf-8">
+	<title>数据行情接口_股票行情接口_期货行情接口_外汇行情接口_CFD合约行情接口_数字货币行情接口</title>
+	<meta name="keywords" content="数据行情,股票行情,期货行情,外汇行情,CFD合约行情,数字货币行情,全推接口,行情接口,行情api" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<script type="text/javascript" src="/public/js/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript">
+	(function(doc,win){var MAX_WIDTH=400.0125;var resizing=null;var dpr,rem,scale;var metaEl=doc.querySelector('meta[name="viewport"]');win.onresize=function(){if(resizing){clearTimeout(resizing)}resizing=setTimeout(adjustBase,100)};function adjustBase(){var clientWidth=doc.body.clientWidth||doc.documentElement.clientWidth;if(clientWidth>MAX_WIDTH&&(typeof(__style.cpt)=="undefined")||__style.cpt<=1){clientWidth=MAX_WIDTH}doc.querySelector("html").style["font-size"]=(clientWidth/750)*10000/16+"%";resizing=null}if(!doc.documentElement.addEventListener){return}doc.addEventListener("DOMContentLoaded",adjustBase,false)})(document,window);function _getreqstr(n){var reg=new RegExp("(^|&)"+n+"=([^&]*)(&|$)","i");var r=window.location.search.substr(1).match(reg);if(r!=null){return unescape(r[2])}return null};
+	</script>
+	<style type="text/css">
+		@charset "utf-8";*{margin:0;padding:0;border:0;outline:0}html{overflow-x:hidden;overflow-y:auto;font-size:50px}body{color:#1a1a1a;min-width:320px;width:100%;font-size:16px;background:#f8f8f8}.cn-chart{background:#fff}.cn-chart{height:5.5rem;margin-bottom:.0rem}.cn-chart-box{width:100%;height:100%}@keyframes KKELoading{0%,40%,100%{-moz-transform:scaleY(0.2);-webkit-transform:scaleY(0.2);transform:scaleY(0.2)}20%,60%{-moz-transform:scaleY(1);-webkit-transform:scaleY(1);transform:scaleY(1)}}@-webkit-keyframes KKELoading{0%,40%,100%{-moz-transform:scaleY(0.2);-webkit-transform:scaleY(0.2);transform:scaleY(0.2)}20%,60%{-moz-transform:scaleY(1);-webkit-transform:scaleY(1);transform:scaleY(1)}}@-moz-keyframes KKELoading{0%,40%,100%{-moz-transform:scaleY(0.2);-webkit-transform:scaleY(0.2);transform:scaleY(0.2)}20%,60%{-moz-transform:scaleY(1);-webkit-transform:scaleY(1);transform:scaleY(1)}}
+	</style>
+		<style type="text/css">
+		/*滚动条样式黑色*/
+		#hqMain ::-webkit-scrollbar {width:5px;background-color: #000;}#hqMain ::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);background-color: #555;}#hqMain ::-webkit-scrollbar-thumb {border-radius: 5px;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);background-color: #222;}
+		/*滚动条样式白色-->*/
+		/*
+		#hqMain ::-webkit-scrollbar {width: 5px;background-color: #f8f8f8;}#hqMain ::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);background-color: #f8f8f8;}#hqMain ::-webkit-scrollbar-thumb {border-radius: 5px;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);background-color: #dedede;}
+		*/
+	</style>
+	<style>
+		.corg{color:green;background-color:rgba(46,204,113,0.2);}.corn{color:#000;background-color:none;}.corr{color:rgb(235,77,92);background-color:rgba(211,84,0,0.2);}.corg2{color:green;}.corn2{color:#000;}.corr2{color:rgb(235,77,92);}.s{font-weight:normal!important;}.bgred{background-color:navajowhite;color:red;}.bggreen{background-color:lightgreen;color:green;}.bgnormal{background-color:#efefef;color:#000;}.bger{font-weight:bolder;}.smer{font-weight:normal;}
+		body{font-size:12px}a{color:#0e7dbd;}.rowwrap{width:100%;display:table;overflow:hidden;line-height:35px}.rowhead{width:100%;display:table-row;height:35px;background-color:#dedede}.row{width:100%;display:table-row;height:35px;border-bottom:solid 1px #cdcdcd}.cell{display:table-cell;width:20%;display:inline-block;text-align:center;border-bottom:solid 1px #cdcdcd}
+    </style>
+</head>
+<body style="margin:0;padding:0;">
+	<!-- 手机版图表支持全屏（横屏）,charts页面最好不要内嵌 -->
+	<div id="hqMain">
+<!-- 		<div style="line-height:30px;background-color:#fffbcc;color:#c60;">&nbsp;&nbsp;新浪查询图表范例<span style="line-height:20px;cursor:pointer;border-radius:3px;padding:0 5px;margin-left:10px;border:solid 1px #ccc;background-color:#000;color:#fff;display:inline-block;" onclick="go('black');">黑色</span><span style="line-height:20px;cursor:pointer;margin-left:10px;border-radius:3px;padding:0 5px;border:solid 1px #ccc;background-color:#fff;display:inline-block;" onclick="go('white');">白色</span></div> -->
+		<!-- 报价盘 -->
+<!-- 		<div style="width:100%;">
+			<div id="divprice" style="line-height:20px;font-size:9px;color:#666;"> 现价：<span id="spP" style="border-radius:3px;padding:0 3px;width:70px;display:inline-block;font-weight:bolder;font-size:133%;">0</span> 买一：<span id="spB1" style="border-radius:3px;padding:0 3px;width:70px;display:inline-block;padding-right:10px;font-weight:bolder;font-size:133%;">0</span> 买量：<span id="spB1V" style="display:inline-block;font-weight:bolder;font-size:133%;">0</span></div>
+			<div style="line-height:20px;font-size:9px;color:#666;"><span id="spSymbol" style="display:inline-block;width:120px;">SH000001</span>卖一：<span id="spS1" style="border-radius:3px;padding:0 3px;width:70px;display:inline-block;padding-right:10px;font-weight:bolder;font-size:133%;">0</span> 卖量：<span id="spS1V" style="display:inline-block;font-weight:bolder;font-size:133%;">0</span></div>
+		</div> -->
+		<!-- 报价盘 end-->
+
+		<!-- 行情图组件 start -->
+		<section class="cn-chart">
+			<div class="cn-chart-box" id="h5Chart"></div>
+		</section>
+		<!-- 行情图组件 end -->
+	</div>
+	<div id="hq_chart"></div>
+
+	<script>
+		//js资源目录
+		var __jsr = "/Public/";
+		//配置数据接口
+		var __quoteapi = "sinachartapi";
+
+		//显示的周期对应 t1=当日分时,k5=5分,k15=15分,k30=30分,k60=小时,kd=日,kw=周,km=月,more=更多
+		var __kls = ["t1", "t5", "k1", "k5", "k15", "k60", "kd", "more"];
+
+		//初始化周期值
+		var __ik = "t1";
+		var __period = _getreqstr("p");
+		if (__period != undefined && __period != "") {
+			if (__period == "1M") { __ik = "t1"; }
+			else if (__period == "5T") { __ik = "t5"; }
+			else if (__period == "5M") { __ik = "k5"; }
+			else if (__period == "15M") { __ik = "k15"; }
+			else if (__period == "30M") { __ik = "k30"; }
+			else if (__period == "1H") { __ik = "k60"; }
+			else if (__period == "D") { __ik = "kd"; }
+			else if (__period == "W") { __ik = "kw"; }
+		}
+
+		//从request 获取品种
+		var symbol = _getreqstr("symbol");
+		var __symbol = (symbol == null ? "EURJPY" : symbol);
+		$("#spSymbol").html(__symbol);
+
+		//刷新频率(秒)
+		var __rate = 1;
+
+		//这里是行情回调函数，实时数据从这里取
+		//具体字段看打印出来
+		function __rcallback(data) {
+			//console.log(data);
+			//打印到报价盘
+			setP((new Date(data.date).getTime() / 1000), data.price, data.buy, data.sell, data.buyAmount, data.sellAmount);
+		}
+
+		//可以自定义样式
+		//1.设置高度，找到样式，更改
+		//.cn-chart{height:5.5rem;}
+		//白色
+		var _style_white = {
+			backgroundColor: "#fff"//背景
+			, backgroundColor2: "#dedede"//导航栏背景
+			, color: "#000"//导航栏文字
+			, ttext: "#555"//y坐标文字颜色
+			, avg: "#121212"//正常色
+			, grid: "#eee"//轴颜色
+			, time: "#000"//x轴文字颜色
+			, upcolor: "#f11200" //涨颜色
+			, downcolor: "#23bc01"//跌颜色
+		};
+		//黑色
+		var _style_black = { backgroundColor: "#111", backgroundColor2: "#333", color: "#dedede", ttext: "#ccc", avg: "#ededed", grid: "#444", time: "#dedede", upcolor: "#23bc01", downcolor: "#f11200" };
+
+		//设置颜色
+		var __style = (_getreqstr("color") == "white" ? _style_white : _style_black);
+
+
+		function go(color) {
+			window.location.href = "charts.html?symbol=" + __symbol + "&p=" + __period + "&token=" + __token + "&color=" + color + "&symbolname=" +escape(_getreqstr("symbolname"));
+		}
+
+		//没有用
+		var __token = "";
+	</script>
+	<script type="text/javascript">
+		var _lstticks = 0;
+		var _prep = 0;
+		var _preb1 = 0;
+		var _pres1 = 0;
+		function setP(tick, p, b1, s1, b1v, s1v) {
+			if (tick < _lstticks)
+				return;
+
+			_lstticks = tick;
+
+			//console.log(new Date(_lstkticks*1000));
+			if (p <= 0) { p = s1; }
+			if (_prep == 0) { _prep = p; }
+			if (_preb1 == 0) { _preb1 = b1; }
+			if (_pres1 == 0) { _pres1 = s1; }
+
+			$("#spP").removeClass("corg").removeClass("corr");
+			$("#spB1").removeClass("corg").removeClass("corr");
+			$("#spB1V").removeClass("corg2").removeClass("corr2");
+			$("#spS1").removeClass("corg").removeClass("corr");
+			$("#spS1V").removeClass("corg2").removeClass("corr2");
+			if (_prep < p) { $("#spP").addClass("corr"); } else if (_prep > p) { $("#spP").addClass("corg"); }
+			if ($("#spP").hasClass("s")) { $("#spP").removeClass("s"); } else { $("#spP").addClass("s"); }
+			if (_preb1 < b1) { $("#spB1").addClass("corr"); $("#spB1V").addClass("corr2"); } else if (_preb1 > b1) { $("#spB1").addClass("corg"); $("#spB1V").addClass("corg2"); }
+			if ($("#spB1").hasClass("s")) { $("#spB1").removeClass("s"); } else { $("#spB1").addClass("s"); }
+			if (_pres1 < s1) { $("#spS1").addClass("corr"); $("#spS1V").addClass("corr2"); } else if (_pres1 > s1) { $("#spS1").addClass("corg"); $("#spS1V").addClass("corg2"); }
+			if ($("#spS1").hasClass("s")) { $("#spS1").removeClass("s"); } else { $("#spS1").addClass("s"); }
+
+			if (p <= 0) { p = s1; }
+			if (b1 <= 0) { b1 = p; }
+			if (s1 <= 0) { s1 = p; }
+
+			$("#spP").html(fixPrice(p));
+			$("#spB1").html(fixPrice(b1));
+			$("#spS1").html(fixPrice(s1));
+			$("#spB1V").html(b1v);
+			$("#spS1V").html(s1v);
+
+			_prep = p;
+			_preb1 = b1;
+			_pres1 = s1;
+		}
+
+
+		function fixPrice(p) {
+			if (p > 10000) { return p.toFixed(1); }
+			else if (p > 1000) { return p.toFixed(2); }
+			else if (p > 100) { return p.toFixed(3); }
+			else if (p > 10) { return p.toFixed(4); }
+			else if (p > 1) { return p.toFixed(5); }
+			else return p;
+		}
+	</script>
+	<script type="text/javascript" src="/public/js/zepto.min.js"></script>
+	<script type="text/javascript" src="/public/js/pako.min.js"></script>
+	<script type="text/javascript" src="/public/js/sf_core.js"></script>
+	<script type="text/javascript" src="/public/js/sc_sdk.js"></script>
+	<script type="text/javascript" src="/public/js/index2017.js"></script>
+</body>
+</html>

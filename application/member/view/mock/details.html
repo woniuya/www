@@ -1,0 +1,130 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__MODULE_CSS__/member.css">
+<link rel="stylesheet" href="__MODULE_CSS__/index.css">
+<link rel="stylesheet" href="__MODULE_CSS__/show.css">
+{/block}
+<title>会员中心首页</title>
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="public/left" /}
+    <div class="member-main">
+        <div class="member-main-title clearfix">
+
+            <h3>模拟操盘详情</h3>
+        </div>
+        <div class="financing-info">
+            <div class="hd">
+                {if condition="$result['status'] eq '操盘中'"}
+                <div class="fr">操盘时间：{$result.verify_time|date="Y-m-d", ###} 至 {$result.end_time|date="Y-m-d", ###}
+                </div>
+                {else}
+                <div class="fr">操盘时间：---- 至 ----</div>
+                {/if}
+                单号：<span class="order-sn">{$result.order_id}</span>
+
+                {if condition=" $result.status neq '操盘中'"}
+                <span class="tag tag-disabled">{$result.status}</span>
+                {else /}
+                <span class="tag">{$result.status}</span>
+                {/if}
+            </div>
+            <div class="bd clearfix">
+                <div class="section-left">
+                    <div class="item">
+                        <div class="title">操盘资金</div>
+                        <div class="con"><span class="text-red">{$result.init_money|money_convert=###}元</span></div>
+                    </div>
+                    <div class="item">
+                        <div class="title">借入资金</div>
+                        <div class="con"><span class="text-red">{$result.borrow_money|money_convert=###}元</span></div>
+                    </div>
+                    <div class="item">
+                        <div class="title">风险保证金</div>
+                        <div class="con"><span class="text-red">{$result.deposit_money|money_convert=###}元</span></div>
+                    </div>
+                    <div class="item">
+                        <div class="title">总利息</div>
+                        <div class="con"><span class="text-red">{$result.borrow_interest|money_convert=###}元</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-right">
+                    <div class="item">
+                        <div class="title">警戒线</div>
+                        {if condition="($result['type'] neq '免息配资') and ($result['type'] neq '免费体验')"}
+                            <div class="con"><span class="text-red">{$result.loss_warn_money|money_convert=###}元</span>
+                        {else/}
+                            <div class="con"><span class="text-red">---元</span>
+                        {/if}
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="title">平仓线</div>
+                        {if condition="($result['type'] neq '免息配资') and ($result['type'] neq '免费体验')"}
+                            <div class="con"><span class="text-red">{$result.loss_close_money|money_convert=###}元</span>
+                        {else/}
+                            <div class="con"><span class="text-red">---元</span>
+                        {/if}
+                        </div>
+                    </div>
+                    <div class="item">
+                        {if condition="$result['status'] eq '操盘中'"}
+                        <div class="title">子账户</div>
+                        <div class="con">{$result.sub_account}</div>
+                        {/if}
+                    </div>
+                    <div class="item">
+
+                    </div>
+                </div>
+                <div class="section-bottom clearfix">
+                    <div class="item">
+                        收益：{$result.return_money}元
+                    </div>
+                    <div class="item">
+                        收益率：{$result.return_rate}%
+                    </div>
+                </div>
+            </div>
+            <div class="ft">
+                {if condition="$result['status'] eq '操盘中'"}
+                <div class="btn-group" id="operate-group">
+                    <a href="/market/index/index?u={$result['sub_account']}" target="market" class="red">查看实盘交易</a>
+                </div>
+                {/if}
+            </div>
+        </div>
+
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script src="__STATIC__/libs/layer/layer.js"></script>
+<script>
+    // 自动续期开关
+    $(".btn-switch").switchAutoRenewalBtn();
+
+    $(function () {
+        $("#operate-group").on("click", ".j-btn", function (e) {
+            var href = $(this).attr("href"),
+                title = $(this).html();
+            e.preventDefault();
+            layer.open({
+                type: 2,
+                area: ['700px', "490px"],
+                fixed: false,
+                title: title,
+                maxmin: false,
+                content: href
+            })
+        })
+    })
+
+    $(".J-tab").tab();
+
+
+</script>
+
+{/block}
+

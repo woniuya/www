@@ -1,0 +1,116 @@
+{extend name="financing/pop_page_layout" /}
+{block name="main"}
+<div class="info">
+    1. 扩大配资的时间段： 09:00:00 -14:45:00； <br>
+    2. 扩大配资产生的手续费，需要一次性付清； <br>
+    3. 按周配资以7天为一周计算，不满一周部分，按照占7天的百分比计算； <br>
+    4. 按月配资以30天为一个月计算，不满一个月的部分，按照占30天的百分比计算。
+</div>
+<div class="account">
+    <span class="label">当前账户余额</span>
+    <span class="con">{$amoney}</span>
+</div>
+<div class="fee">
+    <span class="label">配资管理费</span>
+    <span class="con"> <span id="fee">0</span> 元</span>
+</div>
+<form method="post" action="" id="expend-form">
+    <div class="operate">
+        <span class="label"> 扩大金额</span>
+        <span class="con"><input type="text" name="deposit_money" id="deposit_money"> 元</span>
+        <input type="hidden" name="id" id="id" value="{$id}">
+    </div>
+    <div class="btn-group">
+        <div class="btn btn-cancel">取消扩大</div>
+        <input class="btn btn-confirm" type="submit" value="确认扩大">
+    </div>
+</form>
+{/block}
+
+{block name="script"}
+<script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore.js"></script>
+<script>
+
+    var minMoney = {$min};
+    var maxMoney = Math.max([{$amoney}, {$max}]);
+    var mintMoney = {$mint};
+    $(function () {
+
+        $("#expend-form").on("submit", function (e) {
+            e.preventDefault();
+            var money = $("#deposit_money").val();
+            if(money === ""){
+                return;
+            }
+            var id = $("#id").val();
+
+            $.ajax({
+                url: "{url('')}",
+                type: "post",
+                data: {
+                    id: id,
+                    deposit_money: money
+                },
+                dataType: "json",
+                success: function (d) {
+                    if(d.code !== 1){
+                        layer.msg(d.msg);
+                    } else {
+                        layer.msg(d.msg, function () {
+                            window.parent.layer.closeAll()
+                        });
+                    }
+                }
+            })
+        })
+
+        $("#deposit_money")
+            .on("keydown", function (event) {
+                var key = window.event ? event.keyCode : event.which;
+                if ( key === 46 || (key <= 57 && key >= 48) || (key <= 105 && key >= 96) || (key == 8)) {
+                    return true;
+                }else {
+                    return false;
+                }
+            })
+            .on("keyup", _.debounce(function () {
+                var val = $(this).val();
+                var money = parseInt(val);
+                if (money < minMoney) return;
+                if (money > maxMoney) return;
+                if (money % minMoney !== 0) return;
+                $.ajax({
+                    url: "{:url('calculate_rate')}",
+                    type: "post",
+                    data: {
+                        multiple: "{$bres.multiple}",
+                        rate: "{$bres.rate}",
+                        type: "{$bres.type}",
+                        deposit_money: money,
+                        endTime: "{$bres.end_time}"
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#fee").html(data);
+                    }
+                })
+            }, 300))
+            .on("change", function () {
+                var money = parseFloat($(this).val());
+                if (money < minMoney) {
+                    layer.msg("申请金额不能低于" + minMoney + "元");
+                    $(this).val(minMoney);
+                }
+                if (money > maxMoney) {
+                    layer.msg("申请金额不能大于" + maxMoney + "元");
+                    $(this).val(maxMoney);
+                }
+                if (money % mintMoney !== 0) layer.msg("申请金额必须是" + mintMoney + "的整数倍");
+                $(this).val(money - money % mintMoney);
+
+                $(this).trigger("keyup")
+            });
+    })
+</script>
+{/block}
+

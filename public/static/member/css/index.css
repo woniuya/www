@@ -1,0 +1,93 @@
+.total-info {
+  padding: 40px 20px;
+  position: relative; }
+  .total-info .wave {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    height: 32px;
+    background: url(../img/wave.png) repeat-x;
+    animation: wave-animation 80s infinite linear; }
+  .total-info .wave2 {
+    animation: wave-animation 40s infinite linear;
+    background-image: url(../img/wave2.png); }
+  .total-info .assets-info {
+    float: left;
+    width: 750px;
+    padding: 30px 0px 20px;
+    color: #2e2e2e; }
+    .total-info .assets-info .item {
+      float: left;
+      width: 187px; }
+      .total-info .assets-info .item .number-xlarge {
+        font-size: 24px;
+        line-height: 2;
+        font-weight: 500; }
+  .total-info .operator {
+    float: left;
+    width: 100px;
+    padding-top: 10px; }
+    .total-info .operator .btn {
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 26px; }
+
+.financing-section-hd {
+  border-bottom: 1px solid #F4F4F4;
+  margin-bottom: 20px; }
+  .financing-section-hd h3 {
+    font-size: 18px;
+    float: left;
+    padding: 0 20px;
+    border-bottom: 2px solid #BB9767;
+    line-height: 60px;
+    margin: 0;
+    margin-bottom: -1px; }
+  .financing-section-hd .fr {
+    float: right;
+    line-height: 60px; }
+
+.renewal-setting {
+  padding: 20px 20px;
+  border-bottom: 1px solid #F4F4F4; }
+  .renewal-setting .title {
+    float: left;
+    font-size: 16px;
+    line-height: 40px;
+    color: #2e2e2e;
+    margin-right: 20px; }
+  .renewal-setting .help-msg {
+    color: #909090;
+    font-size: 12px;
+    line-height: 40px;
+    float: left; }
+  .renewal-setting .btn-switch {
+    float: right;
+    margin-top: 7px; }
+
+@-webkit-keyframes wave-animation {
+  0% {
+    background-position: 0 0; }
+  100% {
+    background-position: 1601px 0; } }
+
+@-moz-keyframes wave-animation {
+  0% {
+    background-position: 0 0; }
+  100% {
+    background-position: 1601px 0; } }
+
+@-o-keyframes wave-animation {
+  0% {
+    background-position: 0 0; }
+  100% {
+    background-position: 1601px 0; } }
+
+@keyframes wave-animation {
+  0% {
+    background-position: 0 0; }
+  100% {
+    background-position: 1601px 0; } }
+
+/*# sourceMappingURL=index.css.map */

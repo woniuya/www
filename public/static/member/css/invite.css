@@ -1,0 +1,64 @@
+table.record-table thead th{
+    background-color: #F4F4F4;
+    text-align: center;
+    font-weight: 400;
+    padding: 5px 10px;
+    border-bottom: 1px solid #D9D9D9;
+    border-top: 1px solid #D9D9D9;
+    line-height: 30px;
+}
+table.record-table tbody td{
+    border-bottom: 1px solid #D9D9D9;
+    line-height: 30px;
+    padding: 5px 10px;
+    color: #5d5d5d;
+    text-align: center;
+}
+
+.invite-section{
+    margin-bottom: 20px;
+}
+
+.invite-main .title{
+    margin-bottom: 20px;
+}
+
+.invite-social{
+    margin: 10px 0;
+}
+
+.invite-main .left{
+    float: left;
+}
+.invite-main .charcode{
+    float: right;
+    text-align: center;
+	height:147px;
+	width:147px;
+	overflow:hidden;
+}
+
+.invite-link input {
+    width: 330px;
+    border-radius: 5px 0 0 5px;
+    border:1px solid #bbb;
+    padding: 4px 10px;
+    line-height: 25px;
+}
+.invite-link .copy-btn {
+    border:1px solid #FB3D51;
+    padding: 4px 10px;
+    line-height: 25px;
+    background-color: #FB3D51;
+    color: #ffffff;
+    border-radius: 0 5px 5px 0;
+}
+.invite-social{
+    vertical-align: center;
+    line-height: 30px;
+}
+.bdsharebuttonbox{
+    display: inline-block;
+    line-height: 0;
+    vertical-align: top;
+}

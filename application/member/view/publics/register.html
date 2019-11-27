@@ -1,0 +1,232 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/member/css/register.css">
+<style>
+    .copyright {
+        background: none;
+        color:#414141;
+    }
+</style>
+{/block}
+{block name="main-container"}
+<div class="register-container wrapper">
+    <div class="register-hd">
+        <h3>用户注册</h3>
+    </div>
+    <div class="register-bd clearfix">
+        <form action="{:url('/register')}" class="form-register form-input-group" method="post" id="j-register-form">
+            <div class="control-group">
+                <div class="input-control">
+                    <label for="mobile" class="input-group-label">
+                        <img src="__STATIC__/member/img/icon-man.png" alt="">
+                    </label>
+                    <input type="text" name="mobile" id="mobile" class="" placeholder="请输入11位中国大陆手机号">
+                </div>
+            </div>
+            <div class="control-group" id="sendSmsCodeGrou">
+                <div class="code-group clearfix">
+                    <div class="input-control">
+                        <label for="sms_code" class="input-group-label">
+                            <img src="__STATIC__/member/img/icon-shield.png" alt="">
+                        </label>
+                        <input type="text" name="phonecode" id="phonecode" class="" placeholder="请输入图形验证码">
+                    </div>
+                    <div class="input-control-right">
+                        <img src="{:captcha_src()}" id="captcha-img" style="cursor: pointer;"
+                             onclick="this.src='{:captcha_src()}?d='+Math.random();" title="点击刷新" alt="captcha"/>
+                        <span class="btn-reload">刷新</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="control-group" id="sendSmsCodeGroup">
+                <div class="code-group clearfix">
+                    <div class="input-control">
+                        <label for="sms_code" class="input-group-label">
+                            <img src="__STATIC__/member/img/icon-shield.png" alt="">
+                        </label>
+                        <input type="text" name="sms_code" id="sms_code" class="" placeholder="请输入短信验证码">
+                    </div>
+                    <div class="input-control-right">
+                        <button tabindex="-1" type="button" id="sendsms" class="btn btn-primary btn-block" style="line-height: 30px;">
+                            发送验证码
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="input-control">
+                    <label for="password" class="input-group-label">
+                        <img src="__STATIC__/member/img/icon-lock.png" alt="">
+                    </label>
+                    <input type="password" id="password" name="password" class="" placeholder="请输入您的登录密码">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="input-control">
+                    <label for="re_password" class="input-group-label">
+                        <img src="__STATIC__/member/img/icon-lock.png" alt="">
+                    </label>
+                    <input type="password" name="re_password" id="re_password" class="" placeholder="请再次输入您的登录密码">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="input-control">
+                    <label for="recommend" class="input-group-label">
+                        <img src="__STATIC__/member/img/icon-man-group.png" alt="">
+                    </label>
+                    <input type="text" name="recommend" value="{$mobile}" {if condition="$mobile neq ''"} readonly {/if} id="recommend" placeholder="请输入推荐人手机号；如果没有，可以不填写">
+                </div>
+            </div>
+            <div class="control-group" style="display:none" >
+                <div class="input-control">
+                    <label for="pid" class="input-group-label">
+                        <img src="__STATIC__/member/img/icon-man-group.png" alt="">
+                    </label>
+                         <input type="text" name="pid" value="{$pid}" id="pid"   placeholder="请输入代理商手机号；如果没有，可以不填写">
+                </div>
+            </div>
+            <div class="gatherInfo">
+                    <span>注册代表同意实盘交易
+                        <a href="/cms/document/detail/id/31.html" class="text-red" target="_blank">《注册协议》</a>
+                    </span>
+                    <span class="pull-right">已有账户？
+                        <a href="{:URL('/login')}" class="text-red">马上登录</a>
+                    </span>
+            </div>
+            <input type="submit" value="立即注册" class="btn btn-block btn-red btn-submit">
+        </form>
+
+        <div class="register-banner">
+            <div class="wrap">
+                <img src="__STATIC__/member/img/register-banner.gif" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="page-footer"}
+{/block}
+{block name='script'}
+<script src="__STATIC__/libs/layer/layer.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.messages_zh.js"></script>
+<script type="text/javascript">
+    (function ($) {
+
+        $.validator.addMethod( "telephone", function( value, element ) {
+            return this.optional( element ) || /^1[345789]\d{9}$/.test( value );
+        }, "请输入正确的手机号码" );
+
+        $.validator.addMethod("pass_strength", function (value, element) {
+            return this.optional(element) || /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]{6,16}$/.test(value);
+        }, "密码长度为6-16位，必须包含数字、字母");
+        $("#j-register-form").validate({
+            rules: {
+                mobile: {
+                    required: true,
+                    telephone: true,
+                },
+                password: {
+                    required: true,
+                    pass_strength: true
+                },
+                re_password: {
+                    equalTo: "#password"
+                },
+                recommend:{
+                    telephone: true
+                }
+            },
+            messages: {
+                mobile: {
+                    required: "请输入手机号码",
+                    telephone: "手机号码有误",
+                },
+                password: {
+                    required: "请输入密码",
+                },
+                re_password: {
+                    equalTo: "密码不一致"
+                },
+                recommend: {
+                    telephone: "推荐人手机号填写错误"
+                }
+            },
+            submitHandler: function(form) {
+                $.ajax({
+                    type: "post",
+                    url:$("#j-register-form").attr("action"),
+                    dataType: "json",
+                    data: {
+                        mobile: $("#mobile").val(),
+                        sms_code: $("#sms_code").val(),
+                        password: $("#password").val(),
+                        re_password: $("#re_password").val(),
+                        recommend: $("#recommend").val(),
+                        
+                     
+                    },
+                    success: function (data) {
+                        if(data){
+                            layer.msg(data.msg, function () {
+                                if(data.url) window.location.href = data.url
+                            })
+                        }
+                    }
+                })
+
+            },
+            errorElement: "div",
+            errorPlacement: function (error, element) {
+                $(element).closest(".control-group").append(error);
+            }
+        });
+
+        var timer1 = null;
+        var leftsecond = 60; //倒计时
+        var msg = "";
+        var sendSMSTip = $("#sendsms"); //获取按钮id
+
+        sendSMSTip.click(function () {
+            if( $(this).hasClass("disabled") ) return;
+            var mobile = $("#mobile").val();
+            var phonecode = $("#phonecode").val();
+            var reg = /^1[0-9]{10}$/;
+            if (!reg.test(mobile)) {
+                return layer.msg("请输入正确的手机号");
+            }
+
+            $.post("{:URL('sendsms')}", {'mobile': mobile, 'tp': 'code', 'phonecode':phonecode}, function (data) {
+                sendSMSTip.removeClass("disabled");
+                if (data.status) {
+                    sendSMSTip.html("短信验证码已发送");
+                    sendSMSTip.addClass("disabled");
+                    timer1 = setInterval(setLeftTime1, 1000);
+                } else {
+                    layer.msg(data.message);
+                    sendSMSTip.removeClass("disabled");
+                }
+            })
+        })
+
+        function setLeftTime1() {
+            var second = Math.floor(leftsecond);
+            sendSMSTip.html(msg + second + "秒");
+            leftsecond--;
+            if (leftsecond < 1) {
+                clearInterval(timer1);
+                sendSMSTip.html("重新获取验证码");
+                sendSMSTip.removeClass("disabled");
+                leftsecond = 60;
+
+            }
+        }
+
+    })(jQuery)
+
+</script>
+{/block}

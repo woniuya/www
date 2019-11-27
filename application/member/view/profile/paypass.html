@@ -1,0 +1,92 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/member/css/member.css">
+{/block}
+
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="public/left" /}
+    <div class="member-main">
+        <div class="member-main-title clearfix">
+            <a class="fr" href="{:url('getpaypass')}">忘记支付密码？</a>
+            <h3> 个人资料 > 支付密码 </h3>
+        </div>
+        <div class="alert alert-warning">
+            初始支付密码默认为手机号后六位，支付密码格式为6位数字
+        </div>
+        <form action="{:url('paypass')}" class="form form-paypass" method="post" id="j-paypass">
+            <div class="control-group">
+                <label for="">原支付密码</label>
+                <div class="con">
+                    <input type="password" name="oldpwd" class="" placeholder="初始默认为手机号后六位">
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="">新支付密码</label>
+                <div class="con">
+                    <input type="password" name="newpwd" id="newpwd" class="" placeholder="支付密码为6位数字">
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="">确认支付密码</label>
+                <div class="con">
+                    <input type="password" name="subpwd" class=""  placeholder="请确认支付密码">
+                </div>
+            </div>
+            <div class="control-group">
+                <label for=""></label>
+                <div class="con">
+                    <input type="submit" class="btn btn-primary btn-red btn-submit" value="确认"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.messages_zh.js"></script>
+<script>
+    $(function () {
+        // 支付密码校验
+        $.validator.addMethod("payword", function (value, element) {
+            var tel = /^\d{6}$/;
+            return this.optional(element) || (tel.test(value));
+        }, "支付密码为6位纯数字");
+        // 支付密码规则 6位数字
+        $("#j-paypass").validate({
+            debug: true,
+            rules: {
+                oldpwd: {
+                    required: true,
+                    payword: true
+                },
+                newpwd: {
+                    required: true,
+                    payword: true
+                },
+                subpwd: {
+                    equalTo: "#newpwd"
+                }
+            },
+            messages: {
+                oldpwd: {
+                    required: "请输入旧支付密码",
+                },
+                newpwd: {
+                    required: "请输入新支付密码",
+                },
+                subpwd: {
+                    equalTo: "新密码输入不一致"
+                }
+            },
+            submitHandler: function (form) {
+                form.submit();
+            },
+            errorElement: "span",
+        })
+    })
+
+</script>
+{/block}

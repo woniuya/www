@@ -1,0 +1,82 @@
+.bank-card-list {
+    margin:20px 30px;
+}
+
+.bank-card-list li{
+    width: 400px;
+    position: relative;
+    float: left;
+    margin: 10px 0 10px 30px;
+    padding: 20px;
+    border:1px solid #D9D9D9;
+    overflow: hidden;
+}
+.bank-card-list .operate{
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    width: calc(100% + 2px);
+    background-color: rgba(247,53,73,.8);
+    color: #fff;
+    height: 100%;
+    transition: top 0.3s;
+}
+
+.bank-card-list li:hover .operate{
+    top: 0;
+}
+.bank-card-list .operate .btn {
+    display: block;
+    float: left;
+    text-align: center;
+    width: 50%;
+    line-height: 72px;
+    padding: 0;
+    transition: background 0.5s;
+}
+.bank-card-list .operate .btn a{
+    display: block;
+    color: #fff;
+}
+.bank-card-list .operate .btn:hover{
+    color: #ffffff;
+    background-color: rgba(247,53,73,1);
+}
+.bank-card-list .operate span:hover{
+    color: #fff;
+}
+
+.bank-card-list .bank-info{
+    overflow: hidden;
+}
+.bank-card-list .bank-info .img{
+    float: left;
+}
+
+.bank-card-list .bank-info .bank-logo{
+    max-width: 106px;
+    max-height: 32px;
+    margin: 0 10px;
+    float: left;
+}
+
+.bank-card-list .bank-info .bank-number {
+    font-size: 14px;
+    line-height: 32px;
+}
+
+.bank-card-list .add-card a{
+    display: block;
+    text-align: center;
+    line-height: 32px;
+    font-size: 16px;
+    color: #666;
+    cursor: pointer;
+}
+.bank-card-list .add-card a:hover{
+    color: #F73549;
+}
+.form-card div.error{
+    color: #F73549;
+}

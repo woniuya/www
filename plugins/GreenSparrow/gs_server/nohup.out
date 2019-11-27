@@ -1,0 +1,338 @@
+PHP Warning:  include_once(..\..\..\application\database.php): failed to open stream: No such file or directory in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php on line 7
+
+Warning: include_once(..\..\..\application\database.php): failed to open stream: No such file or directory in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php on line 7
+PHP Warning:  include_once(): Failed opening '..\..\..\application\database.php' for inclusion (include_path='.:/www/server/php/56/lib/php') in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php on line 7
+
+Warning: include_once(): Failed opening '..\..\..\application\database.php' for inclusion (include_path='.:/www/server/php/56/lib/php') in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php on line 7
+PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php on line 16
+
+Warning: mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php on line 16
+
+---------------------------GreenSparrow-----------------------------
+
+  PHP version:5.6.30        GreenSparrow  version:1.0.1
+
+  Server  port: 888        Server url:ws://47.105.141.122
+
+  Client  port: 8282        Client url:tcp://127.0.0.1 
+
+  market__login: Fail     --------------------------------------------------------------------
+::正常 :,行情异常 :.交易异常 :5休市时间 :6周六 :7周日 :8节日 
+Press Ctrl-C to quit. Start success. Date: 19-03-06 15:52:14
+
+03-06 15:52:28 Client: {"com":"trade_id","id":1}
+
+03-06 15:52:28 Client: {"req":"Trade_QueryData","rid":1551859019,"para":{"JsonType":1,"QueryType":1}}
+
+19-03-06 15:52:41  1:52:53:54:55:56:57:58:59:510:511:512:503-06 15:56:31 Client: {"com":"trade_id","id":1}
+
+03-06 15:56:31 Client: {"req":"Trade_QueryData","rid":1551859240,"para":{"JsonType":1,"QueryType":1}}
+
+13:514:515:516:503-06 15:57:50 Client: {"com":"trade_id","id":1}
+
+03-06 15:57:50 Client: {"req":"Trade_QueryData","rid":1551859465,"para":{"JsonType":1,"QueryType":1}}
+
+17:503-06 15:58:20 Client: {"com":"trade_id","id":1}
+
+03-06 15:58:20 Client: {"req":"Trade_QueryData","rid":1551859977,"para":{"JsonType":1,"QueryType":1}}
+
+18:503-06 15:58:25 Client: {"com":"trade_id","id":1}
+
+03-06 15:58:25 Client: {"req":"Trade_QueryData","rid":1551859818,"para":{"JsonType":1,"QueryType":1}}
+
+03-06 15:58:25 Client: {"com":"trade_id","id":1}
+
+03-06 15:58:25 Client: {"req":"Trade_QueryData","rid":1551859724,"para":{"JsonType":1,"QueryType":1}}
+
+03-06 15:58:33 Client: {"com":"trade_id","id":1}
+
+03-06 15:58:33 Client: {"req":"Trade_QueryData","rid":1551859959,"para":{"JsonType":1,"QueryType":1}}
+
+03-06 15:58:33 Client: {"com":"trade_id","id":1}
+
+03-06 15:58:33 Client: {"req":"Trade_QueryData","rid":1551859228,"para":{"JsonType":1,"QueryType":1}}
+
+03-06 15:58:41 Client: {"com":"trade_id","id":1}
+
+03-06 15:58:41 Client: {"req":"Trade_QueryData","rid":1551859516,"para":{"JsonType":1,"QueryType":1}}
+
+03-06 15:58:41 Client: {"com":"trade_id","id":1}
+
+03-06 15:58:41 Client: {"req":"Trade_QueryData","rid":1551859888,"para":{"JsonType":1,"QueryType":1}}
+
+19:520
+,19-03-06 15:59:21  1:52:53:54:55:56:57:58:503-06 16:01:56 Client: {"com":"trade_id","id":1}
+
+03-06 16:01:56 Client: {"req":"Trade_QueryData","rid":1551859595,"para":{"JsonType":1,"QueryType":1}}
+
+9:510:503-06 16:02:39 Client: {"com":"trade_id","id":1}
+
+03-06 16:02:39 Client: {"req":"Trade_QueryData","rid":1551859478,"para":{"JsonType":1,"QueryType":1}}
+
+11:512:503-06 16:03:14 Client: {"com":"trade_id","id":1}
+
+03-06 16:03:14 Client: {"req":"Trade_QueryData","rid":1551859753,"para":{"JsonType":1,"QueryType":1}}
+
+03-06 16:03:14 Client: {"com":"trade_id","id":1}
+
+03-06 16:03:14 Client: {"req":"Trade_QueryData","rid":1551860088,"para":{"JsonType":1,"QueryType":1}}
+
+13:503-06 16:03:39 Client: {"com":"trade_id","id":1}
+
+03-06 16:03:39 Client: {"req":"Trade_QueryData","rid":1551860104,"para":{"JsonType":1,"QueryType":1}}
+
+14:515:503-06 16:04:15 Client: {"com":"trade_id","id":1}
+
+03-06 16:04:15 Client: {"req":"Trade_QueryData","rid":1551859935,"para":{"JsonType":1,"QueryType":1}}
+
+16:517:518:519:520
+,19-03-06 16:06:01  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 16:12:41  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:503-06 16:18:57 Client: {"com":"trade_id","id":1}
+
+03-06 16:18:57 Client: {"req":"Trade_QueryData","rid":1551861227,"para":{"JsonType":1,"QueryType":1}}
+
+20
+,19-03-06 16:19:21  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 16:26:01  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:503-06 16:32:08 Client: {"com":"trade_id","id":1}
+
+03-06 16:32:08 Client: {"req":"Trade_QueryData","rid":1551861410,"para":{"JsonType":1,"QueryType":1}}
+
+20
+,19-03-06 16:32:41  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 16:39:21  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 16:46:01  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 16:52:41  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 16:59:21  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 17:06:01  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 17:12:41  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 17:19:21  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 17:26:02  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 17:32:42  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 17:39:22  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 17:46:02  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 17:52:42  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 17:59:22  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 18:06:02  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 18:12:42  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 18:19:22  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 18:26:02  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 18:32:42  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 18:39:22  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 18:46:02  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 18:52:42  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,19-03-06 18:59:22  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,
+1551870357.455 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+19-03-06 19:06:02  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,
+1551870753.052 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+19-03-06 19:12:42  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,
+1551871152.7684 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+19-03-06 19:19:22  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,
+1551871551.0254 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+19-03-06 19:26:02  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,
+1551871951.0265 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+19-03-06 19:32:42  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,
+1551872354.3051 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+19-03-06 19:39:22  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,
+1551872751.7223 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+19-03-06 19:46:02  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,
+1551873153.6215 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+19-03-06 19:52:42  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,
+1551873553.2474 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+19-03-06 19:59:22  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:516:517:518:519:520
+,
+1551873953.0384 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+19-03-06 20:06:02  1:52:53:54:55:56:57:58:59:510:511:512:503-06 20:09:53 Client: {"com":"trade_id","id":1}
+
+03-06 20:09:53 Client: {"req":"Trade_QueryData","rid":1551875008,"para":{"JsonType":1,"QueryType":1}}
+
+13:514:515:516:517:518:519:503-06 20:12:15 Client: {"com":"trade_id","id":1}
+
+03-06 20:12:15 Client: {"req":"Trade_QueryData","rid":1551875109,"para":{"JsonType":1,"QueryType":1}}
+
+20
+,
+1551874352.2781 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+19-03-06 20:12:42  1:52:53:54:55:56:57:58:59:510:511:5512:5513:5514:5515:5,
+1551874658.9786 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+16:5517:5518:5519:5520
+5519-03-06 20:19:22  1:552:553:554:555:5,
+1551874859.0695 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+6:557:558:559:5510:5511:5512:5513:5514:5515:5,
+1551875059.449 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+16:517:518:519:520
+519-03-06 20:26:02  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:,
+1551875451.6737 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+16:517:518:519:520
+519-03-06 20:32:42  1:52:53:54:55:56:57:58:59:510:511:512:513:514:515:,
+1551875852.0179 Client died:
+ exception 'Exception' with message 'Empty read; connection dead?  Stream state: {"timed_out":true,"blocked":true,"eof":false,"stream_type":"tcp_socket\/ssl","mode":"r+","unread_bytes":0,"seekable":false}' in /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php:298
+Stack trace:
+#0 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(171): Base->read(2)
+#1 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(130): Base->receive_fragment()
+#2 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(721): Base->receive()
+#3 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(682): Trade->_init(Array)
+#4 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(810): Trade->star()
+#5 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/lib.php(782): Transfer->main()
+#6 /www/wwwroot/gjwdxbz.com/plugins/GreenSparrow/gs_server/sparrow.php(40): Transfer->run()
+#7 {main}
+16:517:518:519:520
+519-03-06 20:39:22  1:52:5

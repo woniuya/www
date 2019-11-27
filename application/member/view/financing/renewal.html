@@ -1,0 +1,121 @@
+{extend name="financing/pop_page_layout" /}
+{block name="main"}
+<div class="info">
+    1. 申请续期产生的手续费，需要一次性付清；<br>
+    2. 续期需要先把之前欠下的利息还上，再根据当前平台设置的利率重新计算，收取费用的公式和申请配资时的一样。
+</div>
+<div class="account">
+    <span class="label">当前账户余额</span>
+    <span class="con">{$amoney} 元</span>
+</div>
+<div class="fee">
+    <span class="label">配资管理费</span>
+    <span class="con"><span id="fee">0</span> 元</span>
+</div>
+<form method="post" action="{:url('')}" id="renewal-form">
+    <div class="operate">
+        <span class="label">续期时间</span>
+        <span class="con">
+            {$$bres.type}
+        {if condition="$bres.type eq 1"}
+        <select name="duration" id="duration">
+            <option selected disabled> 请选择续期时间</option>
+            <option value="1">1天</option>
+            <option value="2">2天</option>
+            <option value="3">3天</option>
+            <option value="4">4天</option>
+            <option value="5">5天</option>
+            <option value="6">6天</option>
+            <option value="7">7天</option>
+            <option value="8">8天</option>
+            <option value="9">9天</option>
+            <option value="10">10天</option>
+            <option value="11">11天</option>
+            <option value="12">12天</option>
+            <option value="13">13天</option>
+            <option value="14">14天</option>
+            <option value="15">15天</option>
+            <option value="16">16天</option>
+            <option value="17">17天</option>
+            <option value="18">18天</option>
+            <option value="19">19天</option>
+            <option value="20">20天</option>
+        </select>
+        {elseif condition="$bres.type eq 2"}
+        <select name="duration" id="duration">
+            <option selected disabled> 请选择续期时间</option>
+            <option value="1">1周</option>
+            <option value="2">2周</option>
+            <option value="3">3周</option>
+            <option value="4">4周</option>
+            <option value="5">5周</option>
+            <option value="6">6周</option>
+            <option value="7">7周</option>
+        </select>
+        {elseif condition="$bres.type eq 3"}
+        <select name="duration" id="duration">
+            <option selected disabled> 请选择续期时间</option>
+            <option value="1">1月</option>
+            <option value="2">2月</option>
+            <option value="3">3月</option>
+            <option value="4">4月</option>
+            <option value="5">5月</option>
+            <option value="6">6月</option>
+            <option value="7">7月</option>
+        </select>
+        {/if}
+    </span>
+        <input type="hidden" name="id" id="bid" value="{$id}">
+    </div>
+    <div class="btn-group">
+        <div class="btn btn-cancel">取消续期</div>
+        <input class="btn btn-confirm" type="submit" value="确认续期">
+    </div>
+</form>
+{/block}
+
+{block name="script"}
+<script>
+    $(function () {
+        $("#duration").on("change", function () {
+            var duration = $(this).val();
+            $.post("{:url('calculate_rate_renewal')}", {
+                multiple: {$bres.multiple},
+                cyctime: duration,
+                rate: {$bres.rate},
+                type: {$bres.type},
+                deposit_money: {$bres.deposit_money / 100},
+                endTime: {$bres.end_time}
+            }, function (data) {
+                $("#fee").html(data)
+            }, 'json');
+        })
+
+        $("#renewal-form").on("submit", function (e) {
+            e.preventDefault();
+            var duration = $("#duration").val();
+            console.log(duration)
+            if (duration === null) return layer.msg("请选择续期时间");
+
+            $.ajax({
+                url: "{:url('')}",
+                data: {
+                    duration: duration,
+                    id: $("#bid").val()
+                },
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if(data.code === 1){
+                        layer.msg(data.msg, function () {
+                            window.parent.layer.closeAll()
+                        })
+                    } else {
+                        layer.msg(data.msg)
+                    }
+                }
+            })
+        })
+    })
+</script>
+{/block}

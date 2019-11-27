@@ -1,0 +1,163 @@
+    {extend name="../../index/view/public/layout"  /}
+    {block name="style"}
+    <link rel="stylesheet" href="__STATIC__/home/css/trial.css">
+    {/block}
+    {block name="title"}<title>{$title}-{:config('web_site_title')}</title>{/block}
+    {block name="main-container"}
+    <div class="banner-inner">
+        {:get_advert(6)}
+    </div>
+    <div class="trial-container wrapper">
+        <div class="trial-box">
+            <div class="step step-red">
+                <span class="ft28">平台出资{$gainMoney}元</span> （完全免费）
+            </div>
+            <div class="step">
+               <span class="ft28">您交{$deposit}元</span> ,最多亏损保证金
+            </div>
+            <div class="step step-red">
+                    <span class="ft28">总计{$gainMoney + $deposit}元 </span> （由您操盘）
+            </div>
+            <div class="step">
+                <span class="ft28">交易{$duration}天 </span> （最后一个交易日14:45前必须卖出股票）
+            </div>
+            <div class="step step-red">
+                    <span class="ft28">盈利全归您，亏损归我们</span>
+            </div>
+            <div class="section-b">
+                <label for="agreement" class="common_cbo common_cbo_checked"><input type="checkbox" checked="checked" id="agreement"></label>我已阅读并同意<a href="/cms/document/detail/id/32.html" target="protocol"> 《实盘交易平台体验协议》</a>
+                <br>
+                <button class="btn btn-primary btn-trial" id="j-btn-apply" >立即申请</button>
+            </div>
+    </div>
+        <div class="notice">
+            <div class="notice-hd">
+                体验须知：
+            </div>
+            <div class="notice-bd">
+                    <li>1、全程只需要缴纳{$deposit}元配资体验费，无其他任何费用</li>
+                    <li>2、体验产品资金使用期限为{$duration}天，今天买，最后一个交易日14:45前必须卖出股票；</li>
+                    <li>3、不设预警线、平仓线；股票操作盈利全部归您，亏损超过保证金部分，平台承担；</li>
+                    <li>4、申请成功，一般下一个交易日开通"股票交易账户"</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="confirm-apply " id="j-confirm">
+        <div class="title">确认付款</div>
+        <div class="meta">
+            <div class="item clearfix">
+                <div class="left">
+                    总操盘资金
+                </div>
+                <div class="middle">
+                    <span class="number-middle text-red"><span class="j-deposit-money2">{$deposit + $gainMoney}</span></span>
+                    元
+                </div>
+                <div class="right">
+                    送您<span class="j-total-money">{$gainMoney}</span>元操盘资金
+                </div>
+            </div>
+
+            <div class="item clearfix">
+                <div class="left">
+                    操盘期限
+                </div>
+                <div class="middle"><span class="number-middle text-red j-duration2">{$duration}</span>
+                    天
+                </div>
+                <div class="right">
+                   {$duration}天操盘时间。
+                </div>
+            </div>
+            <div class="item clearfix">
+                <div class="left">
+                    需准备资金：
+                </div>
+                <div class="middle">
+                    <span class="num-large j-pay-money">{$deposit}</span>
+                    元
+                </div>
+                <div class="right">
+                    <a href="/money/recharge/index.html" target="charge" class="fr">马上充值</a>
+                    您的账户余额 <span class="text-red j-account-money">{$account}</span>元 <span class="j-money-tip"></span>
+                </div>
+            </div>
+        </div>
+        <div class="operate-group">
+            <a href="#" class="btn btn-cancel">返回修改</a>
+            <a href="{:URL('/handle/apply')}" class="btn btn-primary" id="j-btn-submit">确认配资</a>
+        </div>
+    </div>
+
+    {/block}
+
+    {block name="script"}
+    <script src="__STATIC__/libs/layer/layer.js"></script>
+    <script>
+        Common_cbo();
+        (function ($) {
+            var confirmPrompt;
+            var requestData = {
+                type: 4,
+                deposit_money: {$deposit},
+                borrow_duration: {$duration},
+                trading_time: 1
+            };
+            $("#j-btn-apply").on("click", function () {
+
+                requestData.agreement = $("#agreement").prop("checked");
+                $.ajax({
+                    url: "{:url('@stock/index/islogin')}",
+                    dataType: 'json',
+                    success: function (d) {
+                        if (d){
+                            confirmPrompt = layer.open({
+                                type: 1,
+                                title: false,
+                                closeBtn: 0,
+                                shadeClose: true,
+                                area:['790px'],
+                                content: $("#j-confirm")
+                            });
+                        } else  {
+                            layer.msg("请先登录", function () {
+                                window.location.href = "{:url('/login')}"
+                            })
+                        }
+                    }
+                });
+            });
+            $(".btn-cancel").on('click',function () {
+                layer.close(confirmPrompt);
+            });
+
+            // 申请提交
+            $("#j-btn-submit").on("click", function (e) {
+                e.preventDefault();
+                var accountMoney = {$account};
+                if( accountMoney < {$deposit} ) {
+                    return layer.msg("您的账户余额不足，请先充值");
+                }
+
+                $.ajax({
+                    url: "{:url('@handle/apply')}",
+                    data: requestData,
+                    type:"get",
+                    dataType: 'json',
+                    success: function (d) {
+                        if (d.status) {
+                            layer.msg(d.msg)
+                        } else  {
+                            layer.msg(d.msg, function () {
+                                (d.url == '') || (window.location.href = d.url);
+                            })
+                        }
+                    }
+                });
+
+            })
+
+        })(jQuery)
+    </script>
+    {/block}

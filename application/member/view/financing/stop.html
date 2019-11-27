@@ -1,0 +1,45 @@
+{extend name="financing/pop_page_layout" /}
+{block name="main"}
+<div class="info">
+    您确定要申请终止操盘吗？ <br> <br>
+
+    1. 按天/按周操盘，不返回已扣除的手续费；<br>
+    2. 免息操盘，不扣除任何费用； <br>
+    3. 按月操盘将会扣除剩余未扣除利息的 {:config('stop_fee')}% 作为罚金； <br>
+    4. 请确保您的交易账户已经全部清仓，否则我们将有权把您的持仓进行平仓处理（不保证平仓价格）。
+</div>
+<form method="post" action="{:url('')}" id="stop-form">
+<div class="btn-group">
+    <input type="hidden" name="id" id="bid" value="{$id}">
+    <div class="btn btn-cancel">取消终止</div>
+    <input class="btn btn-confirm" type="submit" value="确认终止">
+</div>
+</form>
+{/block}
+{block name="script"}
+<script>
+    $(function () {
+        $("#stop-form").on("submit", function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{:url('')}",
+                data:{
+                    id: $("#bid").val()
+                },
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if(data.code === 1){
+                        layer.msg(data.msg, function () {
+                            window.parent.layer.closeAll()
+                        })
+                    } else {
+                        layer.msg(data.msg)
+                    }
+                }
+            })
+
+        })
+    })
+</script>
+{/block}

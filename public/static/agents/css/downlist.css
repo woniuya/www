@@ -1,0 +1,23 @@
+.dowmList{
+	top:100px;
+	z-index:99999;
+	position:absolute;
+	top:130px;
+	background:#fff;
+	width:80%;
+	height:auto;
+	display:none;
+}
+.dowmList li a{
+	width:100%;
+}
+.dowmList li{
+	list-style:none;
+	padding:10px 15px;
+}
+.dowmList li:hover {
+	background-color: #ff6b6b;
+}
+.dowmList li:hover a {
+	color:#fff;
+}

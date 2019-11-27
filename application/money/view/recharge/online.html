@@ -1,0 +1,90 @@
+<script src="../../../../public/static/libs/magnific-popup/magnific-popup.js"></script>{extend name="../../index/view/public/layout" /}
+
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/member/css/member.css">
+<link rel="stylesheet" href="__STATIC__/member/css/charge.css">
+<link rel="stylesheet" href="__STATIC__/libs/webuploader/webuploader.css">
+<link rel="stylesheet" href="__STATIC__/libs/magnific-popup/magnific-popup.css">
+{/block}
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="../application/member/view/public/left.html" /}
+    <div class="member-main">
+        <div class="member-main-title clearfix">
+            <a href="{:url('member/moneylog/index')}" class="fr">查看资金明细</a>
+            <h3>充值</h3>
+            <h4><a href="{:URL('/money/withdraw')}">提现</a></h4>
+        </div>
+        <form action="{:URL('docharge')}" class="form form-charge" id="j-charge" method="post" target="_blank">
+            <div class="control-group">
+                <label for="">可用余额</label>
+                <div class="con">
+                    <span class="text-red">
+                        <span class="number-large">{$money.account|money_convert=###} </span> 元
+                    </span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="money">充值金额</label>
+                <div class="con">
+                    <div class="fake-input">
+                        <input type="text" name="money" id="money"> 元
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group charge-type-group">
+                <label>充值方式</label>
+                <div class="con charge-type clearfix">
+                    <a class="select-item " href="{:url('index')}">
+                        线下充值
+                    </a>
+                    <div class="select-item active" >
+                        线上充值
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label></label>
+                <div class="con">
+                    <input type="hidden" name="charge_type" id="charge_type" value="debao">
+                    <input type="submit" class="btn btn-primary btn-red btn-submit" value="确认充值"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{/block}
+
+{block name="script"}
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.messages_zh.js"></script>
+<script>
+    (function ($) {
+        // 充值金额验证
+        $.validator.addMethod("chargeMoney", function(value, element) {
+            var tel = /^(([1-9]\d*)|\d)(\.\d{1,2})?$/;
+            return this.optional(element) || (tel.test(value));
+        }, "充值金额有误");
+        $("#j-charge").validate({
+            rules: {
+                money: {
+                    required: true,
+                    chargeMoney: true
+                }
+            },
+
+            submitHandler: function (form) {
+                form.submit();
+            },
+            errorElement: "div",
+            errorPlacement: function (error, element) {
+                $(element).closest(".con").append(error);
+            }
+        })
+
+    })(jQuery)
+</script>
+{/block}

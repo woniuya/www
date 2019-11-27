@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+</head>
+<body style="margin:0;padding:0;">
+	<!--以iframe方式包含图表-->
+	<!--symbol参数是完整品种代码，p是周期可以为 1M(分时),5M(5分钟),15M(15分钟),30M(30分钟),H(小时),4H(4小时),D(日)-->
+	<iframe id="ifmMaintest" name="ifmMaintest" src="index/charts.html?symbol=BTC" style="margin:auto;width:100%;height:480px;border:none;" frameborder="0" scrolling="no"></iframe>
+	<!--以iframe方式包含行情列表-->
+	<iframe src="index/lists.html" style="margin:auto;width:100%;height:375px;border:none;" frameborder="0" scrolling="no"></iframe>
+	<!--以iframe方式包含全球快讯-->
+	<iframe src="index/qnews.html" style="margin:auto;width:100%;height:300px;border:none;" frameborder="0" scrolling="no"></iframe>
+</body>
+</html>

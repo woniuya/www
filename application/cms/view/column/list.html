@@ -1,0 +1,57 @@
+{extend name="../../index/view/public/layout" /}
+
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/home/css/news.css">
+{/block}
+ {block name="title"}<title>{$title}{:config('web_site_title')}</title>{/block}
+{block name="main-container"}
+<div class="news-container clearfix">
+    <div class="bread-crumb">
+        <a href="{:url('/')}">首页</a> >
+        {volist name="breadcrumb" id="v"}
+        <a class="text-primary-dark" href="{$v.url}" target="{$v.target}">{$v.name}</a>
+        {/volist}
+    </div>
+    <div class="news-menu">
+        <ul>
+            {volist name="cms_nav" id="nav"}
+            <li {if condition = "$activeMenuId eq $nav.id"} class="active" {/if}>
+            <a href="{$nav.url}" target="{$nav.target}">{$nav.title}</a>
+            </li>
+            {/volist}
+        </ul>
+    </div>
+    <div class="page-container">
+        <div class="page-hd">
+            <h3>{$column_info.name}</h3>
+        </div>
+
+        <div class="page-main">
+            <div class="news-list clearfix">
+                {volist name="lists" id="item"}
+                <div class="news-item">
+                    <div class="date">{$item.create_time|format_time}</div>
+                    <a class="title" href="{:url('cms/document/detail', ['id' => $item['id'], 'model' => $model])}">
+                        {$item.title}
+                    </a>
+                    {present name="item.summary"}
+                    <p>
+                        <a href="{:url('cms/document/detail', ['id' => $item['id'], 'model' => $model])}">
+                        {$item.summary}
+                        </a>
+                    </p>
+                    {/present}
+
+                </div>
+                {/volist}
+
+                <div class="pagination-wrap">
+                    {$pages}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+{/block}

@@ -1,0 +1,28 @@
+.login-container {
+  background: url(../img/login.jpg) center center no-repeat;
+  height: 606px;
+  overflow: hidden; }
+
+.login-wrap {
+  width: 660px;
+  background-color: #fff;
+  padding: 0 32px 30px;
+  margin: 60px auto;
+  border-radius: 10px; }
+  .login-wrap .login-hd {
+    height: 70px;
+    padding: 20px 0 10px;
+    margin: 20px 0;
+    border-bottom: 1px solid #DCDCDC; }
+    .login-wrap .login-hd h3 {
+      text-indent: 20px;
+      color: #fb3d51;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 20px;
+      border-left: 3px solid #fb3d51;
+      margin: 0; }
+  .login-wrap .login-bd {
+    padding: 20px 100px; }
+
+/*# sourceMappingURL=login.css.map */

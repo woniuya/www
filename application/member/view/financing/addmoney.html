@@ -1,0 +1,60 @@
+{extend name="financing/pop_page_layout" /}
+{block name="main"}
+<div class="info">
+    1. 当配资人该条配资的持仓出现亏损，并低于配资预警线时，系统才会允许操作追加保证金；<br>
+    2. 追加的保证金金额设有最低下限，当低于预警线时禁止配资人开仓操作；，当高于预警线时，系统自动解除禁止开仓限制，允许正常开仓； <br>
+    3. 追加的保证金金额不设上限； <br>
+    4. 追加保证金没有放大资金的效果，如需放大配资，请申请扩大配资。
+</div>
+
+<div class="account">
+    <span class="label">当前账户余额</span>
+    <span class="con">{$amoney} 元</span>
+</div>
+<form method="post" action="{:url('')}" id="addmoney-form">
+<div class="operate">
+    <span class="label">追加金额</span>
+    <span class="con"><input type="text" name="money" id="money"> 元</span>
+    <input type="hidden" name="id" id="bid" value="{$id}">
+</div>
+
+<div class="btn-group">
+    <div class="btn btn-cancel">取消追加</div>
+    <input class="btn btn-confirm" type="submit" value="确认追加">
+</div>
+</form>
+{/block}
+
+{block name="script"}
+<script>
+    $(function(){
+        $("#addmoney-form").on("submit", function (e) {
+            e.preventDefault();
+            var money = $("#money").val();
+            if(money === "") return layer.msg("追加金额不能为空");
+            if(money < 0 ) return layer.msg("追加金额必须大于0");
+            if( ! /^\d+$/.test(money) ) return layer.msg("追加金额必须是正整数");
+            $.ajax({
+                type: "post",
+                url: "{:url('')}",
+                data: {
+                    money: money,
+                    id: $("#bid").val(),
+                },
+                dataType: "json",
+                success: function (data) {
+                    if(data.code === 1){
+                        layer.msg(data.msg, function () {
+                            window.parent.layer.closeAll()
+                        })
+                    } else {
+                        layer.msg(data.msg)
+                    }
+                }
+            })
+        })
+    })
+
+</script>
+
+{/block}

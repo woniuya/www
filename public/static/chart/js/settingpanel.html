@@ -1,0 +1,331 @@
+﻿<!DOCTYPE html><html><head><meta content="text/html;charset=gb2312" http-equiv="Content-Type"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="renderer" content="webkit">
+<title>SinaTKChart Configuration Panel(VER 1.0.5)</title>
+<style>
+/*css reset*/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+body{line-height:1;}
+ol,ul{list-style:none;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after{content:none;}
+table{border-collapse:collapse;border-spacing:0;}
+/*end of css reset*/
+</style>
+<style>
+html,body{
+	height:100%;
+	background: #fff;
+	overflow: hidden;
+}
+body{
+	font:12px '宋体',sans-serif;
+	margin:0 auto;
+	dragable:false;
+	-webkit-user-drag: none;
+}
+a{
+	text-decoration:none;
+	color: #000000;
+}
+
+.gap{
+	margin-top:20px;
+}
+
+#title{
+	/*position: fixed;*/
+	top: 0;
+	left: 0;
+	height: 44px;
+	border-bottom: 1px solid #AEC7E3;
+	background-color: #fff;
+	line-height: 44px;
+	font-size: 16px;
+	font-weight: bold;
+	text-indent: 12px;
+	width: 100%;
+	z-index: 30;
+}
+#title button {
+	font:12px '宋体',sans-serif;
+	cursor: pointer;
+	margin-top: 8px;
+	margin-right: 10px;
+	text-indent: 0;
+	float: right;
+	color: #494949;/*#107BF3;*/
+	background-color: #E4E4E4;
+	border-radius: 2px;
+	border: none;
+	width: 52px;
+	height: 25px;
+}
+#title button:hover {
+	color: #fff;
+	background-color: #628BD2;
+}
+#title:hover{
+	cursor: move;
+}
+
+#left_nav{
+	position:absolute;
+	top: 50px;
+	bottom: 0;
+	left: 0;
+	width:20%;
+	border-right: 1px solid rgba(200, 200, 200, 0.6);
+}
+#left_nav li{
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 13px;
+	cursor: default;
+}
+#left_nav li a{
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+}
+#left_nav li a:hover{
+	background-color: #628BD2;
+	color:#fff;
+}
+
+#mainArea{
+	position:absolute;
+	width:79%;
+	height: 300px;
+	top: 44px;
+	left: 21%;
+	overflow-x: hidden;
+}
+#mainArea input{
+	margin: 1px;
+	vertical-align:bottom;
+}
+#mainArea label{
+	padding: 1px 7px 10px 0;
+	display: inline-block;
+}
+#mainArea h4{
+	margin: 6px 0;
+	font-size: 15px;
+	font-weight: bold;
+}
+#mainArea h5{
+	font-size: 14px;
+	margin: 4px 0;
+}
+#mainArea h6{
+    font-size: 13px;
+	margin: 5px 0;
+}
+#mainArea .indent{
+	margin-left: 15px;
+}
+
+.tip_icon{
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	line-height: 12px;
+	border: 1px solid #628BD2;
+	color: #628BD2;
+	border-radius: 12px;
+	font-weight: bold;
+	font-size: 12px;
+	cursor: help;
+	text-align: center;
+}
+.tip_dom{
+	position: absolute;
+	line-height:15px;
+	width: 150px;
+	padding: 5px;
+	border:1px solid #AEC7E3;
+	border-radius: 3px;
+	z-index: 99999;
+	background-color: #fff;
+	box-shadow:2px 2px 2px #AEC7E3;
+}
+
+::-webkit-scrollbar {
+	width: 9px;
+}
+::-webkit-scrollbar-track {
+	background: #FFF;
+	-webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+}
+::-webkit-scrollbar-thumb {
+	background: #CCC;
+	-webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #AAA;
+}
+::-webkit-scrollbar-thumb:active {
+	background: #888;
+	-webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
+}
+</style></head><body>
+<div>
+	<div id='title'>
+		配置面板
+		<!--<button id='btn_default'>默认</button>-->
+		<button id='btn_close'>取消</button>
+		<button id='btn_ok'>确定</button>
+	</div>
+
+	<div id="left_nav">
+		<ul>
+			<li><a href="#interactSetting_href">交互设置</a></li>
+			<li><a href="#mainChartTechSetting_href">主图指标</a></li>
+			<li><a href="#kLineSetting_href">K 线设置</a></li>
+			<li><a href="#tLineSetting_href">分时设置</a></li>
+			<li><a href="#others_href">其他设置</a></li>
+			<li><a href="#testSetting_href">实验功能</a></li>
+		</ul>
+	</div>
+
+	<div id='mainArea'>
+		<div>
+			<h4><a id="interactSetting_href">交互设置：</a></h4>
+
+			<div class="indent">
+				<div func-by="tChart" func-name="setCustom" func-prop="show_floater">
+					<label><input type="checkbox">显示分时交互信息浮窗</label>
+				</div>
+				<div func-by="kChart" func-name="setCustom" func-prop="show_floater">
+					<label><input type="checkbox">显示K 线交互信息浮窗</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="gap">
+			<h4><a id="mainChartTechSetting_href">主图指标：</a><span class="tip_icon" value="indicator_p">?</span></h4>
+
+			<div class="indent">
+				<h6>K 线主图指标：</h6>
+				<div class="indent">
+					<div func-by="kChart" func-name="pCharts" func-prop="MA">
+						<label><input type="checkbox">MA 移动平均线</label>
+					</div>
+					<div func-by="kChart" func-name="pCharts" func-prop="SAR">
+						<label><input type="checkbox">SAR 抛物线指标</label>
+					</div>
+					<div func-by="kChart" func-name="pCharts" func-prop="BOLL">
+						<label><input type="checkbox">BOLL 布林线</label>
+					</div>
+					<div func-by="kChart" func-name="pCharts" func-prop="EXPMA">
+						<label><input type="checkbox">EXPMA 指数平均线</label>
+					</div>
+					<div func-by="kChart" func-name="pCharts" func-prop="BBIBOLL">
+						<label><input type="checkbox">BBIBOLL 多空布林线</label>
+					</div>
+					<div func-by="kChart" func-name="setCustom" func-prop="show_underlay_vol">
+						<label><input type="checkbox">成交量</label>
+					</div>
+				</div>
+
+				<h6>分时叠加：</h6>
+				<div class="indent" func-by="tChart" func-name="setCustom" func-prop="show_underlay_vol">
+					<label><input type="checkbox">成交量</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="gap">
+			<h4><a id="kLineSetting_href">K 线设置：</a></h4>
+
+			<div class="indent">
+				<div func-by="kChart" func-name="setCustom" func-prop="show_ext_marks">
+					<label><input type="checkbox">显示K 线区间极值</label>
+				</div>
+				<div func-by="kChart" func-name="setCustom" func-prop="show_k_rangepercent">
+					<label><input type="checkbox">显示K 线区间涨幅（右侧刻度）</label>
+				</div>
+
+				<h6>A股复权设置：</h6>
+				<div class="indent" func-by="kChart" func-name="setReK">
+					<label><input type="radio" name="reK" value="0">不复权</label>
+					<label><input type="radio" name="reK" value="-1">前复权</label>
+					<label><input type="radio" name="reK" value="1">后复权</label>
+				</div>
+
+				<h6>K 线风格：</h6>
+				<div class="indent" func-by="kChart" func-name="setLineStyle" func-prop="linetype">
+					<label><input type="radio" name="k-linetype" value="solid">实心K 线</label><br>
+					<label><input type="radio" name="k-linetype" value="hollow">空心K 线</label><br>
+					<label><input type="radio" name="k-linetype" value="ohlc">美国线（OHLC）</label><br>
+					<label><input type="radio" name="k-linetype" value="line">收盘线</label><br>
+					<label><input type="radio" name="k-linetype" value="mountain">填充</label>
+				</div>
+<!--
+				<h6>K 线对比风格：</h6>
+				<div class="indent" func-by="kChart" func-name="setLineStyle" func-prop="linetype">
+					<label><input type="radio" name="k-linetype" value="line">收盘线</label><br>
+					<label><input type="radio" name="k-linetype" value="solid">实心K 线</label><br>
+					<label><input type="radio" name="k-linetype" value="hollow">空心K 线</label><br>
+				</div>
+-->
+				<h6>A股历史分时展示方式：<span class="tip_icon" value="history_t">?</span></h6>
+				<div class="indent" func-by="kChart" func-name="setCustom" func-prop="history_t">
+					<label><input type="radio" name="history_t" value="window">打开新窗口（请允许浏览器弹窗）</label><br>
+					<label><input type="radio" name="history_t" value="layer">当前画面中</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="gap">
+			<h4><a id="tLineSetting_href">分时设置：</a></h4>
+
+			<div class="indent">
+				<h6>分时图风格：</h6>
+				<div class="indent" func-by="tChart" func-name="setLineStyle" func-prop="linetype">
+					<label><input type="radio" name="t-linetype" value="line">标准折线</label><br>
+					<label><input type="radio" name="t-linetype" value="mountain">填充</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="gap">
+			<h4><a id="others_href">其他设置：</a></h4>
+
+			<div class="indent">
+				<h6>默认启动视图：</h6>
+				<div class="indent" func-by="tkChart" func-name="showView">
+					<label><input type="radio" name="default-view" value="t1">分时</label>
+					<br>
+					<label><input type="radio" name="default-view" value="kd">日K</label>
+					<label><input type="radio" name="default-view" value="kw">周K</label>
+					<label><input type="radio" name="default-view" value="km">月K</label>
+				</div>
+			</div>
+			<div class="indent">
+				<div func-by="tkChart" func-name="showDotTool" func-prop="alwaysShow">
+					<label><input type="checkbox">A股日K龙虎榜标记</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="gap">
+			<h4><a id="testSetting_href">实验功能：</a><span class="tip_icon" value="experimental">?</span></h4>
+
+			<div class="indent">
+				<div func-by="kChart" func-name="setCustom" func-prop="smooth">
+					<label><input type="checkbox">开启K 线平滑移动交互</label>
+				</div>
+				<div func-by="kChart" func-name="setCustom" func-prop="centerZoom">
+					<label><input type="checkbox">开启K 线区域缩放</label><span class="tip_icon" value="centerZoom">?</span>
+				</div>
+			</div>
+		</div>
+		<br>
+		<br>
+	</div>
+</div>
+<script>
+!function(){function e(e,t,n){e.addEventListener?e.addEventListener(t,n,!1):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}function t(e,t){return t=t||document,t.getElementById(e)}function n(e,t){for(var n in e)e.hasOwnProperty(n)&&(e[n]=t+e[n])}var o=function(e){return function(t){return{}.toString.call(t)=="[object "+e+"]"}},r=o("Object"),a=o("String"),c=o("Array"),u="sinatkchart_settingcfgpanel~",l={LOADED:"loaded",HIDE:"hide",EDIT:"edit",DRAGSTART:"dragstart",DRAGGING:"dragging",OPEN:"open"};n(l,u);var f={indicator_p:"\u5728\u884c\u60c5\u56fe\u4e2d\uff0c\u70b9\u51fb\u6307\u6807\u6570\u503c\u533a\u57df\u6216\u540d\u79f0\uff0c\u53ef\u8fdb\u884c\u53c2\u6570\u7684\u914d\u7f6e\u3002",history_t:"\u5355\u51fb\u67d0\u5929\u7684K\u7ebf\u540e\uff0c\u6309\u56de\u8f66\u952e\u5f39\u51fa\u5bf9\u5e94\u65e5\u671f\u7684\u5206\u65f6\u8d70\u52bf\uff08\u63d0\u4f9bA\u80a12008\u5e74\u4ee5\u6765\u7684\u5386\u53f2\u5206\u65f6\u6570\u636e\uff09\u3002",experimental:"\u6d4b\u8bd5\u529f\u80fd\uff0c\u4f9b\u8c03\u8bd5\u4f7f\u7528\u3002",centerZoom:"\u4f7f\u7528\u9f20\u6807\u6eda\u8f6e\u6216\u89e6\u5c4f\u5728K\u7ebf\u56fe\u6781\u5de6\uff08\u53f3\uff09\u4fa7\u8fdb\u884c\u7f29\u653e\u65f6\uff0c\u5c06\u56fa\u5b9a\u4ee5\u6b64\u4e3a\u8d77\u59cb\uff08\u7ed3\u675f\uff09\u65f6\u95f4\uff0c\u4ec5\u7f29\u653e\u5bf9\u4fa7\u65f6\u95f4\u8303\u56f4\uff1b\u4f4d\u4e8e\u4e2d\u5fc3\u533a\u57df\u7f29\u653e\u65f6\uff0c\u5219\u540c\u65f6\u7f29\u8fdb\u4e24\u8fb9\u3002"},s=new function(){function n(){for(var e=!0,t=document.querySelectorAll("#left_nav a"),n=0,o=t.length;o>n;n++){var r=t[n],a=document.getElementById(t[n].getAttribute("href").slice(1));e&&a&&a.offsetTop>=h.scrollTop&&a.offsetTop<=h.scrollTop+h.offsetHeight?(e=!1,r.style.backgroundColor="#628BD2",r.style.color="#fff"):(r.style.backgroundColor="",r.style.color="")}}function o(e,t){for(var n=e.length;n--;)e[n].checked=e[n].getAttribute("value")==t}function a(e,t){if(e&&e.length)switch(e[0].type){case"checkbox":e[0].checked=t;break;case"radio":o(e,t)}}function u(e,t,n){if(r(n)||c(n)){for(var o in n)if(n.hasOwnProperty(o)){var u,l;"tCharts"==t||"pCharts"==t?(u=n[o].name,l=!0):(u=o,l=n[o]);var f=document.querySelectorAll("[func-by="+e+"][func-name="+t+"][func-prop="+u+"] input");a(f,l)}}else f=document.querySelectorAll("[func-by="+e+"][func-name="+t+"] input"),a(f,n)}function s(e){for(var t=document.querySelectorAll("[func-by="+e+"][func-name]"),n={},o=t.length;o--;){var r=t[o],a=r.getAttribute("func-name"),c=r.getAttribute("func-prop"),u=r.getElementsByTagName("input");if(u.length)switch(u[0].type){case"radio":for(var l=u.length;l--;){var f=u[l];f.checked&&("reK"==f.name?n[a]=f.value:c?(!n[a]&&(n[a]={}),n[a][c]=f.value):n[a]=f.value)}break;case"checkbox":f=u[0],"pCharts"==a||"tCharts"==a?(!n[a]&&(n[a]=[]),!!f.checked&&n[a].push({name:c})):(!n[a]&&(n[a]={}),n[a][c]=!!f.checked)}}return n}function i(){k(l.EDIT,{tChart:s("tChart"),kChart:s("kChart"),tkChart:s("tkChart")})}function p(){k(l.HIDE)}var d,h,v,g,m,y={close:function(e){e&&e.preventDefault?e.preventDefault():e.returnValue=!1,p()},ok:function(e){e&&e.preventDefault?e.preventDefault():e.returnValue=!1,i(),p()},loadDefault:function(){}},D=function(){function o(e){!e&&(e=window.event),b=!0,k(l.DRAGSTART),e.targetTouches?(i=e.targetTouches[0].screenX,p=e.targetTouches[0].screenY):(i=e.screenX,p=e.screenY),e.preventDefault?e.preventDefault():e.returnValue=!1}function r(e){!e&&(e=window.event),b&&(e.targetTouches?(D=e.targetTouches[0].screenX-i,T=e.targetTouches[0].screenY-p):(D=e.screenX-i,T=e.screenY-p),k(l.DRAGGING,{movedX:D,movedY:T}),e.preventDefault?e.preventDefault():e.returnValue=!1)}function a(){b=!1}d=t("title"),h=t("mainArea"),v=t("btn_ok"),g=t("btn_close"),m=t("btn_default"),e(v,"click",y.ok),e(v,"touchend",y.ok),e(g,"click",y.close),e(g,"touchend",y.ok),n(),e(t("left_nav"),"click",function(e){!e&&(e=window.event);var t=e?e.target||e.srcElement:null;if(t){var n=t.getAttribute("href");n&&(n=n.slice(1),n=document.getElementById(n),n&&(h.scrollTop=n.offsetTop)),e.preventDefault?e.preventDefault():e.returnValue=!1,e.stopPropagation?e.stopPropagation():e.cancelBubble=!0}}),e(h,"scroll",n);var c=document.querySelectorAll(".tip_icon"),u=document.createElement("div");u.style.display="none",u.className+="tip_dom",h.appendChild(u);for(var s=c.length;s--;)e(c[s],"mouseover",function(e){var t=e?e.target||e.srcElement:null;t&&(u.style.display="",u.innerHTML=f[t.getAttribute("value")],u.style.left=t.offsetLeft+t.offsetWidth/2-u.offsetWidth/2+"px",u.style.top=t.offsetTop-h.scrollTop-u.offsetHeight>0?t.offsetTop-u.offsetHeight-5+"px":t.offsetTop+t.offsetHeight+10+"px")}),e(c[s],"mouseout",function(){u.style.display="none"});var i,p,D,T,b=!1;e(d,"touchstart",o),e(d,"touchmove",r),e(d,"touchend",a),e(d,"mousedown",o),e(d,"mousemove",r),e(d,"mouseup",a),e(d,"mouseout",a)},k=function(e,t){parent.postMessage(JSON.stringify({cmd:e,data:t}),"*")};this.postMsg=k,this.onData=function(e){for(var t in e)if(e.hasOwnProperty(t))for(var n in e[t])e[t].hasOwnProperty(n)&&u(t,n,e[t][n])},D()};e(window,"message",function(e){if(e&&e.data&&a(e.data)){var t=e.data;if(!t)return;switch(t=JSON.parse(t),t.cmd){case l.OPEN:s.onData(t.data)}}}),s.postMsg(l.LOADED)}();;
+</script></body></html>

@@ -1,0 +1,389 @@
+{extend name="../../index/view/public/layout"  /}
+{block name="style"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/JQtip/tip-yellow/tip-yellow.css" />
+<link rel="stylesheet" href="__STATIC__/home/css/financing.css">
+{/block}
+{block name="title"}<title>按天配资--{:config('web_site_title')}</title>{/block}
+{block name="main-container"}
+    <div class="banner-inner">
+        {:get_advert(8)}
+    </div>
+    <div class="wrapper financing-container">
+
+        <div class="product-tabnav">
+            <ul class="clearfix">
+                <li class="active">
+                    <a href="/stock/day">按天配资</a>
+                </li>
+                <li>
+                    <a href="/stock/week">按周配资</a>
+                </li>
+                <li>
+                    <a href="/stock/month">按月配资</a>
+                </li>
+                <li>
+                    <a href="/stock/free">免息配资</a>
+                </li>
+            </ul>
+        </div>
+        <div class="financing-main">
+            <div class="section-l">
+                <ul>
+                    <li class="clearfix">
+                        <div class="title">预警线
+                            <i class="icon icon-question" title="当总操盘资金低于预警线以下时，只能平仓不能建仓，我们将有权把您的股票减仓到本金余额的6倍"></i>
+                        </div>
+                        <div class="con">
+                            <span class="j-warn-line"></span>
+                            <span>元（预警线 = 配资资金 + 保证金 X
+                                <span class="text-red">{$day_loss[0]/100}</span>）</span>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="title">平仓线
+                            <i class="icon icon-question"  title="当总操盘资金低于平仓线以下时，我们将有权把您的股票进行平仓，为避免平仓发生，请时刻关注本金是否充足"></i>
+                        </div>
+                        <div class="con">
+                            <span class="j-close-line"></span>
+                            <span>元（平仓线 = 配资资金 + 保证金 X
+                                <span class="text-red">{$day_loss[1]/100}</span>）</span>
+                        </div>
+                    </li>
+
+                    <li class="clearfix">
+                        <div class="title">配资管理费
+                        </div>
+                        <div class="con">
+                            <span> <span class="j-rate"></span>%</span>
+                            <span>（<span class="j-borrow-money"></span> X
+                                <span class="text-red"> 天利率<span class="j-rate"></span> %</span> X <span class="j-duration2"></span> =  <span class="j-fee"></span> 元 ）
+                            </span>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="title">自动续期
+                        </div>
+                        <div class="con">
+                            默认开启到期自动续期，配资管理费先付后用
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="title">操盘须知</div>
+                        <div class="con">
+                            单只股票最大持仓比例为
+                            <span id="position"></span>%。
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="section-r">
+                <ul>
+                    <li class="clearfix">
+                        <div class="title">保证金</div>
+                        <div class="con">
+                            <div class="input-simulator">
+                                <input type="text" class="j-deposit-money" value="{$money_range[0]}"> 元
+                            </div>
+                            （保证金介于 {$money_range[0]} - {$money_range[1]} 元之间）
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="title">配资资金</div>
+                        <div class="con">
+                            <div class="input-simulator">
+                                <select name="multiple" id="j-multiple">
+                                    {volist name="day_rate" id="val"}
+                                    <option value="{$key}" data-rate="{$val}">{$key}</option>
+                                    {/volist}
+
+                                </select>
+                                倍
+                            </div>
+                            （配资资金为<span id="Allocation"></span>元）
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="title">
+                            选择操盘期限
+                        </div>
+                        <div class="con">
+                            <div class="input-simulator">
+                                <select name="duration" id="j-duration">
+                                    {volist name="day_use_time" id="val"}
+                                    <option value="{$val}">{$val}</option>
+                                    {/volist}
+                                </select>
+                                天
+                            </div>
+                            （操盘期限介于 {$min_use_time} - {$max_use_time} 天之间）
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="title">总操盘资金</div>
+                        <div class="con">
+                            <span> <span class="j-total-money"></span> 元</span>
+                            <span>= <span class="j-deposit-money2"></span>元（保证金）+ <span class="j-borrow-money"></span> 元（配资资金）</span>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="title">需准备资金</div>
+                        <div class="con">
+                            <span> <span class="j-pay-money"></span> 元</span>
+                            <span> = <span class="j-deposit-money2"></span> 元（保证金）+ <span class="j-fee"></span> 元 </span>(一次性收取管理费)
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="section-b">
+                <input type="checkbox" checked="checked" id="agreement"> <label for="agreement"></label>我已阅读并同意 <a href="{:url('protocol')}" target="protocol"> 《实盘交易平台操盘协议》</a>
+
+                <br>
+                <button class="btn btn-primary" id="j-btn-apply">立即申请</button>
+            </div>
+        </div>
+        <div class="notice">
+            <div class="notice-hd">
+                注意事项：
+            </div>
+            <div class="notice-bd">
+                <ul>
+                    <li>1.保证金：您用于投资股票的资金,起点相当低。</li>
+                    <li>2.操盘期限：按天计算，不包含各类法定节假日。</li>
+                    <li>3.按天支付管理费（不包含交易印花税、过户费和佣金），无其他任何费用。</li>
+                    <li>4.如操盘10天，一次性收取10天管理费</li>
+                    <li>5.交易日当天14:50之前的申请于当日生效（当天开始收取账户管理费），交易日当天14：50后的申请于下个交易日生效。</li>
+                    <li>6.股市有风险，投资需谨慎。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirm-apply " id="j-confirm">
+        <div class="title">确认付款</div>
+        <div class="meta">
+            <div class="item clearfix">
+                <div class="left">
+                    配资保证金
+                </div>
+                <div class="middle">
+                    <span class="number-middle text-red"><span class="j-deposit-money2"></span></span>
+                    元
+                </div>
+                <div class="right">
+                    总操盘资金 <span class="j-total-money"></span>元
+                </div>
+            </div>
+            <div class="item clearfix">
+                <div class="left">
+                    利息
+                </div>
+                <div class="middle">
+                    <span class="number-middle text-red j-fee"></span>
+                    元
+                </div>
+                <div class="right">
+                    配资额度越高,期限越长,利息越低
+                </div>
+            </div>
+            <div class="item clearfix">
+                <div class="left">
+                    操盘期限
+                </div>
+                <div class="middle"><span class="number-middle text-red j-duration2"></span>
+                    天
+                </div>
+                <div class="right">
+                    {$min_use_time} - {$max_use_time} 天可选,到期自动续约,资金不足自动停止。
+                </div>
+            </div>
+            <div class="item clearfix">
+                <div class="left">
+                    需准备资金：
+                </div>
+                <div class="middle">
+                    <span class="num-large j-pay-money"></span>
+                    元
+                </div>
+                <div class="right">
+                    <a href="/money/recharge/index.html" target="charge" class="fr">马上充值</a>
+                    您的账户余额 <span class="text-red j-account-money">{$account_money}</span>元 <span class="j-money-tip"></span>
+                </div>
+            </div>
+        </div>
+        <div class="operate-group">
+            <a href="#" class="btn btn-cancel">返回修改</a>
+            <a href="{:URL('/handle/apply')}" class="btn btn-primary" id="j-btn-submit">确认配资</a>
+        </div>
+    </div>
+{/block}
+
+{block name="script"}
+
+<script src="__STATIC__/libs/layer/layer.js"></script>
+<script>
+    $(function(){
+        var depositMoney = +$(".j-deposit-money").val(), // 保证金金额
+            minDepositMoney = {$money_range[0]},
+            maxDepositMoney = {$money_range[1]},
+            moneyStep = {$money_range[2]},
+            rate = {$day_rate[1]}, // 一倍利率
+            warnLineSet = {$day_loss[0]/100}, // 警戒线设置
+            closeLineSet = {$day_loss[1]/100}, // 平仓线设置
+            multiple = $("#j-multiple").val(), // 默认配资倍率
+            duration = $("#j-duration").val(),
+            accountMoney = +$(".j-account-money").html(),
+            confirmPrompt; // layer 弹窗标识
+
+        $(".j-deposit-money").on("keyup", function () {
+            $(this).val( $(this).val().replace(/[^\d]/,'') );
+            depositMoney = parseInt($(this).val());
+
+            renderHtml();
+        });
+
+        $(".j-deposit-money").on("change", function () {
+
+            if($(this).val() < minDepositMoney) {
+                layer.msg("不能少于最低配资金额");
+                depositMoney = minDepositMoney;
+            }
+            if($(this).val() > maxDepositMoney){
+                layer.msg("不能超过最大配资金额");
+                depositMoney = maxDepositMoney;
+            }
+            if( $(this).val() % moneyStep !== 0){
+                layer.msg("配资金额为" + moneyStep +"的整数倍");
+                depositMoney = minDepositMoney;
+            }
+
+            renderHtml();
+            
+            $(this).val(depositMoney);
+
+        });
+
+        $("#j-multiple").on('change', function (e) {
+            rate = +$(this).find("option:selected").attr('data-rate');
+            multiple = +$(this).val();
+
+            renderHtml()
+        });
+
+        $("#j-duration").on('change', function () {
+            duration = +$(this).val();
+            renderHtml();
+        });
+
+        function renderHtml(){
+            var borrowMoney = depositMoney * multiple;
+            var totalMoney = borrowMoney + depositMoney;
+            var warnLine = borrowMoney + depositMoney * warnLineSet;
+            var closeLine = borrowMoney + depositMoney * closeLineSet;
+            var fee = Math.round2( borrowMoney * rate / 100 * duration, 2);
+            var needCharge =  Math.round2( depositMoney + fee - accountMoney, 2);
+
+
+
+            if(needCharge > 0) {
+                $(".j-money-tip").html("，本次支付还差 <span class='text-red'> " + needCharge + " </span>元 ");
+            } else {
+                $(".j-money-tip").html("");
+            }
+            var day_position = {$day_position};
+            var positions = day_position[multiple];
+            $('#position').html(positions);
+            $('#Allocation').html(depositMoney*multiple);
+
+            $('.j-close-line').html(closeLine);
+            $('.j-warn-line').html(warnLine);
+            $('.j-total-money').html(totalMoney);
+            $('.j-deposit-money2').html(depositMoney);
+            $(".j-pay-money").html( fee + depositMoney);
+            $(".j-fee").html(fee);
+            $(".j-rate").html(rate);
+            $(".j-duration2").html(duration);
+            $(".j-borrow-money").html(borrowMoney);
+        }
+        renderHtml();
+
+        // 确认申请弹窗
+        $("#j-btn-apply").on('click',function(){
+            $.ajax({
+                url: "{:url('islogin')}",
+                dataType: 'json',
+                success: function (d) {
+                    if (d){
+                        confirmPrompt = layer.open({
+                            type: 1,
+                            title: false,
+                            closeBtn: 0,
+                            shadeClose: true,
+                            area:['790px'],
+                            content: $("#j-confirm")
+                        });
+                    } else  {
+                        layer.msg("请先登录", function () {
+                            window.location.href = "{:url('/login')}"
+                        })
+                    }
+                }
+            });
+        });
+
+        $(".btn-cancel").on('click',function () {
+            layer.close(confirmPrompt);
+        });
+
+        // 申请提交
+        $("#j-btn-submit").on("click", function (e) {
+            e.preventDefault();
+            if( accountMoney < depositMoney ) {
+                return layer.msg("您的账户余额不足，请先充值");
+            }
+            var params = {
+                type: 1,
+                multiple: multiple,
+                deposit_money: depositMoney,
+                borrow_duration: duration ,
+                agreement: $("#agreement").prop("checked"),
+            };
+            $.ajax({
+                url: this.href,
+                data: params,
+                type:"get",
+                dataType: 'json',
+                success: function (d) {
+                    if (d.status) {
+                        layer.msg(d.msg)
+                    } else  {
+                        layer.msg(d.msg, function () {
+                            (d.url == '') || (window.location.href = d.url);
+                        })
+                    }
+                }
+            });
+
+//            window.location.href = this.href + '?' + $.param(params);
+        })
+    })
+
+</script>
+
+<script>
+    jQuery.browser={};(function(){jQuery.browser.msie=false; jQuery.browser.version=0;if(navigator.userAgent.match(/MSIE ([0-9]+)./)){ jQuery.browser.msie=true;jQuery.browser.version=RegExp.$1;}})();
+
+</script>
+<script language="javascript" src="__STATIC__/JQtip/jquery.poshytip.js" type="text/javascript"></script>
+<script>
+    $('.icon-question').poshytip({
+        className: 'tip-yellow',
+        showOn: 'hover',
+        alignTo: 'target',
+        alignX: 'right',
+        alignY: 'top',
+        offsetX: -20,
+        offsetY: 18,
+        alignTo: 'cursor',
+    });
+</script>
+{/block}

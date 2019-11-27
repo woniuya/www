@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>饼型图表</title>
+
+    <script type="text/javascript" src="__STATIC__\admin\js\core\echarts\echarts.min.js"></script>
+</head>
+<body>
+<div id="echart2" style="width: 95%;height:450px;"></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('echart2'));
+    option = {
+        title : {
+            text: '',
+            subtext: '',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} "
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['会员总数','一级代理','二级代理','三级代理','被邀请用户','其他']
+        },
+        series : [
+            {
+
+                name: '个数',
+                type: 'pie',
+                radius: ['0%', '55%'],
+                label: {
+                    normal: {
+                        position:'left',
+                        formatter: ' {b|{b}：}{c}   ',
+                        backgroundColor: '#eee',
+                        borderColor: '#aaa',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        rich: {
+                            a: {
+                                color: '#999',
+                                lineHeight: 22,
+                                align: 'center'
+                            },
+                            hr: {
+                                borderColor: '#aaa',
+                                width: '100%',
+                                borderWidth: 0.5,
+                                height: 0
+                            },
+                            b: {
+                                fontSize: 16,
+                                lineHeight: 33
+                            },
+                            per: {
+                                color: '#eee',
+                                backgroundColor: '#334455',
+                                padding: [2, 4],
+                                borderRadius: 2
+                            }
+                        }
+                    }
+                },
+                labelLine:{
+                        normal:{
+                       length:30,
+                    },
+                },
+    data:[
+                    {value:"{$member_count}", name:'会员总数'},
+                    {value:"{$agent_one_counts}", name:'一级代理'},
+                    {value:"{$agent_two_counts}", name:'二级代理'},
+                    {value:"{$agent_tree_counts}", name:'三级代理'},
+                    {value:"{$inviteUser}", name:'被邀请用户'},
+                    {value:"{$other}", name:'其他'},
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+</body>
+</html>
+

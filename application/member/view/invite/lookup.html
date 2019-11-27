@@ -1,0 +1,120 @@
+{extend name="../../index/view/public/layout_no" /}
+{block name="style"}
+	<link rel="stylesheet" href="__STATIC__/member/css/member.css">
+	<link rel="stylesheet" href="__STATIC__/member/css/invite.css">
+	<link rel="stylesheet" href="__STATIC__/member/css/agents.css">
+{/block}
+
+{block name="main-container"}
+	 <div class="lookup">
+		{if condition="$type_id eq '1'"}
+			<div class="up-header">
+				查看邀请用户
+			</div>
+			
+			<div class="up-content">
+				<div class="up-userslist">
+					<div class="left-time">注册时间</div>
+					<div class="right-mobile">用户手机号</div>
+				</div>
+				
+					 {notempty name="data"}
+						{volist name="data" id="val"}
+							<div class="up-userslist">
+								<div class="left-time">{$val.create_time|date="Y-m-d", ###}</div>
+								<div class="right-mobile">{$val.mobile}</div>
+							</div>
+						{/volist}
+						{else /}
+							<div class="up-userslist text-center">
+								暂无数据
+							</div>
+						{/notempty}
+				 <div class="pages">
+					{$data->render()}
+				</div>
+			</div>
+			{elseif condition="$type_id eq '2' OR $type_id eq '3'"}
+			
+					<div class="up-header">
+						{$type_id == '2'? '设为代理' : '返佣比例'}
+					</div>
+
+				<div class="up-content up-mage-pro">
+					<input type="hidden" value='' id='plus_rate'/>
+					<div class="pro-list">给他的佣金比例是您应得佣金的百分比</div>
+					<div class="pro-list">返佣比例 <span><input type="text" placeholder="" value="{$rate}" id="pro-rate" oninput="valueChange()" style="line-height: 15px;"/>%</span></div>
+					<div class="pro-list">代理佣金 <span>用户配资管理费的<span class="color-red" id="fee-money">10.8%(12%X80%)</span></span></div>
+					<div class="pro-list"></div>
+					<div class="operate-group">
+						<a href="#" class="btn btn-cancel" onclick="closeA();">取消</a>
+						<a href="javascript:;" onclick="changeRate({$look_uid});" class="btn btn-primary " id="j-btn-submit">确定</a>
+					</div>
+				</div>
+		 <input type="hidden" id="agent_plus-rate" value="{$mid|get_plus_rate}"/>
+				
+			{else /}
+			
+			
+	{/if}
+			
+	 </div>
+{/block}
+
+{block name="script"}
+<script src="__STATIC__/libs/clipboard/clipboard.js"></script>
+<script src="__STATIC__/libs/layer/layer.js"></script>
+<script>
+	var agent_rate = $("#agent_plus-rate").val();
+valueChange();
+	function valueChange(){
+		var rate;
+		var html;
+		var plus;
+		rate = $("#pro-rate").val();
+		if(rate > 100){
+			layer.msg('填充的数值太大了');
+			return false;
+		}
+        if(rate < 0){
+            layer.msg('填充的数值太小了');
+            return false;
+        }
+		plus = rate / 100 * agent_rate;
+		plus = plus.toFixed(2);
+		$("#plus_rate").val(plus);
+		html = plus + '% (' + agent_rate + '% x ' + rate +'% )'
+		$("#fee-money").html(html);
+	}
+	function changeRate(mid){
+		var rate;
+		rate = parseInt($("#pro-rate").val());
+		if(rate > 100){
+            layer.msg('填充的数值太大了');
+            return false;
+		}
+        if(rate < 0) {
+            layer.msg('填充的数值太小了');
+            return false;
+		}
+
+        $.ajax({
+          type: "GET",
+          url: "{:url('changRate')}",
+          data: {rate:rate,chang_uid:mid},
+          dataType: "json",
+          success: function(data){
+              if (data.status == "1") {
+					window.parent.location.reload();
+					paerent.layer.close(index);
+              } else {
+					layer.msg(data.message);
+              }
+          }
+      });
+	}
+	function closeA(){
+		parent.layer.closeAll();
+	}
+</script>
+{/block}

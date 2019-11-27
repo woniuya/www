@@ -1,0 +1,239 @@
+{extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__STATIC__/member/css/member.css">
+<link rel="stylesheet" href="__STATIC__/member/css/realname.css">
+<link rel="stylesheet" href="__STATIC__/libs/webuploader/webuploader.css">
+<link rel="stylesheet" href="__STATIC__/libs/magnific-popup/magnific-popup.css">
+{/block}
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="public/left" /}
+
+    <div class="member-main">
+        <div class="member-main-title clearfix">
+            <h3> 个人资料 > 实名认证 </h3>
+        </div>
+        <div class="warn-box">
+            真实姓名和身份证号码一经认证不予修改，如确认修改，请联系客服！ <br>
+            客服热线： <span class="text-red">{$telephone}</span> （客服时间： {$service_time} ）
+        </div>
+        <form action="" class="form form-realname" enctype="multipart/form-data" id="j-realname">
+            <div class="control-group">
+                <label for="">真实姓名</label>
+                <div class="con">
+                    <input type="text" name="name" {if condition="($is_verified eq 1)or($is_verified2 eq 1)" } disabled {/if} class="realname" id="realname" value="{$info['name']}">
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="">身份证号码</label>
+                <div class="con">
+                    <input type="text" name="id_card" {if condition="($is_verified eq 1)or($is_verified2 eq 1)" } disabled {/if} class="idcard" id="idcard" value="{$info['id_card']}">
+                </div>
+            </div>
+           <div class="control-group">
+                <label for="">身份证正面</label>
+                <div class="con">
+                     <!--开始-->
+                     <div class="profile-list">
+						<div>
+													<p style="border:1px solid #D9D9D9; width:202px;height:119px"><img id="imglogo1" src="{if condition="$info['card_pic']" }/uploads/images/{$info['card_pic']}{/if}" {if condition="$info['card_pic']" } style="width: 200px; height: 117px; border: medium none; display: block;display: block;" {else} style="width: 200px; height: 117px; border: medium none; display: block;display: none;"{/if}></p>
+													{empty  name="$info['card_pic']"}<a href="javascript:void(0);" style="display: block; position: relative; z-index: 1;">
+														<span style="width: 97px; height: 34px; position: absolute; left: 0; top: 0; z-index: 2; cursor: pointer;">
+															<input hidefocus="true" size="1" class="input-file" name="file_upload" id="contacts_card_electronic_1" nc_type="change_store_label" type="file" style="width: 97px; height: 34px; padding: 0; margin: 0; border: none 0; opacity: 0; filter: alpha(opacity = 0); cursor: pointer;" onchange="imgUpload1(this);">
+															<input type="hidden" id="logo1" value="" />
+														</span>
+														<a class="btnimg btn-default"><i class="fa fa-cloud-upload text"></i><span class="text">上传图片</span></a>
+													</a>{/empty}
+						</div>{empty  name="$info['card_pic']"}<span id="img_demo1"></span>{/empty}
+								
+						</div>
+                     <!--结束-->
+                </div>
+            </div>
+			 <div class="control-group">
+                <label for="">身份证背面</label>
+                <div class="con">
+                     <!--开始-->
+                     <div class="profile-list">
+						<div>
+						<p style="border:1px solid #D9D9D9; width:202px;height:119px"><img id="imglogo2" src="{if condition="$info['card_pic_back']" }/uploads/images/{$info['card_pic_back']}{/if}" {if condition="$info['card_pic_back']" } style="width: 200px; height: 117px; border: medium none; display: block;display: block;" {else} style="width: 200px; height: 117px; border: medium none; display: block;display: none;"{/if}></p>
+													
+							{empty  name="$info['card_pic_back']"}<a href="javascript:void(0);" style="display: block; position: relative; z-index: 1;">
+														<span style="width: 97px; height: 34px; position: absolute; left: 0; top: 0; z-index: 2; cursor: pointer;">
+															<input hidefocus="true" size="1" class="input-file" name="file_upload1" id="contacts_card_electronic_2" nc_type="change_store_label" type="file" style="width: 97px; height: 34px; padding: 0; margin: 0; border: none 0; opacity: 0; filter: alpha(opacity = 0); cursor: pointer;" onchange="imgUpload2(this);">
+															<input type="hidden" id="logo2" value="" />
+														</span>
+														<a class="btnimg btn-default"><i class="fa fa-cloud-upload text"></i><span class="text">上传图片</span></a>
+													</a>{/empty}
+						</div>{empty  name="$info['card_pic_back']"}<span id="img_demo2"></span>{/empty}
+				   
+						</div>
+                     <!--结束-->
+                </div>
+            </div>
+			 <div class="control-group">
+                <label for="">手持身份证</label>
+                <div class="con">
+                     <!--开始-->
+                     <div class="profile-list">
+						<div>
+						<p style="border:1px solid #D9D9D9; width:202px;height:119px"><img id="imglogo3" src="{if condition="$info['card_pic_hand']" }/uploads/images/{$info['card_pic_hand']}{/if}" {if condition="$info['card_pic_hand']" } style="width: 200px; height: 117px; border: medium none; display: block;display: block;" {else} style="width: 200px; height: 117px; border: medium none; display: block;display: none;"{/if}></p>
+						{empty  name="$info['card_pic_hand']"}<a href="javascript:void(0);" style="display: block; position: relative; z-index: 1;">
+														<span style="width: 97px; height: 34px; position: absolute; left: 0; top: 0; z-index: 2; cursor: pointer;">
+															<input hidefocus="true" size="1" class="input-file" name="file_upload2" id="contacts_card_electronic_3" nc_type="change_store_label" type="file" style="width: 97px; height: 34px; padding: 0; margin: 0; border: none 0; opacity: 0; filter: alpha(opacity = 0); cursor: pointer;" onchange="imgUpload3(this);">
+															<input type="hidden" id="logo3" value="" />
+														</span>
+														<a class="btnimg btn-default"><i class="fa fa-cloud-upload text"></i><span class="text">上传图片</span></a>
+													</a>{/empty}
+						</div>
+						{empty  name="$info['card_pic_hand']"}<span id="img_demo3"></span>{/empty}
+						
+						</div>
+                     <!--结束-->
+                </div>
+            </div>
+            <div class="control-group">
+                <label for=""></label>
+                <div class="con">
+                    <input type="submit" class="btn btn-primary btn-red btn-submit" {if condition="$is_verified eq 1"} disabled value="已实名认证" {else/}  {if condition="$is_verified2 eq 1"} disabled value="认证中" {else/}  value="确认添加"{/if} {/if}/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+
+
+{block name="script"}
+<script src="__STATIC__/libs/layer/layer.js"></script>
+<script src="__STATIC__/libs/webuploader/webuploader.min.js"></script>
+<script src="__STATIC__/libs/magnific-popup/magnific-popup.min.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.js"></script>
+<script src="__STATIC__/libs/jquery-validation/jquery.validate.messages_zh.js"></script>
+<script src="__STATIC__/member/js/ajax_file_upload.js" type="text/javascript"></script>
+<script src="__STATIC__/member/js/uploadImage.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".user-portrait").hover(function(){
+            $(this).children('p').show();
+            $(this).addClass('edit-portrait');
+
+        },function(){
+            $(this).children('p').hide();
+            $(this).removeClass('edit-portrait');
+
+        })
+
+
+    })
+</script>
+<script>
+    (function ($) {
+        // 身份证校验
+        $.validator.addMethod("identify", function(value, element) {
+            var tel = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
+            return this.optional(element) || (tel.test(value));
+        }, "身份证号码填写有误");
+
+
+        $("#j-realname").validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 2
+                },
+                id_card: {
+                    required: true,
+                    identify: true
+                },
+            },
+
+            messages: {
+                name: {
+                    required: "请输入您的姓名",
+                    minlength: "姓名输入有误"
+                },
+                id_card: {
+                    required: "请输入身份证号码"
+                }
+            },
+            submitHandler: function(form) {
+                // form.submit();
+                var $this = $(this);
+                $.ajax({
+                    url: "{:url('realname')}",
+                    type:"post",
+                    dataType: "json",
+                    data:{
+                        name: $("#realname").val(),
+                        id_card: $("#idcard").val(),
+                        logo1: $("#logo1").val(),
+                        logo2: $("#logo2").val(),
+                        logo3: $("#logo3").val(),
+
+                    },
+                    success: function (data) {
+                        if(data){
+                            layer.msg(data.msg, function () {
+                                location.reload();
+                            })
+                        }
+
+                    }
+                })
+            },
+            errorElement: "span",
+        })
+
+    })(jQuery)
+</script>
+
+<script type="text/javascript">
+  function imgUpload1(event) {
+	var fileid = $(event).attr("id");
+	var data = { 'type' : 'realnameimg1' };
+	uploadFile(fileid,data,function(res){
+		if(res.code){
+			$("#imglogo1").attr("src","/uploads/images/"+res.data);
+			$("#imglogo1").show();
+			$("#logo1").val(res.data);
+			showTip(res.message,"success");
+		}else{
+			showTip(res.message,"error");
+		}
+	});
+}
+  function imgUpload3(event) {
+	var fileid = $(event).attr("id");
+	var data = { 'type' : 'realnameimg3' };
+	uploadFile(fileid,data,function(res){
+		if(res.code){
+			$("#imglogo3").attr("src","/uploads/images/"+res.data);
+			$("#imglogo3").show();
+			$("#logo3").val(res.data);
+			showTip(res.message,"success");
+		}else{
+			showTip(res.message,"error");
+		}
+	});
+}
+  function imgUpload2(event) {
+ 
+	var fileid = $(event).attr("id");
+	var data = { 'type' : 'realnameimg2' };
+	uploadFile(fileid,data,function(res){
+		if(res.code){
+			$("#imglogo2").attr("src","/uploads/images/"+res.data);
+			$("#imglogo2").show();
+			$("#logo2").val(res.data);
+			showTip(res.message,"success");
+		}else{
+			showTip(res.message,"error");
+		}
+	});
+}
+var urls = "{:url('member/profile/upload')}";
+
+
+</script>
+{/block}

@@ -1,0 +1,1 @@
+php .\gs_server\sparrow.php

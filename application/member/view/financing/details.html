@@ -1,0 +1,260 @@
+    {extend name="../../index/view/public/layout" /}
+{block name="style"}
+<link rel="stylesheet" href="__MODULE_CSS__/member.css">
+<link rel="stylesheet" href="__MODULE_CSS__/index.css">
+<link rel="stylesheet" href="__MODULE_CSS__/show.css">
+{/block}
+<title>会员中心首页</title>
+{block name="main-container"}
+<div class="member-container wrapper clearfix">
+    {include file="public/left" /}
+    <div class="member-main">
+        <div class="member-main-title clearfix">
+            <div class="operator">
+                {if condition="$result['status'] eq '操盘中'"}
+                {if condition="($result['type'] neq '免息配资') and ($result['type'] neq '免费体验')"}
+                <span>自动续期</span>
+                <span data-id="{$result.id}" class="btn-switch auto-renewal-btn {if condition="$result['renewal'] eq 1"}active{/if}">
+                    <span></span>
+                </span>
+                {/if}
+                {/if}
+            </div>
+            <h3>配资详情</h3>
+        </div>
+        <div class="financing-info">
+            <div class="hd">
+                {if condition="($result['status'] eq '操盘中') or ($result['status'] eq '已结束') or ($result['status'] eq '已逾期')"}
+                <div class="fr">操盘期限：{$result.verify_time|date="Y-m-d", ###} 至 {$result.end_time|date="Y-m-d", ###}
+                </div>
+                {else}
+                <div class="fr">操盘期限：---- 至 ----</div>
+                {/if}
+                单号：<span class="order-sn">{$result.order_id}</span>
+
+                {if condition=" $result.status neq '操盘中'"}
+                <span class="tag tag-disabled">{$result.status}</span>
+                {else /}
+                <span class="tag">{$result.status}</span>
+                {/if}
+            </div>
+            <div class="bd clearfix">
+                <div class="section-left">
+                    <div class="item">
+                        <div class="title">总操盘资金</div>
+                        <div class="con"><span class="text-red">{$result.init_money|money_convert=###}元</span></div>
+                    </div>
+                    <div class="item">
+                        <div class="title">配资资金</div>
+                        <div class="con"><span class="text-red">{$result.borrow_money|money_convert=###}元</span></div>
+                    </div>
+                    <div class="item">
+                        <div class="title">保证金</div>
+                        <div class="con"><span class="text-red">{$result.deposit_money|money_convert=###}元</span></div>
+                    </div>
+                    <div class="item">
+                        <div class="title">配资管理费</div>
+                        <div class="con"><span class="text-red">{$result.borrow_interest|money_convert=###}元</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-right">
+                    <div class="item">
+                        <div class="title">预警线</div>
+                        {if condition="$result['type'] neq '免费体验'"}
+                            <div class="con"><span class="text-red">{$result.loss_warn_money|money_convert=###}元</span>
+                        {else/}
+                            <div class="con"><span class="text-red">---元</span>
+                        {/if}
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="title">平仓线</div>
+                        {if condition="$result['type'] neq '免费体验'"}
+                            <div class="con"><span class="text-red">{$result.loss_close_money|money_convert=###}元</span>
+                        {else/}
+                            <div class="con"><span class="text-red">---元</span>
+                        {/if}
+                        </div>
+                    </div>
+                    <div class="item">
+                        {if condition="$result['status'] eq '操盘中'"}
+                        <div class="title">子账户</div>
+                        <div class="con">{$result.sub_account}</div>
+                        {/if}
+                    </div>
+                    <div class="item">
+
+                    </div>
+                </div>
+                <div class="section-bottom clearfix">
+                    <div class="item">
+                        收益：{$result.return_money}元
+                    </div>
+                    <div class="item">
+                        收益率：{$result.return_rate}%
+                    </div>
+                </div>
+            </div>
+            <div class="ft">
+                {if condition="($result['status'] eq '操盘中') or ($result['status'] eq '已逾期')"}
+                <div class="btn-group" id="operate-group">
+                    <a href="/market/index/index?u={$result['sub_account']}" target="market" class="red">查看实盘交易</a>
+                    {if condition="($result['type'] neq '免息配资') and ($result['type'] neq '免费体验')"}
+                    <a href="{:url('member/financing/expend', 'id='.$id)}" class="j-btn j-btn-expend">扩大配资</a>
+                    {/if}
+                    {if condition="$result['type'] neq '免费体验'"}
+                    <a href="{:url('member/financing/addmoney', 'id='.$id)}" class="j-btn j-btn-add-money">追加保证金</a>
+                    {/if}
+                    {if condition="($result['type'] neq '免息配资') and ($result['type'] neq '免费体验')"}
+                    <a href="{:url('member/financing/renewal', 'id='.$id)}" class="j-btn j-btn-renewal">申请延期</a>
+                    {/if}
+                    {if condition="$result['type'] neq '免费体验'"}
+                    <a href="{:url('member/financing/stop', 'id='.$id)}" class="j-btn j-btn-stop">终止操盘</a>
+                    {/if}
+                    <a href="{:url('member/financing/drawprofit', 'id='.$id)}" class="j-btn j-btn-draw-profit">提取收益</a>
+                    <a href="{:url('member/financing/contract', 'id='.$id)}" target="contract">查看合同</a>
+                </div>
+                {/if}
+            </div>
+        </div>
+        {if condition="($result['status'] eq '操盘中') or ($result['status'] eq '已逾期')"}
+        {if condition="$result['type'] neq '免费体验'"}
+        <div class="J-tab records">
+            <ul class="tab-hd clearfix">
+                {if condition="$result['type'] neq '免息配资'"}
+                <li class="tab-item active"><a href="#">扩大配资记录</a></li>
+                {/if}
+                <li class="tab-item"><a href="#">追加保证金记录</a></li>
+                {if condition="($result['type'] neq '免息配资') and ($result['type'] neq '免费体验')"}
+                <li class="tab-item"><a href="#">申请延期记录</a></li>
+                {/if}
+            </ul>
+            {if condition="$result['type'] neq '免息配资'"}
+            <div class="tab-panel">
+                <table class="record-table">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>申请保证金</th>
+                        <th>申请手续费</th>
+                        <th>操盘资金(元)</th>
+                        <th>申请时间</th>
+                        <th>使用期限</th>
+                        <th>申请状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {volist name="addfinancing" id="val"}
+                    <tr>
+                        <td>{$val.id}</td>
+                        <td><span class="text-red">{$val.money}</span></td>
+                        <td>{$val.borrow_interest}</td>
+                        <td>{$val.init_money}</td>
+                        <td>{$val.add_time|date="Y-m-d", ###}</td>
+                        <td>{$val.borrow_duration}</td>
+                        <td>{$val.status}</td>
+                    </tr>
+                    {/volist}
+
+                    </tbody>
+                </table>
+                <div class="pages">
+                    <ul class="pagination">
+                    </ul>
+                </div>
+            </div>
+            {/if}
+            <div class="tab-panel">
+                <table class="record-table">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>追加保证金</th>
+                        <th>提交日期</th>
+                        <th>申请状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {volist name="addmoney" id="val"}
+                    <tr>
+                        <td>{$val.id}</td>
+                        <td> {$val.money}</td>
+                        <td>{$val.add_time|date="Y-m-d", ###}</td>
+                        <td>{$val.status}</td>
+                    </tr>
+                    {/volist}
+
+                    </tbody>
+                </table>
+                <div class="pages">
+                    <ul class="pagination">
+                    </ul>
+                </div>
+            </div>
+            {if condition="$result['type'] neq '免息配资'"}
+            <div class="tab-panel">
+                <table class="record-table">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>延期期限</th>
+                        <th>延期手续费</th>
+                        <th>提交日期</th>
+                        <th>申请状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {volist name="renewal" id="val"}
+                    <tr>
+                        <td>{$val.id}</td>
+                        <td>{$val.borrow_duration}</td>
+                        <td>{$val.borrow_fee}</td>
+                        <td>{$val.add_time|date="Y-m-d", ###}</td>
+                        <td>{$val.status}</td>
+                    </tr>
+                    {/volist}
+
+                    </tbody>
+                </table>
+                <div class="pages">
+                    <ul class="pagination">
+                    </ul>
+                </div>
+            </div>
+            {/if}
+        </div>
+        {/if}
+        {/if}
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script src="__STATIC__/libs/layer/layer.js"></script>
+<script>
+    // 自动续期开关
+    $(".btn-switch").switchAutoRenewalBtn();
+
+    $(function () {
+        $("#operate-group").on("click", ".j-btn", function (e) {
+            var href = $(this).attr("href"),
+                title = $(this).html();
+            e.preventDefault();
+            layer.open({
+                type: 2,
+                area: ['700px', "490px"],
+                fixed: false,
+                title: title,
+                maxmin: false,
+                content: href
+            })
+        })
+    })
+
+    $(".J-tab").tab();
+
+
+</script>
+
+{/block}
+

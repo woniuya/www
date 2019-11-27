@@ -1,0 +1,95 @@
+    {extend name="../../index/view/public/layout"  /}
+    {block name="style"}
+    <link rel="stylesheet" href="__STATIC__/home/css/trial.css">
+    <style>
+        .banner-inner {
+            margin-bottom: 0px;
+        }
+    </style>
+    {/block}
+    {block name="title"}<title>{$title}-{:config('web_site_title')}</title>{/block}
+    {block name="main-container"}
+    <div class="banner-inner">
+        <img class="responsive-img" src="__STATIC__/home/img/moni-banner.jpg" width="1920" height="" alt="">
+    </div>
+    <div class="trial-container wrapper">
+        <div class="trial-box">
+            <div class="step step-red ft28">
+                这里将为您提供一个模拟账户
+            </div>
+            <div class="step ft28">
+                您无需交任何费用。
+            </div>
+            <div class="step step-red">
+                    平台将给您提供 <span class="ft36">{$money}万</span> 元虚拟资金。
+            </div>
+            <div class="step ft28">
+                    完全仿真交易<span class="num-xlarge"></span>
+            </div>
+            <div class="step  step-red ft28">
+                    <span class="">盈亏一笑间</span>，何记功与名
+            </div>
+            <div class="section-b">
+                <label for="agreement" class="common_cbo common_cbo_checked"> <input type="checkbox" checked="checked" id="agreement"></label>我已阅读并同意<a href="/cms/document/detail/id/33.html" target="protocol"> 《实盘交易平台模拟操盘协议》</a>
+                <br><button class="btn btn-primary btn-trial"> 开启模拟交易 </button> </div>
+        </div>
+        <div class="notice">
+            <div class="notice-hd">
+                模拟须知：
+            </div>
+            <div class="notice-bd">
+                <li>1.交易时间：每天上午9：30-11：30,下午13：00-15：00，在国家法定节假日只接受委托，<但不会撮合成交></但不会撮合成交></li>
+                <li>2.模拟炒股不设定预警线和平仓线。</li>
+                <li>3.100万模拟资金，不收取任何费用。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {/block}
+
+    {block name="script"}
+    <script src="__STATIC__/libs/layer/layer.js"></script>
+    <script>
+        Common_cbo();
+        (function ($) {
+            var requestData = {
+                type: 6,
+                deposit_money: 10000,
+                borrow_duration: 30,
+                trading_time: 1,
+            };
+            $(".btn-trial").on("click", function () {
+                requestData.agreement = $("#agreement").prop("checked");
+                $.ajax({
+                    url: "{:url('@stock/index/islogin')}",
+                    dataType: 'json',
+                    success: function (d) {
+                        if (d){
+                            $.ajax({
+                                url: "{:url('@handle/apply')}",
+                                data: requestData,
+                                type:"get",
+                                dataType: 'json',
+                                success: function (d) {
+                                    if (d.status) {
+                                        layer.msg(d.msg)
+                                    } else  {
+                                        layer.msg(d.msg, function () {
+                                            (d.url == '') || (window.location.href = d.url);
+                                        })
+                                    }
+                                }
+                            });
+                        } else  {
+                            layer.msg("请先登录", function () {
+                                window.location.href = "{:url('/login')}"
+                            })
+                        }
+                    }
+                });
+            })
+            
+        })(jQuery)
+    </script>
+    {/block}

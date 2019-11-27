@@ -1,0 +1,55 @@
+{extend name="financing/pop_page_layout" /}
+{block name="main"}
+<div class="info">
+    1. 在配资到期时间之前，允许提取股票盈利；<br>
+    2. 提取股票盈利需满足盈利金额大于100元。
+</div>
+<form method="post" action="{:url('')}" id="draw-form">
+<div class="operate">
+    <span class="label">可提盈金额：</span>
+    <span class="con">{$available_amount}  元</span>
+    <span class="label">提取金额：</span>
+    <span class="con"><input name="money" type="text" id="money">  元</span>
+    <input type="hidden" name="id" id="bid" value="{$id}">
+</div>
+
+<div class="btn-group">
+    <div class="btn btn-cancel">取消提取</div>
+    <input class="btn btn-confirm" type="submit" value="确认提取">
+</div>
+</form>
+{/block}
+
+
+{block name="script"}
+<script>
+    $(function () {
+        $("#draw-form").on("submit", function (e) {
+            e.preventDefault();
+            var money = $("#money").val();
+            if(money === "") return layer.msg("提取盈利金额不能为空");
+            if(money < 100 ) return layer.msg("提取盈利金额最少100元");
+
+            $.ajax({
+                url: "{:url('')}",
+                data:{
+                    id: $("#bid").val(),
+                    money: money
+                },
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if(data.code === 1){
+                        layer.msg(data.msg, function () {
+                            window.parent.layer.closeAll()
+                        })
+                    } else {
+                        layer.msg(data.msg)
+                    }
+                }
+            })
+
+        })
+    })
+</script>
+{/block}
